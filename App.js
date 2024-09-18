@@ -32,8 +32,8 @@ function Login() {
             Forgot password?
           </a>
           <span className="or">or</span>
-          <button>Create New Account</button>
         </form>
+        <button className="create-account">Create New Account</button>
       </div>
     </>
   );
