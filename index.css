@@ -11,6 +11,9 @@ header {
 }
 
 .login-window {
+  display: flex;
+  flex-direction: column;
+
   height: 55vh;
 
   margin: 0 35vw;
@@ -20,9 +23,9 @@ header {
 }
 
 form > input,
-form > button {
+button {
   margin: 2% 10%;
-  height: 2.2rem;
+  height: 2.5rem;
 }
 
 .login-window > h1,
@@ -36,6 +39,7 @@ form > button {
 }
 
 .forgot-password {
+  text-decoration: none;
   text-align: center;
   color: rgb(12, 8, 238);
 }
