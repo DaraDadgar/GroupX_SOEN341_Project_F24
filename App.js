@@ -9,14 +9,31 @@ function Login() {
     <>
       <header>Rate My Classmates ✅</header>
 
-      <div className="fields">
+      <div className="login-window">
         <h1>Log In</h1>
-        <input placeholder="Username"></input>
-        <input type="password" placeholder="Password"></input>
-        <button>Log In</button>
-        <span className="forgot-account">Forgot account?</span>
-        <span className="or">or</span>
-        <button>Create New Account</button>
+        <form action="/login" method="post">
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Username"
+            required
+          />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Password"
+            required
+          />
+
+          <button type="submit">Log In</button>
+          <a href="#" class="forgot-password">
+            Forgot password?
+          </a>
+          <span className="or">or</span>
+          <button>Create New Account</button>
+        </form>
       </div>
     </>
   );
