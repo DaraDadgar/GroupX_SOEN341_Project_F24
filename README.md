@@ -18,14 +18,23 @@ Description of the project -
   Work Ethic: Evaluate the respect team members have towards each other. Also punctuality and the commitment of a team member throughout the project.
   
   
-Problems that might arise - 
+Problems that might arise)
+--------------------------
+  
   Problem: Bias in peer evaluation, there might be unfair ratings based on personal relationships or group conflict.
+  
   Solution: The assessment will be made anonymous and that will reduce bias.
+  
+  -----------------------------------------------------------------------------------------------------------------
 
   Problem: Confusion with the system. Students or instructors might find it difficult to navigate the system.
+  
   Solution: We will ensure that the platform is simple to use and has clear instructions for both of the users (instructor and Students).
+  
+  -----------------------------------------------------------------------------------------------------------------
 
   Problem: Managing peer assessments for many groups. This could cause an issue for the instructors.
+  
   Solution: Data visualization, providing visual dashboards or a summary report of the group performance.
 
   
