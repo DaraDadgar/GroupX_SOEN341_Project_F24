@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, session
+from flask import Flask, jsonify, session, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
@@ -26,7 +26,10 @@ def home():
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
-    return "a"
+    if request.method == 'POST':
+        return "posted"
+    else:
+        return "getted"
     
 
 @app.route('/signup', methods = ['GET', 'POST'])
