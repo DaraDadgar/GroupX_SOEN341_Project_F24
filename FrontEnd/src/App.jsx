@@ -13,25 +13,7 @@ import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 
 
 function App() {
-
-  // const [name, setName] = useState();
-
-  // const fetchName = async () => {
-  //   try {
-  //     const response = await axios.get("http://127.0.0.1:5000/login")
-  //     setName(response.data);
-  //   }
-  //   catch(error) {
-  //   }
-  // }
-
-
-  // useEffect(() => {
-  //   fetchName()
-  // },[])
-
   return (
-
     <Router>
         <Routes>
           <Route path ="/Home" Component = {Home}/>
