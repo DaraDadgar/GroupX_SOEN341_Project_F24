@@ -27,7 +27,14 @@ def home():
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        return "posted"
+        email = request.form.get('email')
+        password = request.form.get('password')
+        
+        for value in request.form.values():
+            print(value)
+        for key in request.form.keys():
+            print(key)
+        return f"{email}"
     else:
         return "getted"
     
