@@ -31,7 +31,6 @@ def login():
         password = request.json['password']
         student = Students.query.filter_by(email=email).first()
         if student is None:
-
             return "hello"
         else:
             print("exists")
@@ -44,6 +43,9 @@ def login():
         print(student)
         return "getted"
     
+@app.route('/signup', methods = ['GET', 'POST'])
+def signup():
+    return "a"
 
 @app.route('/addStudent', methods = ['GET'])
 def addStudent():
@@ -62,9 +64,6 @@ def showStudents():
     
     return "0"
 
-@app.route('/signup', methods = ['GET', 'POST'])
-def signup():
-    return "a"
 
 if __name__ == '__main__':
     app.run(debug=True)  # Run the server in debug mode
