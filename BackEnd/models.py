@@ -7,6 +7,7 @@ class Students(db.Model):
     name = db.Column(db.String(120))
     email = db.Column(db.String(120))
     password = db.Column(db.String(120))
+    isInTeam = db.Column(db.Boolean, default=False)
 
     def __repr__(self):
         return f'{self.name}'
