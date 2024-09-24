@@ -27,17 +27,40 @@ def home():
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        email = request.form.get('email')
-        password = request.form.get('password')
+        email = request.json['email']
+        password = request.json['password']
+        student = Students.query.filter_by(email=email).first()
+        if student is None:
+
+            return "hello"
+        else:
+            print("exists")
+            return "exists"
         
-        for value in request.form.values():
-            print(value)
-        for key in request.form.keys():
-            print(key)
-        return f"{email}"
+        return "posted"
     else:
+
+        student = Students.query.filter_by(email="hello").first()
+        print(student)
         return "getted"
     
+
+@app.route('/addStudent', methods = ['GET'])
+def addStudent():
+    student = Students(email = "carl@hotmail.com", name = "carl", password = "password1234")
+    db.session.add(student)
+    db.session.commit()
+    return "0"
+
+@app.route('/showAllStudents', methods = ['GET'])
+def showStudents():
+    students = Students.query.all()
+    students_list = [{"id":student.id, "name":student.name, "email":student.email, "password":student.password} for student in students]
+
+    for student in students_list:
+        print(student)
+    
+    return "0"
 
 @app.route('/signup', methods = ['GET', 'POST'])
 def signup():

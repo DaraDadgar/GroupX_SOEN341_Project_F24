@@ -14,20 +14,16 @@ function Login(){
 
         const formData = new FormData(e.target)
         const payload = Object.fromEntries(formData)
-        postAPI("login", payload).then((data) => {
-            if (data.data == "posted"){
-                navigate("/About")
-            }
-        });
+        postAPI("login", payload)
     }
 
     return(
         <>
             <form onSubmit = {submitForm}>
-                <label for ="username">Username</label>
-                <input name = "username"/>
+                <label htmlFor="email">Username</label>
+                <input name = "email"/>
 
-                <label for ="password"> Password</label>
+                <label htmlFor ="password"> Password</label>
                 <input name = "password"/>
                 <input type = "submit" value = "submit"></input>
             </form>

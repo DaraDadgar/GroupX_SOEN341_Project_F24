@@ -12,14 +12,8 @@ async function fetchAPI(route) {
   }
 }
 async function postAPI(route, formData){
-  try{
-    const response = await axios.post('http://127.0.0.1:5000/' + route, formData);
+    const response = await axios.post('http://127.0.0.1:5000/' + route, formData)
     return response
-  }
-  catch(e) {
-    console.log(e)
-    return null
-  }
 }
 
 export  {fetchAPI, postAPI};
