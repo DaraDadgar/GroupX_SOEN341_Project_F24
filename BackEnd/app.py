@@ -15,6 +15,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 
 db.init_app(app)
 
+
+
 with app.app_context():
     db.create_all()
 
@@ -45,15 +47,15 @@ def login():
     user = table.query.filter_by(email = email, password = password).first()
 
     if user is None:
-        response = {"Response" : "ERROR", "type" : "None"}
-        return response  
+        response = {"Response" : "ERROR", "type" : "None"}, 401
+        return jsonify(response)  
     else:
         
         #Can change session attribute later
         session['email'] = email
         session['id'] = user.id
-        response = {"Response": "VALID", "type" : type}
-        return response
+        response = {"Response": "VALID", "type" : type}, 202
+        return jsonify(response)
     
 
 """
@@ -79,11 +81,11 @@ def signup():
         db.session.add(new_user)
         db.session.commit()
         
-        response = {"Response": "VALID", "type" : type}
-        return response
+        response = {"Response": "VALID", "type" : type}, 201
+        return jsonify(response)
     else:
-        response = {"Response" : "ERROR", "type" : "None"}
-        return response
+        response = {"Response" : "ERROR", "type" : "None"}, 400
+        return jsonify(response)
         
 
 """
@@ -107,7 +109,7 @@ def create_team():
         added_student = Students.query.filter_by(email = student_email).first()
         added_student_inST = StudentTeam.query.filter_by(student_id = added_student.id).first()
         if (added_student_inST is not None):
-            response = {"Response" : "INVALID"}
+            response = {"Response" : "INVALID"}, 401
             return response
         else:
             students_ids.append(added_student.id)
@@ -122,8 +124,8 @@ def create_team():
         db.session.add(new_student_team)
         db.session.commit()
     
-    response = {"Response":"VALID"}
-    return response
+    response = {"Response":"VALID"}, 201
+    return jsonify(response)
 
 
 
@@ -132,7 +134,7 @@ DISPLAY TEAM ROUTE
 
 Returns a JSON object of all the teams                                                                                                                                                                                                                                                                                          ``````` `
 """
-@app.route('/display_teams', methods = ['GET'])
+@app.route('/teams', methods = ['GET'])
 def display_teams():
     teams = Teams.query.all()
     student_seperated_in_teams = []
@@ -146,7 +148,7 @@ def display_teams():
         curr_team_with_students = {"tid": team.id, "students": student_emails}
         student_seperated_in_teams.append(curr_team_with_students)
     
-    return student_seperated_in_teams
+    return student_seperated_in_teams, 201
 
     
 """
@@ -161,12 +163,12 @@ def display_my_team():
     team_id = StudentTeam.query.filter_by(student_id = session['id']).first().team_id
     students_in_my_team_inST = StudentTeam.query.filter_by(team_id = team_id).all()
     students_in_my_team = []
-    for student_inST in students_in_my_team:
+    for student_inST in students_in_my_team_inST:
         student_id = student_inST.id
         student = Students.query.filter_by(id = student_id).first()
         students_in_my_team.append(student.to_dict())
     
-    return jsonify(students_in_my_team)
+    return jsonify(students_in_my_team), 201
         
         
         
