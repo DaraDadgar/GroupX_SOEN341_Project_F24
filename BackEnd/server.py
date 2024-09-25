@@ -40,18 +40,18 @@ def login():
     email = request.json['email']
     password = request.json['password']
     type = request.json['type']
-    user = None
     
-    if (type == "student"):
-        user = Students.query.filter_by(email=email, password=password).first()
-    else:
-        user = Teachers.query.filter_by(email=email, password=password).first()
+    table = Students if type == "student" else Teachers
+    user = table.query.filter_by(email = email, password = password).first()
 
     if user is None:
         response = {"Response" : "ERROR", "type" : "None"}
         return response  
     else:
+        
+        #Can change session attribute later
         session['email'] = email
+        session['id'] = user.id
         response = {"Response": "VALID", "type" : type}
         return response
     
@@ -158,7 +158,18 @@ To look at the current logged in student and his team
 
 @app.route('/display_my_team')
 def display_my_team():
-    return
+    team_id = StudentTeam.query.filter_by(student_id = session['id']).first().team_id
+    students_in_my_team_inST = StudentTeam.query.filter_by(team_id = team_id).all()
+    students_in_my_team = []
+    for student_inST in students_in_my_team:
+        student_id = student_inST.id
+        student = Students.query.filter_by(id = student_id).first()
+        students_in_my_team.append(student.to_dict())
+    
+    return jsonify(students_in_my_team)
+        
+        
+        
 
 @app.route('/logout')
 def logout():
