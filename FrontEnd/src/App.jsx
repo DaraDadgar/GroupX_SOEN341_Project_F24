@@ -14,6 +14,7 @@ import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 
 function App() {
   return (
+
     <Router>
         <Routes>
           <Route path ="/Home" Component = {Home}/>
@@ -21,7 +22,8 @@ function App() {
           <Route path = "/Login" Component = {Login}/>
         </Routes>
     </Router>
-  )
+
+    )
 }
 
 export default App

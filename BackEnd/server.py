@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from datetime import timedelta
 
-from models import Students, StudentTeams, Teachers, Teams, db
+from models import Students, StudentTeam, Teachers, Teams, db
 
 
 app = Flask(__name__)
@@ -26,76 +26,118 @@ def home():
 
 
 
-
-
 """
 LOGIN ROUTE
 
-If a student logs in: @returns "STUDENT"
-If a teacher logs in: @returns "TEACHER"
-if invalid login    : @returns "ERROR"
+If a student logs in: @returns {response : "VALID", type : "student"}
+If a teacher logs in: @returns {response : "VALID", type : "teacher"}
+if invalid login    : @returns {response : "ERROR", type : "None"}
 
-Expects a form with email and password
+Expects a form with email, password and type(for student or instructor)
 """
-@app.route('/login', methods = ['GET', 'POST'])
+@app.route('/login', methods = ['POST'])
 def login():
-    if request.method == 'POST':
-        email = request.json['email']
-        password = request.json['password']
-        student = Students.query.filter_by(email=email, password=password).first()
-
-
-        if student is None:
-            return "INVALID STUDENT"
-        else:
-            session['email'] = email
-
-
-            return "VALID STUDENT"
+    email = request.json['email']
+    password = request.json['password']
+    type = request.json['type']
+    user = None
+    
+    if (type == "student"):
+        user = Students.query.filter_by(email=email, password=password).first()
     else:
-        return "INVALID USER"
+        user = Teachers.query.filter_by(email=email, password=password).first()
+
+    if user is None:
+        response = {"Response" : "ERROR", "type" : "None"}
+        return response  
+    else:
+        session['email'] = email
+        response = {"Response": "VALID", "type" : type}
+        return response
     
 
 """
 SIGNUP ROUTE
 
-If a student signs up: @returns "STUDENT"
-If a teacher signs up: @returns "TEACHER"
-if invalid login    : @returns "ERROR"
+If a student signs up: @returns {response: "VALID", type : "student"}
+If a teacher signs up: @returns {response: "VALID, type: "teacher"}
+if email already exists in db : @returns {response: "ERROR", type: "None"}
 
-Expects a form with email and password
+Expects a form with email, password and type
 """
 @app.route('/signup', methods = ["POST"])
 def signup():
-    return 0
-
+    email = request.json['email']
+    password = request.json['password']
+    type = request.json['type']
+    
+    
+    table = Students if type == "student" else Teachers
+    new_user = table(email = email, password = password)
+    
+    if(table.query.filter_by(email = email).first() is None):
+        db.session.add(new_user)
+        db.session.commit()
+        
+        response = {"Response": "VALID", "type" : type}
+        return response
+    else:
+        response = {"Response" : "ERROR", "type" : "None"}
+        return response
+        
 
 """
 CREATE TEAM ROUTE
 
 Expects a form with two attributes:
 name: team name
-students: array of students to be included in team
+students_emails: array of students' emails to be included in team
 
-Expects a form with email and password
+If team is created: @returns {Response: "VALID"}
+If team contains one student which is already in a team: @returns {Response: "INVALID"}
 """
-@app.route('/createTeam', methods = ["POST"])
-def createTeam():
-    return 0
+@app.route('/create_team', methods = ["POST"])
+def create_team():
+    students_emails =  request.form.getlist('students_emails')
+    team_name = request.json['name']
+    students_ids = []
+    
+    #Adds the ids of students in students_ids, or returns invalid response if student is already in team
+    for student_email in students_emails:
+        added_student = Students.query.filter_by(email = student_email).first()
+        added_student_inST = StudentTeam.query.filter_by(student_id = added_student.id).first()
+        if (added_student_inST is not None):
+            response = {"Response" : "INVALID"}
+            return response
+        else:
+            students_ids.append(added_student.id)
+
+    
+    new_team = Teams(name = team_name)
+    db.session.add(new_team)
+    db.session.commit()
+    
+    for student_id in students_ids:
+        new_student_team = StudentTeam(student_id = student_id, team_id = new_team.id)
+        db.session.add(new_student_team)
+        db.session.commit()
+    
+    response = {"Response":"VALID"}
+    return response
+
+
 
 """
 DISPLAY TEAM ROUTE
 
 Returns a JSON object of all the teams                                                                                                                                                                                                                                                                                          ``````` `
-
-Expects a form with email and password
 """
-@app.route('/displayTeams', methods = ['GET'])
-def displayTeams():
+@app.route('/display_teams', methods = ['GET'])
+def display_teams():
     teams = Teams.query.all()
     student_seperated_in_teams = []
     for team in teams:
-        students_in_team_id = StudentTeams.query.filter_by(team_id = team.id).all()
+        students_in_team_id = StudentTeam.query.filter_by(team_id = team.id).all()
         student_emails = []
         for student in students_in_team_id:
             students_in_team = Students.query.filter_by(id = student.student_id).all()
@@ -107,7 +149,16 @@ def displayTeams():
     return student_seperated_in_teams
 
     
+"""
+DISPLAY MY TEAM ROUTE
 
+To look at the current logged in student and his team
+
+"""
+
+@app.route('/display_my_team')
+def display_my_team():
+    return
 
 @app.route('/logout')
 def logout():
@@ -116,6 +167,7 @@ def logout():
     
 
 
+##DUMMY ROUTES DONT LOOK TY
 @app.route('/addStudent', methods = ['GET'])
 def addStudent():
     student = Students(email = "carl@hotmail.com", name = "carl", password = "password1234")

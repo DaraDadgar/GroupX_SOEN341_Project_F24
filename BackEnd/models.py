@@ -5,9 +5,8 @@ db = SQLAlchemy()
 class Students(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120))
-    email = db.Column(db.String(120))
+    email = db.Column(db.String(120), unique=True)
     password = db.Column(db.String(120))
-    isInTeam = db.Column(db.Boolean, default=False)
 
     def __repr__(self):
         return f'{self.name}'
@@ -16,13 +15,13 @@ class Students(db.Model):
 class Teachers(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(120))
-    email = db.Column(db.String(120))
+    email = db.Column(db.String(120), unique=True)
     password = db.Column(db.String(120))
 
 class Teams(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120))
 
-class StudentTeams(db.Model):
+class StudentTeam(db.Model):
     student_id = db.Column(db.Integer, primary_key=True)
     team_id = db.Column(db.Integer, primary_key = True)

@@ -14,12 +14,18 @@ function Login(){
 
         const formData = new FormData(e.target)
         const payload = Object.fromEntries(formData)
-        postAPI("login", payload)
+        postAPI("signup", payload)
+        navigate("/about")
     }
 
     return(
         <>
             <form onSubmit = {submitForm}>
+                <input type = "radio" name = "type" value = "student"/>
+                <label>student</label>
+                <input type = "radio" name = "type" value = "teacher"/>
+                <label>teacher</label>
+
                 <label htmlFor="email">Username</label>
                 <input name = "email"/>
 
