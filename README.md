@@ -1,8 +1,5 @@
 # Peer-Assesment-Application-SOEN-341
 
-Team Members and roles:
- - Oren Argot: 40224072 - Working on the front-end
-
 Objective - 
   The purpose of this project is to familiarize ourselves with software development. In order to do so, we have to work as a team and combine our skills to have a finished product. Since we are following the agile process, the project is divided into four sprints, and at the end of each sprint, we are responsible to show a demo of our work. 
 
