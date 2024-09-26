@@ -86,7 +86,28 @@ def signup():
     else:
         response = {"Response" : "ERROR", "type" : "None"}, 400
         return jsonify(response)
-        
+
+@app.route('/students', methods=["GET"])
+def students():
+    students = Students.query.all()
+    return jsonify(students), 201
+
+@app.route('/teams', methods = ["GET"])
+def teams():
+    teams = Teams.query.all()
+    return jsonify(teams), 201
+
+@app.route('/teams/<id>')
+def get_team(id):
+    students_inST = StudentTeam.query.filter_by(team_id = id).all()
+    students = []
+    for student_inST in students_inST:
+        student = Students.query.filter_by(id = student_inST.student_id).first()
+        students.push(student)
+    
+    return jsonify(students)
+
+    
 
 """
 CREATE TEAM ROUTE
@@ -155,7 +176,6 @@ def display_teams():
 DISPLAY MY TEAM ROUTE
 
 To look at the current logged in student and his team
-
 """
 
 @app.route('/display_my_team')
