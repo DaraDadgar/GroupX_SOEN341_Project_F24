@@ -1,4 +1,4 @@
-from app.models import db
+from app import db
 
 class Teams(db.Model):
     id = db.Column(db.Integer, primary_key=True)

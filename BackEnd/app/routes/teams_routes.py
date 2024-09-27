@@ -21,7 +21,7 @@ def get_team(id):
 @team_bp.route('/teams', methods=['POST'])
 def create_team():
     team_name = request.json['name']
-    students_emails = request.json['students_emails']
+    students_emails = request.json['student_emails']
 
     new_team = Teams(name=team_name)
     db.session.add(new_team)
@@ -40,4 +40,12 @@ def create_team():
 
 @team_bp.route('/teams/<int:id>/students', methods=['GET'])
 def get_students_from_team():
-    return
+    student_teams = StudentTeam.query.filter_by(team_id=id).all()
+    
+    student_ids = [student_team.student_id for student_team in student_teams]
+
+    students = Students.query.filter(Students.id.in_(student_ids)).all()
+
+    student_list = [{"id": student.id, "name": student.name, "email": student.email} for student in students]
+
+    return jsonify(student_list), 200
