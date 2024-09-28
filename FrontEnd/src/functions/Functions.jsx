@@ -3,7 +3,7 @@ import axios from 'axios';
 
 async function fetchAPI(route) {
   try{
-    const response = await axios.get("http://127.0.0.1:8000/" + route)
+    const response = await axios.get("http://127.0.0.1:5000/" + route)
     return response
   }
   catch(e){

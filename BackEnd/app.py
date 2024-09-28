@@ -3,6 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from datetime import timedelta
 
+
+
 from models import Students, StudentTeam, Teachers, Teams, db
 
 
@@ -26,8 +28,6 @@ with app.app_context():
 def home():
     return "Welcome to the Flask Server!"
 
-
-
 """
 LOGIN ROUTE
 
@@ -50,14 +50,15 @@ def login():
         response = {"Response" : "ERROR", "type" : "None"}, 401
         return jsonify(response)  
     else:
-        
         #Can change session attribute later
         session['email'] = email
         session['id'] = user.id
+        session['type'] = type
+
+
         response = {"Response": "VALID", "type" : type}, 202
         return jsonify(response)
     
-
 """
 SIGNUP ROUTE
 
@@ -87,15 +88,17 @@ def signup():
         response = {"Response" : "ERROR", "type" : "None"}, 400
         return jsonify(response)
 
+
+
 @app.route('/students', methods=["GET"])
 def students():
     students = Students.query.all()
-    return jsonify(students), 201
+    return jsonify([student.to_dict() for student in students]), 201
 
 @app.route('/teams', methods = ["GET"])
 def teams():
     teams = Teams.query.all()
-    return jsonify(teams), 201
+    return jsonify([team.to_dict() for team in teams]), 201
 
 @app.route('/teams/<id>')
 def get_team(id):
@@ -107,7 +110,10 @@ def get_team(id):
     
     return jsonify(students)
 
-    
+@app.route("/student_team")
+def student_team():
+    student_team = StudentTeam.query.all()
+    return jsonify([st.to_dict() for st in student_team])
 
 """
 CREATE TEAM ROUTE
@@ -121,27 +127,15 @@ If team contains one student which is already in a team: @returns {Response: "IN
 """
 @app.route('/create_team', methods = ["POST"])
 def create_team():
-    students_emails =  request.form.getlist('students_emails')
+    students = request.json['students']
     team_name = request.json['name']
-    students_ids = []
-    
-    #Adds the ids of students in students_ids, or returns invalid response if student is already in team
-    for student_email in students_emails:
-        added_student = Students.query.filter_by(email = student_email).first()
-        added_student_inST = StudentTeam.query.filter_by(student_id = added_student.id).first()
-        if (added_student_inST is not None):
-            response = {"Response" : "INVALID"}, 401
-            return response
-        else:
-            students_ids.append(added_student.id)
-
     
     new_team = Teams(name = team_name)
     db.session.add(new_team)
     db.session.commit()
-    
-    for student_id in students_ids:
-        new_student_team = StudentTeam(student_id = student_id, team_id = new_team.id)
+
+    for id in students:
+        new_student_team = StudentTeam(student_id = id, team_id = new_team.id)
         db.session.add(new_student_team)
         db.session.commit()
     
@@ -149,29 +143,6 @@ def create_team():
     return jsonify(response)
 
 
-
-"""
-DISPLAY TEAM ROUTE
-
-Returns a JSON object of all the teams                                                                                                                                                                                                                                                                                          ``````` `
-"""
-@app.route('/teams', methods = ['GET'])
-def display_teams():
-    teams = Teams.query.all()
-    student_seperated_in_teams = []
-    for team in teams:
-        students_in_team_id = StudentTeam.query.filter_by(team_id = team.id).all()
-        student_emails = []
-        for student in students_in_team_id:
-            students_in_team = Students.query.filter_by(id = student.student_id).all()
-            student_emails.append(students_in_team.email)
-        
-        curr_team_with_students = {"tid": team.id, "students": student_emails}
-        student_seperated_in_teams.append(curr_team_with_students)
-    
-    return student_seperated_in_teams, 201
-
-    
 """
 DISPLAY MY TEAM ROUTE
 
@@ -184,13 +155,24 @@ def display_my_team():
     students_in_my_team_inST = StudentTeam.query.filter_by(team_id = team_id).all()
     students_in_my_team = []
     for student_inST in students_in_my_team_inST:
-        student_id = student_inST.id
+        student_id = student_inST.student_id
         student = Students.query.filter_by(id = student_id).first()
         students_in_my_team.append(student.to_dict())
-    
     return jsonify(students_in_my_team), 201
         
-        
+
+
+@app.route('/teams/<int:id>/students', methods=['GET'])
+def get_students_from_team():
+    student_teams = StudentTeam.query.filter_by(team_id=id).all()
+
+    student_ids = [student_team.student_id for student_team in student_teams]
+
+    students = Students.query.filter(Students.id.in_(student_ids)).all()
+
+    student_list = [{"id": student.id, "name": student.name, "email": student.email} for student in students]
+
+    return jsonify(student_list), 200 
         
 
 @app.route('/logout')
