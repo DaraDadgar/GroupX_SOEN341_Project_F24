@@ -8,24 +8,24 @@ import "./App.css";
 function App() {
   const [count, setCount] = useState(0);
 
-  // //variable to store the data fetched from the backend
-  // //null since it has nothing before the data has been fetched
-  // const [data, setData] = useState(null);
+  // const clickHandler = () => {
 
-  // //Example on how to call a GET route in a component
-  // //useEffect is needed to render the data properly
+  // }
+
+  // // Fetch data when the component mounts
   // useEffect(() => {
   //   const fetchData = async () => {
   //     try {
-  //       const result = await fetchAPI('/'); // Call API
-  //       setData(result); // Store the fetched data in state
+  //       const result = await fetchAPI("/"); // Call API to test the flask server
+  //       setCount(result); // Store the fetched data in state
+  //       console.log(result);
   //     } catch (error) {
-  //       console.error('Error fetching data:', error); // Handle any errors
+  //       console.error("Error fetching data:", error); // Handle any errors
   //     }
   //   };
 
   //   fetchData(); // Call fetchData to initiate the GET request
-  // }, []);
+  // }, []); // Empty array means this effect runs only once (on component mount)
 
   return (
     <>
@@ -39,9 +39,7 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
+        <button onClick={clickHandler()}>count is {count}</button>
         <p>
           Edit <code>src/App.jsx</code> and save to test HMR
         </p>
