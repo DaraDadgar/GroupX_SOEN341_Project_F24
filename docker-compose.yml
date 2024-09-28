@@ -19,7 +19,6 @@ services:
     volumes:
       - ./backend:/app
     environment:
-      FLASK_APP: app
       FLASK_ENV: development  
       DATABASE_URL: mysql+pymysql://db_user:db_password@db/db_name
       SECRET_KEY: secret_key

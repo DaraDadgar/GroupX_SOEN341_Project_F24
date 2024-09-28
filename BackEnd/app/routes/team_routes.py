@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify, request
-from app.models.students import Students
-from app.models.teams import Teams
-from app.models.student_team import StudentTeam
-from app import db
+from models.students import Students
+from models.teams import Teams
+from models.student_team import StudentTeam
+from extensions import db
 
 team_bp = Blueprint('team_bp', __name__)
 

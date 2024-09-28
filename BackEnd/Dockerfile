@@ -5,7 +5,7 @@ FROM python:latest
 WORKDIR /app
 
 # Copy the current directory contents into the container at /app
-COPY . /app
+COPY . .
 
 # Install Python dependencies
 RUN pip3 install -r requirements.txt
