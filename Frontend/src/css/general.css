@@ -1,0 +1,13 @@
+* {
+  box-sizing: border-box;
+  margin: 0 0;
+  padding: 0 0;
+
+  font-family: inter;
+  font-weight: 600;
+  text-wrap: nowrap;
+}
+
+body {
+  background-color: rgba(0, 0, 0, 0.505);
+}
