@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify
-from app.models.students import Students
+from app.models import StudentTeam, Students, Teachers, Teams
 
 student_bp = Blueprint('student_bp', __name__)
 

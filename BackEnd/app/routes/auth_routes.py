@@ -1,6 +1,5 @@
 from flask import Blueprint, request, jsonify, session
-from app.models.students import Students
-from app.models.teachers import Teachers
+from app.models import StudentTeam, Students, Teachers, Teams
 from app.extensions import db
 
 auth_bp = Blueprint('auth_bp', __name__)
@@ -41,3 +40,7 @@ def signup():
 def logout():
     session.clear()
     return jsonify({"Response": "LOGGED OUT"}), 200
+
+@auth_bp.route('/', methods=['GET'])
+def test():
+    return "test"
