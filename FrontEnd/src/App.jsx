@@ -11,6 +11,7 @@ import TeamCreation from './routes/TeamCreation.jsx'
 
 import {fetchAPI, storeAPI} from "./functions/apiinterface.jsx"
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
+import MainSignup from './routes/MainSignup.jsx'
 
 
 
@@ -48,6 +49,7 @@ function App() {
           <Route path ="/About" Component = {About}/>
           <Route path = "/TeamCreation" element = {<TeamCreation students = {TeamCreationStudentsList}/>}/>
           <Route path = "/Team" Component = {About}/>
+          <Route path = "/Signup" element = {<MainSignup/>}/>
           {/* <Route path = "/Team" element = {<Team students = {MyTeamStudentList} teamName = {df}/>}/> */}
         </Routes>
     </Router>

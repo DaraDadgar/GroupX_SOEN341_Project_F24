@@ -1,6 +1,8 @@
 import "../css/main-login.css";
+import "../css/general.css"
 import {storeAPI, fetchAPI} from "../functions/apiinterface.jsx"
 import { useNavigate } from "react-router-dom";
+import Header from "../components/Header.jsx"
 
 export default function MainLogin() {
 
@@ -14,7 +16,7 @@ export default function MainLogin() {
     const formData = new FormData(e.target)
     const payload = Object.fromEntries(formData)
     storeAPI("/login", payload).then(data => {
-      console.log(data.data[0].Response)
+      console.log(data.data)
       if (data.data[0].Response == "VALID" && data.data[0].type == "student"){
         navigate("/Team")
       }
@@ -23,51 +25,54 @@ export default function MainLogin() {
   
   
   return (
-    <main class="main-login">
-      <h2>LOG IN</h2>
+    <>
+      <Header/>
+      <main class="main-login">
+        <h2>LOG IN</h2>
 
-      <form onSubmit = {submitHandler} method="post">
-        <div class="fields">
-          <div class="usertype">
-            <label for="usertype">User Type: </label>
-            <div>
-              <label>
-                Student
-                <input type="radio" name="type" value="student" required />
-              </label>
+        <form onSubmit = {submitHandler} method="post">
+          <div class="fields">
+            <div class="usertype">
+              <label for="usertype">User Type: </label>
+              <div>
+                <label>
+                  Student
+                  <input type="radio" name="type" value="student" required />
+                </label>
 
-              <label>
-                Teacher
-                <input type="radio" name="type" value="teacher" required />
-              </label>
+                <label>
+                  Teacher
+                  <input type="radio" name="type" value="teacher" required />
+                </label>
+              </div>
             </div>
+
+            <label for="email">Email Address:</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              maxlength="254"
+              required
+            />
+
+            <label for="password">Password:</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              maxlength="32"
+              required
+            />
           </div>
 
-          <label for="email">Email Address:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            maxlength="254"
-            required
-          />
+          <span title="Click here get your password">Forgot your password?</span>
 
-          <label for="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            maxlength="32"
-            required
-          />
-        </div>
+          <span title="Click here to sign up">Don't have an account?</span>
 
-        <span title="Click here get your password">Forgot your password?</span>
-
-        <span title="Click here to sign up">Don't have an account?</span>
-
-        <input type="submit" value="Log in" />
-      </form>
-    </main>
+          <input type="submit" value="Log in" />
+        </form>
+      </main>
+    </>
   );
 }
