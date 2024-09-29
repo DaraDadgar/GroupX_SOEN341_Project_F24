@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify, session
-from models.students import Students
-from models.teachers import Teachers
-from extensions import db
+from app.models.students import Students
+from app.models.teachers import Teachers
+from app.extensions import db
 
 auth_bp = Blueprint('auth_bp', __name__)
 
