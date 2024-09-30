@@ -10,19 +10,13 @@ from models import Students, StudentTeam, Teachers, Teams, db
 
 app = Flask(__name__)
 app.secret_key = "super_secret_thang"
-cors = CORS(app, origins ="*")
+cors = CORS(app, supports_credentials = True)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
-
-
 
 db.init_app(app)
 
-
-
 with app.app_context():
     db.create_all()
-
-
 
 @app.route('/')
 def home():
@@ -46,6 +40,7 @@ def login():
     table = Students if type == "student" else Teachers
     user = table.query.filter_by(email = email, password = password).first()
 
+
     if user is None:
         response = {"Response" : "ERROR", "type" : "None"}, 401
         return jsonify(response)  
@@ -54,11 +49,11 @@ def login():
         session['email'] = email
         session['id'] = user.id
         session['type'] = type
-
-
         response = {"Response": "VALID", "type" : type}, 202
         return jsonify(response)
     
+
+
 """
 SIGNUP ROUTE
 
@@ -70,13 +65,14 @@ Expects a form with email, password and type
 """
 @app.route('/signup', methods = ["POST"])
 def signup():
+    name = request.json['first-name'] + " " + request.json['last-name']
     email = request.json['email']
     password = request.json['password']
     type = request.json['type']
     
     
     table = Students if type == "student" else Teachers
-    new_user = table(email = email, password = password)
+    new_user = table(email = email, password = password, name = name)
     
     if(table.query.filter_by(email = email).first() is None):
         db.session.add(new_user)
@@ -107,7 +103,6 @@ def get_team(id):
     for student_inST in students_inST:
         student = Students.query.filter_by(id = student_inST.student_id).first()
         students.push(student)
-    
     return jsonify(students)
 
 @app.route("/student_team")
@@ -158,7 +153,10 @@ def display_my_team():
         student_id = student_inST.student_id
         student = Students.query.filter_by(id = student_id).first()
         students_in_my_team.append(student.to_dict())
-    return jsonify(students_in_my_team), 201
+
+    response = {"team_id": team_id, "students": students_in_my_team}
+    print(response)
+    return jsonify(response), 201
         
 
 
@@ -201,6 +199,23 @@ def showStudents():
     return "0"
 
 
+
+
+
+
+
+
+
+
+@app.route('/test2', methods = ['GET'])
+def test2():
+    session['hello'] = "hi"
+    return jsonify(session)
+
+@app.route('/test', methods = ['GET'])
+def test():
+    print(session)
+    return jsonify(session)
 if __name__ == '__main__':
     app.run(debug=True)  # Run the server in debug mode
 

@@ -7,17 +7,19 @@ import NavBar from "../components/NavBar.jsx";
 
 export default function MainLogin() {
 
-  const student = fetchAPI("showAllStudents")
   const navigate = useNavigate();
-
+  const signupNav = () =>{
+    navigate("../signup")
+  }
 
   const submitHandler = (e) => {
     e.preventDefault()
 
     const formData = new FormData(e.target)
     const payload = Object.fromEntries(formData)
+    
     storeAPI("/login", payload).then(data => {
-      console.log(data.data)
+ 
       if (data.data[0].Response == "VALID" && data.data[0].type == "student"){
         navigate("/Team")
       }
@@ -69,7 +71,7 @@ export default function MainLogin() {
 
           <span title="Click here get your password">Forgot your password?</span>
 
-          <span title="Click here to sign up">Don't have an account?</span>
+          <span onClick = {signupNav} title="Click here to sign up">Don't have an account?</span>
 
           <input type="submit" value="Log in" />
         </form>

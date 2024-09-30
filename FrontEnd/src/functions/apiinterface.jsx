@@ -13,11 +13,11 @@ const apiClient = axios.create({
 //pass the desired get route as argument (ex.: fetchAPI('/getAllStudents'))
 export const fetchAPI = async (route) => {
   try {
-    const response = await apiClient.get(route);
+    const response = await apiClient.get(route, {withCredentials: true});
     return response;
   } catch (error) {
     console.error("Error fetching data:", error);
-    throw error;
+    return error;
   }
 };
 
@@ -25,10 +25,30 @@ export const fetchAPI = async (route) => {
 //pass the desired post route and the data to be stored as arguments (ex.: storeAPI('/signup', data))
 export const storeAPI = async (route, data) => {
   try {
-    const response = await apiClient.post(route, data);
+    const response = await apiClient.post(route, data, {withCredentials: true});
     return response;
   } catch (error) {
     console.error("Error storing data:", error);
-    throw error;
+    return error;
   }
 };
+
+// export const fetchAPI_withCredentials = async(route) => {
+//   try {
+//     const response = await apiClient.get(route, {withCredentials: true});
+//     return response;
+//   } catch (error) {
+//     console.error("Error fetching data:", error);
+//     return error;
+//   }
+// };
+
+// export const storeAPI_withCredentials = async(route, formData) => {
+//   try {
+//     const response = await apiClient.post(route, data, {withCredentials: true});
+//     return response;
+//   } catch (error) {
+//     console.error("Error storing data:", error);
+//     return error;
+//   }
+// };

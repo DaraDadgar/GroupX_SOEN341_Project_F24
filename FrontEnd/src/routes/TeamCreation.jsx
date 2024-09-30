@@ -2,6 +2,7 @@ import "../css/team-creation.css";
 import { useNavigate } from "react-router-dom";
 import { fetchAPI, storeAPI } from "../functions/apiinterface";
 export default function TeamCreation({students}) {
+  
 
   const navigate = useNavigate()
   const SubmitHandler = (e) => {
