@@ -1,5 +1,5 @@
 import React from "react";
-import { fetchAPI, postAPI } from "../functions/Functions";
+import { fetchAPI, postAPI } from "../functions/apiinterface";
 
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +13,7 @@ function Login() {
 
     const formData = new FormData(e.target);
     const payload = Object.fromEntries(formData);
-    postAPI("signup", payload);
+    postAPI("/login", payload);
     navigate("/about");
   };
 

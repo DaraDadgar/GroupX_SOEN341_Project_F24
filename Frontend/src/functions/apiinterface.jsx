@@ -23,7 +23,7 @@ export const fetchAPI = async (route) => {
 
 //Function to call POST routes
 //pass the desired post route and the data to be stored as arguments (ex.: storeAPI('/signup', data))
-export const storeAPI = async (route, data) => {
+export const postAPI = async (route, data) => {
   try {
     const response = await apiClient.post(route, data);
     return response;
