@@ -36,3 +36,32 @@ Students or instructors might find it difficult to navigate the platform.
 This could pose challenges for instructors.
 
 **Solution**: Implement data visualization, providing visual dashboards or summary reports of group performance.
+
+### Team Members and Roles
+
+**Dara Dadgar** - _Product Owner/SQA Engineer/UX Designer_ 
+
+Experienced in project leadership and management, with a strong background in software quality assurance (SQA) testing and user experience (UX) design.
+
+**Oren Argot** - _Frontend Developer/JavaScript Developer_
+
+Frontend Developer/JavaScript Developer responsible for the design of the interface and connecting the front end to the backend. Calling APIs
+
+**Daniel Secelean** - _Backend Developer/Cloud Engineer_
+
+Backend Developer/Cloud Engineer responsible for designing scalable APIs and deploying secure cloud infrastructure.
+
+**Mathieu Phan** - _Backend Developer/API Developer_
+
+Building backend routes for API calls and database models
+
+**Brandon Phelps** - _Frontend Developer/UX Designer_
+
+Experienced in creating intuitive user interfaces with technical expertise in web development, ensuring seamless and user-friendly experiences.
+
+**Marchelino Habchi** - _Frontend Developer/CSS Developer_
+
+Transforming design mockups into responsive web interfaces using clean, modular CSS. Focuses on layout, styling, and ensuring consistency with the design specifications.
+
+
+
