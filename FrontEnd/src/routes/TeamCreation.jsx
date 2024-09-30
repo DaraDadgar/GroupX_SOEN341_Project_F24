@@ -15,8 +15,6 @@ export default function TeamCreation({students}) {
         students.push(key)
       }
     }
-
-    
     const realPayload = {name: payload.name, students : students}
     storeAPI("/create_team", realPayload)
   }
