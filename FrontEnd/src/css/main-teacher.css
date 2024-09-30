@@ -1,0 +1,115 @@
+.main-teacher {
+  padding-top: 30px;
+}
+
+.main-teacher .top-display {
+  width: 1000px;
+  margin: 0px auto;
+}
+.main-teacher .create-team {
+  color: #cc813f;
+  background-color: #464545;
+  padding: 8px 10px;
+
+  font-weight: lighter;
+  font-size: smaller;
+}
+
+.main-teacher .create-team:hover {
+  color: #464545;
+  background-color: #cc813f;
+
+  cursor: pointer;
+}
+
+.main-teacher .create-team:active {
+  opacity: 0.7;
+}
+
+.main-teacher .team {
+  background-color: #464545;
+  width: 1000px;
+  height: 200px;
+
+  margin: 15px auto;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.main-teacher .team h2 {
+  font-weight: 800;
+  font-size: 22px;
+
+  margin: 15px 20px;
+  color: white;
+}
+
+.main-teacher .team ul {
+  list-style-type: none;
+
+  margin-left: 50px;
+
+  overflow: auto;
+}
+
+.main-teacher .team ul li {
+  color: white;
+  font-weight: lighter;
+  font-size: 11pt;
+}
+
+.main-teacher .delete {
+  background-color: #ae1616;
+  color: white;
+
+  padding: 5px 10px;
+}
+
+.main-teacher .delete:hover {
+  background-color: white;
+  color: #ae1616;
+
+  cursor: pointer;
+}
+
+.main-teacher .edit {
+  background-color: #a8a8a8;
+  color: white;
+
+  padding: 5px 10px;
+}
+
+.main-teacher .edit:hover {
+  background-color: white;
+  color: #a8a8a8;
+
+  cursor: pointer;
+}
+
+.main-teacher .options > span:active {
+  opacity: 0.7;
+}
+
+.main-teacher .options {
+  display: flex;
+  flex-direction: row;
+
+  gap: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+
+  justify-content: flex-end;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between; /* Optional: add space between */
+  align-items: center; /* Vertically align items */
+}
+
+.box {
+  flex: 1; /* Makes both divs equal width (optional) */
+  padding: 20px;
+  margin: 10px;
+}

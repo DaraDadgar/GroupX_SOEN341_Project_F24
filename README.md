@@ -1,3 +1,4 @@
+=======
 # Peer Assessment Application - SOEN 341
 
 ## Objective
@@ -62,6 +63,3 @@ Experienced in creating intuitive user interfaces with technical expertise in we
 **Marchelino Habchi** - _Frontend Developer/CSS Developer_
 
 Transforming design mockups into responsive web interfaces using clean, modular CSS. Focuses on layout, styling, and ensuring consistency with the design specifications.
-
-
-
