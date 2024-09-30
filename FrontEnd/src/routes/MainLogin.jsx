@@ -23,9 +23,13 @@ export default function MainLogin() {
       if (data.data[0].Response == "VALID" && data.data[0].type == "student"){
         navigate("/Team")
       }
+      else if(data.data[0].Response == "VALID" && data.data[0].type == "teacher"){
+        navigate("/Teacher")
+      }
     })
   }
   
+
   return (
     <>
       <Header/>

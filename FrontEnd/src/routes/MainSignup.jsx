@@ -36,7 +36,7 @@ export default function MainSignup() {
     const fd = new FormData(e.target)
     const payload = Object.fromEntries(fd)
     storeAPI("signup", payload)
-    navigate("/about")
+    navigate("/login")
   }
   
   return (

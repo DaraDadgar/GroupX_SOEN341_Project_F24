@@ -101,3 +101,15 @@
 
   justify-content: flex-end;
 }
+
+.container {
+  display: flex;
+  justify-content: space-between; /* Optional: add space between */
+  align-items: center; /* Vertically align items */
+}
+
+.box {
+  flex: 1; /* Makes both divs equal width (optional) */
+  padding: 20px;
+  margin: 10px;
+}

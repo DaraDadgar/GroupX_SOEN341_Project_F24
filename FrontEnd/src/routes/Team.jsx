@@ -20,9 +20,6 @@ export default function Team() {
    )}
 
    fetch()
-   console.log(teamName)
-   console.log(teammates)
-   console.log("???????")
  }, [])
   
 
