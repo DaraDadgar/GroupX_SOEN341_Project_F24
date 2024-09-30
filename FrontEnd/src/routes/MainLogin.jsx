@@ -3,6 +3,7 @@ import "../css/general.css"
 import {storeAPI, fetchAPI} from "../functions/apiinterface.jsx"
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header.jsx"
+import NavBar from "../components/NavBar.jsx";
 
 export default function MainLogin() {
 
@@ -23,10 +24,10 @@ export default function MainLogin() {
     })
   }
   
-  
   return (
     <>
       <Header/>
+      <NavBar/>
       <main class="main-login">
         <h2>LOG IN</h2>
 
