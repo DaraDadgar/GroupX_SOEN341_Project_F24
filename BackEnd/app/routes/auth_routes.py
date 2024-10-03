@@ -25,9 +25,10 @@ def signup():
     email = request.json['email']
     password = request.json['password']
     user_type = request.json['type']
+    name = request.json['name']
 
     table = Students if user_type == "student" else Teachers
-    new_user = table(email=email, password=password)
+    new_user = table(email=email, password=password, name=name)
 
     if table.query.filter_by(email=email).first() is None:
         db.session.add(new_user)
