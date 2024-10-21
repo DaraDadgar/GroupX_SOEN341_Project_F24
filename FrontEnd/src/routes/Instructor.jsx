@@ -15,7 +15,7 @@ function Instructor() {
           <li> Name 3</li>
           <li> Etc</li>
           <div class="delEdit">
-          <button class="delete">DELETE</button>
+          <button class="delete" onClick={(()=>{confirm("Are you sure you want to delete this team?")})}>DELETE</button>
           <button class="edit">EDIT</button>
           </div>
         </ul>
@@ -26,7 +26,7 @@ function Instructor() {
           <li> Name 3</li>
           <li> Etc</li>
           <div class="delEdit">
-          <button class="delete">DELETE</button>
+          <button class="delete" onClick={(()=>{confirm("Are you sure you want to delete this team?")})}>DELETE</button>
           <button class="edit">EDIT</button>
           </div>
         </ul>
