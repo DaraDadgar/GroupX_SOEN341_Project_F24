@@ -51,14 +51,10 @@ export default function TeamCreation({students}) {
             </li>
           ))}
         </ul>
-        {/* <div class="buttons">
-          <button>Cancel</button>
-          <button type="submit">Confirm</button>
-        </div> */}
       </form>
     </main>
     <div class="buttons">
-    <button style={{marginLeft: "60px"}}>Cancel</button>
+    <button style={{marginLeft: "155px"}}>Cancel</button>
     <button type="submit" style={{marginLeft: "30px"}}>Confirm</button>
   </div></div>
   );

@@ -16,6 +16,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import MainSignup from "./routes/MainSignup.jsx";
 import Header from "./components/Header.jsx";
 import NavBar from "./components/NavBar.jsx";
+import Instructor from "./routes/Instructor.jsx";
 
 function App() {
   const [TeamCreationStudentsList, setTeamCreationStudentsList] = useState([]);
@@ -50,7 +51,7 @@ function App() {
       <Routes>
         <Route path="/" element={<GeneralHomePage />} />
         <Route path="/login" element={<MainLogin />} />
-        <Route path="/About" Component={About} />
+        <Route path="/about" element={<About/>} />
         <Route
           path="/TeamCreation"
           element={<TeamCreation students={TeamCreationStudentsList} />}
@@ -58,6 +59,7 @@ function App() {
         <Route path="/Team" element={<Team />} />
         <Route path="/Signup" element={<MainSignup />} />
         <Route path="/Teacher" element={<MainTeacher />} />
+        <Route path="/Instructor" element={<Instructor />} />
       </Routes>
     </Router>
   );
