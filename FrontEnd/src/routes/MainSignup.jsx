@@ -41,9 +41,6 @@ export default function MainSignup() {
   
   return (
     <>
-
-      <Header/>
-      <NavBar/>
       <main className="main-signup">
         <h2>SIGN UP</h2>
         <form onSubmit={handleSubmit}>
