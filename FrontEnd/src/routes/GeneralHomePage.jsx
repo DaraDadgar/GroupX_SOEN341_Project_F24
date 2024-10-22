@@ -1,12 +1,8 @@
-import Header from '../components/Header.jsx'
-import NavBar from '../components/NavBar.jsx'
 import '../css/GeneralHomePage.css'
 import studentImage from "./StudentGroupPicture.jpeg"
 function GeneralHomePage(){
     return(
         <>
-            <Header/>
-            <NavBar/>
             <h1 className="welcome">Welcome to our Peer Assessment Tool!</h1>
 
             <div className="description">
