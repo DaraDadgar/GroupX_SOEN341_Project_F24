@@ -17,6 +17,7 @@ import MainSignup from "./routes/MainSignup.jsx";
 import Header from "./components/Header.jsx";
 import NavBar from "./components/NavBar.jsx";
 import Instructor from "./routes/Instructor.jsx";
+import TeamModification from "./routes/TeamModification.jsx";
 
 function App() {
   const [TeamCreationStudentsList, setTeamCreationStudentsList] = useState([]);
@@ -60,6 +61,7 @@ function App() {
         <Route path="/Signup" element={<MainSignup />} />
         <Route path="/Teacher" element={<MainTeacher />} />
         <Route path="/Instructor" element={<Instructor />} />
+        <Route path="/teammodification" element={<TeamModification/>}/>
       </Routes>
     </Router>
   );

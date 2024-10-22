@@ -11,6 +11,7 @@ export default function NavBar() {
         <Link to="/teamcreation">TEAM CREATION</Link>
         <Link to="/">COURSES</Link>
         <Link to="/about">ABOUT US</Link>
+        <Link to="/teammodification">Team Modification</Link>
       </ul>
     </nav>
   );
