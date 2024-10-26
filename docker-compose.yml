@@ -22,7 +22,7 @@ services:
       FLASK_APP: app.app
       FLASK_ENV: development  
       DATABASE_URL: mysql+pymysql://db_user:db_password@db/db_name
-      SECRET_KEY: secret_key
+      SECRET_KEY: lh35KO3JqfxT9GaI7cYZ
     entrypoint: /bin/bash -c "flask db upgrade && flask run --host=0.0.0.0"
     depends_on:
       db:

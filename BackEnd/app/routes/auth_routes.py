@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify, session
-from app.models import StudentTeam, Students, Teachers, Teams
+from app.models import StudentTeam, Students, Teachers, Teams, Assessments
 from app.extensions import db
 
 auth_bp = Blueprint('auth_bp', __name__)
@@ -14,7 +14,7 @@ def login():
     user = table.query.filter_by(email=email, password=password).first()
 
     if user is None:
-        return jsonify({"Response": "ERROR", "type": "None"}), 401
+        return jsonify({"Response": "ERROR", "type": "None", "Message": "User does not exist"}), 401
     else:
         session['email'] = email
         session['id'] = user.id
@@ -35,7 +35,7 @@ def signup():
         db.session.commit()
         return jsonify({"Response": "VALID", "type": user_type}), 201
     else:
-        return jsonify({"Response": "ERROR", "type": "None"}), 400
+        return jsonify({"Response": "ERROR", "type": "None", "Message": "Email already in use"}), 400
 
 @auth_bp.route('/logout', methods=['GET'])
 def logout():
