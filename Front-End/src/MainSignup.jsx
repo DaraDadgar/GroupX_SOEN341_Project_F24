@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './css/main-signup.css'
-import { storeAPI } from './apiInterface'
+import { storeAPI } from './apiinterface'
 import Header from './Header.jsx'
 import NavBar from './NavBar.jsx'
 

@@ -1,4 +1,6 @@
 import "./css/team-creation.css";
+import Header from './Header.jsx'
+import NavBar from './NavBar.jsx'
 import { useNavigate } from "react-router-dom";
 import { fetchAPI, storeAPI } from "./apiinterface";
 import { useEffect, useState } from "react";
@@ -7,15 +9,13 @@ export default function TeamCreation() {
     const [students, setStudents] = useState([]);
 
     useEffect(() => {
+
       const fetchStudents = async () => {
-        try {
-          const response = await fetchAPI("/students");
-          const data = await response.json();
-          setStudents(data);
-        } catch (error) {
-          console.error("Error fetching team data: ", error);
-        }
-      };
+        fetchAPI("/students").then(
+          data => {
+            setStudents(data.data.students)
+          }
+        )};
 
       fetchStudents();
     }, []);
@@ -37,6 +37,10 @@ export default function TeamCreation() {
   }
 
   return (
+<>
+    <Header />
+    <NavBar />
+
     <div>
     <main class="main-teamcreation">
       <form onSubmit = {SubmitHandler} class="students">
@@ -70,5 +74,7 @@ export default function TeamCreation() {
     <button style={{marginLeft: "155px"}}>Cancel</button>
     <button type="submit" style={{marginLeft: "30px"}}>Confirm</button>
   </div></div>
+
+  </>
   );
 }
