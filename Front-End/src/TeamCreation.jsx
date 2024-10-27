@@ -6,19 +6,20 @@ import { fetchAPI, storeAPI } from "./apiinterface";
 import { useEffect, useState } from "react";
 export default function TeamCreation() {
   
-    const [students, setStudents] = useState([]);
+  const [students, setStudents] = useState([]);
 
-    useEffect(() => {
+  useEffect(() => {
+    const fetchStudents = async () => {
+      try {
+        const response = await fetchAPI("/students");
+        setStudents(response);
+      } catch (error) {
+        console.error("Error fetching team data: ", error);
+      }
+    };
 
-      const fetchStudents = async () => {
-        fetchAPI("/students").then(
-          data => {
-            setStudents(data.data.students)
-          }
-        )};
-
-      fetchStudents();
-    }, []);
+    fetchStudents();
+  }, []);
 
 
   const navigate = useNavigate()
@@ -42,11 +43,11 @@ export default function TeamCreation() {
     <NavBar />
 
     <div>
-    <main class="main-teamcreation">
-      <form onSubmit = {SubmitHandler} class="students">
-        <div class="top-display">
+    <main className="main-teamcreation">
+      <form onSubmit = {SubmitHandler} className="students">
+        <div className="top-display">
           <h2>Team Name:</h2>
-          <div class="team-name">
+          <div className="team-name">
             <input
               type="text"
               maxlength="60"
@@ -70,7 +71,7 @@ export default function TeamCreation() {
         </ul>
       </form>
     </main>
-    <div class="buttons">
+    <div className="buttons">
     <button style={{marginLeft: "155px"}}>Cancel</button>
     <button type="submit" style={{marginLeft: "30px"}}>Confirm</button>
   </div></div>
