@@ -14,7 +14,8 @@ export default function TeamCreation() {
     const fetchStudents = async () => {
       try {
         const response = await fetchAPI("/students");
-        setStudents(response);
+        const filteredStudents = response.map(({ id, name, email }) => ({ id, name, email }));
+        setStudents(filteredStudents);
       } catch (error) {
         console.error("Error fetching team data: ", error);
       }
@@ -24,32 +25,25 @@ export default function TeamCreation() {
   }, []);
 
 
-  const navigate = useNavigate();
-
-  const handleCheckboxChange = (studentId) => {
-    if(selectedStudents.includes(studentId)) {
-      setSelectedStudents(selectedStudents.filter(id => id !== studentId));
-    } else {
-      setSelectedStudents([...selectedStudents, studentId]);
-    }
-  };
-
-  const handleTeamNameChange = (e) => {
-    setTeamName(e.target.value);
-  };
   const SubmitHandler = (e) => {
-    e.preventDefault()
-    const formData = new FormData(e.target)
-    const payload = Object.fromEntries(formData)
-    const students = [1,2,3]
-    for(const key in payload){
-      if(key != "name"){
-        students.push(key)
-      }
-    }
-    const realPayload = {name: payload.name, students : students}
-    storeAPI("/create_team", realPayload)
-  }
+    e.preventDefault();
+  
+    const teamName = e.target.name.value;
+    const selectedEmails = students
+      .filter((student) => e.target[student.id].checked)
+      .map((student) => student.email);
+  
+    const payload = { name: teamName, student_emails: selectedEmails };
+  
+    storeAPI("/teams", payload)
+      .then((response) => {
+        console.log("Team created successfully:", response);
+      })
+      .catch((error) => {
+        console.error("Error creating team:", error);
+      });
+  };
+  
 
   return (
 <>
@@ -77,19 +71,19 @@ export default function TeamCreation() {
           {students.map((student) => (
             <li key={student.id}>
               <label>
-                <input type="checkbox"/>
-                {student.name} (ID: {student.id})
+                <input type="checkbox" name={student.id}/>
+                {student.name} (ID: {student.id}, Email: {student.email})
               </label>
             </li>
           ))}
         </ul>
-      </form>
-    </main>
     <div className="buttons">
     <button style={{marginLeft: "155px"}}>Cancel</button>
     <button type="submit" style={{marginLeft: "30px"}}>Confirm</button>
-  </div></div>
-
+  </div>
+  </form>
+  </main>
+  </div>
   </>
   );
 }
