@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 export default function TeamCreation() {
   
   const [students, setStudents] = useState([]);
+  const [selectedStudents, setSelectedStudents] = useState([]);
+  const [teamName, setTeamName] = useState("");
 
   useEffect(() => {
     const fetchStudents = async () => {
@@ -22,7 +24,19 @@ export default function TeamCreation() {
   }, []);
 
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  const handleCheckboxChange = (studentId) => {
+    if(selectedStudents.includes(studentId)) {
+      setSelectedStudents(selectedStudents.filter(id => id !== studentId));
+    } else {
+      setSelectedStudents([...selectedStudents, studentId]);
+    }
+  };
+
+  const handleTeamNameChange = (e) => {
+    setTeamName(e.target.value);
+  };
   const SubmitHandler = (e) => {
     e.preventDefault()
     const formData = new FormData(e.target)
