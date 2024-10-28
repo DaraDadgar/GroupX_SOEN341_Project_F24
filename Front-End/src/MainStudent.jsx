@@ -1,7 +1,7 @@
 import "./css/main-student.css";
 import { useEffect, useState } from "react";
 import { fetchAPI } from "./apiinterface";
-import Header from "./Header.jsx";
+import HeaderLogout from "./HeaderLogout.jsx";
 import NavBar from "./NavBar.jsx";
 
 export default function MainStudent({teamId}) {

@@ -49,25 +49,14 @@ export default function TeamCreation() {
         student_emails: selectedStudents,
       };
       const response = await storeAPI("/teams", data);
-      console.log("Team created successfully:", response);
+      console.log("Team created successfully: ", response);
       alert("Team created successfully!");
-      // Optionally, reset the form
       setTeamName("");
       setSelectedStudents([]);
     } catch (error) {
-      console.error("Error creating team:", error);
-      if (error.response) {
-        console.error("Response data:", error.response.data);
-        console.error("Response status:", error.response.status);
-        alert(`Failed to create team: ${error.response.data.Reason || "Unknown error"}`);
-      } else if (error.request) {
-        console.error("Request data:", error.request);
-        alert("Failed to create team: No response from the server");
-      } else {
-        console.error("Error message:", error.message);
-        alert("Failed to create team: An unexpected error occurred");
-      }
-    } 
+      console.log("Error creating team:", error);
+      alert("Failed to create the team.");
+    }
   };
 
   return (
