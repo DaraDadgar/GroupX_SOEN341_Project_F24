@@ -17,7 +17,7 @@ jobs:
             
             // Define frontend and backend teams
             const frontendTeam = ["DaraDadgar", "brandonphelps1212", "Ouchy123", "Marac-Hab"];
-            const backendTeam = ["Daniel Secelean", "Meijirice"];
+            const backendTeam = ["DanielSecelean", "Meijirice"];
             
             // Get the PR author
             const prAuthor = context.payload.pull_request.user.login;
