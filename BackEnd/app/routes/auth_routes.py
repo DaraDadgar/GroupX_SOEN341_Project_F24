@@ -27,9 +27,12 @@ def signup():
     user_type = request.json['type']
     name = request.json['name']
 
-    table = Students if user_type == "student" else Teachers
-    new_user = table(email=email, password=password, name=name)
+    if user_type == "student":
+        new_user = Students(email=email, password=password, name=name, is_available=True)
+    else:
+        new_user = Teachers(email=email, password=password, name=name)
 
+    table = Students if user_type == "student" else Teachers
     if table.query.filter_by(email=email).first() is None:
         db.session.add(new_user)
         db.session.commit()
