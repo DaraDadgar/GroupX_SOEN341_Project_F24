@@ -1,0 +1,49 @@
+name: Assign Team Reviewers
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  assign-team-reviewers:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Assign Reviewers Based on Team
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { context } = require('@actions/github');
+            
+            // Define frontend and backend teams
+            const frontendTeam = ["DaraDadgar", "brandonphelps1212", "Ouchy123", "Marac-Hab"];
+            const backendTeam = ["Daniel Secelean", "Meijirice"];
+            
+            // Get the PR author
+            const prAuthor = context.payload.pull_request.user.login;
+
+            let reviewers = [];
+
+            // Determine if the PR author is a frontend or backend team member
+            //Assign the members of the PR author's sub-team to review the PR excluding the PR author
+            if (frontendTeam.includes(prAuthor)) {
+              reviewers = frontendTeam.filter(member => member !== prAuthor);
+            } else if (backendTeam.includes(prAuthor)) {
+              reviewers = backendTeam.filter(member => member !== prAuthor);
+            }
+
+            // Check if there are reviewers to assign
+            if (reviewers.length > 0) {
+              const pull_number = context.payload.pull_request.number;
+
+              await github.pulls.requestReviewers({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: pull_number,
+                reviewers: reviewers
+              });
+            } else {
+              console.log("No reviewers to assign.");
+            }
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
