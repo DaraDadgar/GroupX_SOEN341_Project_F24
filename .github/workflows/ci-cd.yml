@@ -1,47 +1,28 @@
-name: Assign Team Reviewers
+name: Lint and Test
 
 on:
   pull_request:
-    types: [opened, reopened, synchronize]
+    branches: [ main ]
 
 jobs:
-  assign-team-reviewers:
+  lint-and-test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Assign Reviewers Based on Team
-        uses: actions/github-script@v6
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Step 2: Set up Node.js for Linting
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          script: |
-            // Define frontend and backend teams
-            const frontendTeam = ["DaraDadgar", "brandonphelps1212", "Ouchy123", "Marac-Hab"];
-            const backendTeam = ["DanielSecelean", "Meijirice"];
-            
-            // Get the PR author
-            const prAuthor = context.payload.pull_request.user.login;
+          node-version: '18'
 
-            let reviewers = [];
+      - name: Install frontend dependencies
+        working-directory: ./frontend
+        run: npm install
 
-            // Determine if the PR author is a frontend or backend team member
-            //Assign the members of the PR author's sub-team to review the PR excluding the PR author
-            if (frontendTeam.includes(prAuthor)) {
-              reviewers = frontendTeam.filter(member => member !== prAuthor);
-            } else if (backendTeam.includes(prAuthor)) {
-              reviewers = backendTeam.filter(member => member !== prAuthor);
-            }
-
-            // Check if there are reviewers to assign
-            if (reviewers.length > 0) {
-              const pull_number = context.payload.pull_request.number;
-
-              await github.rest.pulls.requestReviewers({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                pull_number: pull_number,
-                reviewers: reviewers
-              });
-            } else {
-              console.log("No reviewers to assign.");
-            }
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run ESLint
+        working-directory: ./frontend
+        run: npm run lint
