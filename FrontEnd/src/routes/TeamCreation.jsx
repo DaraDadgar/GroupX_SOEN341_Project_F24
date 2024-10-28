@@ -9,7 +9,7 @@ export default function TeamCreation({students}) {
     e.preventDefault()
     const formData = new FormData(e.target)
     const payload = Object.fromEntries(formData)
-    const students = []
+    const students = [1,2,3]
     for(const key in payload){
       if(key != "name"){
         students.push(key)
@@ -20,6 +20,7 @@ export default function TeamCreation({students}) {
   }
 
   return (
+    <div>
     <main class="main-teamcreation">
       <form onSubmit = {SubmitHandler} class="students">
         <div class="top-display">
@@ -45,16 +46,16 @@ export default function TeamCreation({students}) {
                   name={student.id}
                   value={student.email + " " + student.id}
                 />
-                {`${student.email}, ${student.id}`}
+                {`${student.name}, ${student.email}, ${student.id}`}
               </label>
             </li>
           ))}
         </ul>
-        <div class="buttons">
-          <button>Cancel</button>
-          <button type="submit">Confirm</button>
-        </div>
       </form>
     </main>
+    <div class="buttons">
+    <button style={{marginLeft: "155px"}}>Cancel</button>
+    <button type="submit" style={{marginLeft: "30px"}}>Confirm</button>
+  </div></div>
   );
 }
