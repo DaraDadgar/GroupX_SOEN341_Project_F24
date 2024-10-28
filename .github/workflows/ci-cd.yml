@@ -13,8 +13,6 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const { context } = require('@actions/github');
-            
             // Define frontend and backend teams
             const frontendTeam = ["DaraDadgar", "brandonphelps1212", "Ouchy123", "Marac-Hab"];
             const backendTeam = ["DanielSecelean", "Meijirice"];
