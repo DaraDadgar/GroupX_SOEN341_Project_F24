@@ -34,7 +34,7 @@ jobs:
             if (reviewers.length > 0) {
               const pull_number = context.payload.pull_request.number;
 
-              await github.pulls.requestReviewers({
+              await github.rest.pulls.requestReviewers({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 pull_number: pull_number,
