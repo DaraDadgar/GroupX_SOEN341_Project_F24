@@ -1,9 +1,9 @@
 import "./css/team-creation.css";
-import Header from './Header.jsx'
+import HeaderLogout from './HeaderLogout.jsx'
 import NavBar from './NavBar.jsx'
-import { useNavigate } from "react-router-dom";
 import { fetchAPI, storeAPI } from "./apiinterface";
 import { useEffect, useState } from "react";
+
 export default function TeamCreation() {
   
   const [students, setStudents] = useState([]);
@@ -24,35 +24,60 @@ export default function TeamCreation() {
     fetchStudents();
   }, []);
 
-
-  const SubmitHandler = (e) => {
-    e.preventDefault();
-  
-    const teamName = e.target.name.value;
-    const selectedEmails = students
-      .filter((student) => e.target[student.id].checked)
-      .map((student) => student.email);
-  
-    const payload = { name: teamName, student_emails: selectedEmails };
-  
-    storeAPI("/teams", payload)
-      .then((response) => {
-        console.log("Team created successfully:", response);
-      })
-      .catch((error) => {
-        console.error("Error creating team:", error);
-      });
+  const handleCheckboxChange = (email) => {
+    setSelectedStudents(prevSelected => 
+      prevSelected.includes(email)
+        ? prevSelected.filter(studentEmail => studentEmail !== email)
+        : [...prevSelected, email]
+    );
   };
-  
+
+  const handleTeamNameChange = (e) => {
+    setTeamName(e.target.value);
+  };
+
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+    if(!teamName.trim() || selectedStudents.length === 0) {
+      alert("Please enter a team name and selest at least one student.");
+      return;
+    }
+
+    try {
+      const data = {
+        name: teamName,
+        student_emails: selectedStudents,
+      };
+      const response = await storeAPI("/teams", data);
+      console.log("Team created successfully:", response);
+      alert("Team created successfully!");
+      // Optionally, reset the form
+      setTeamName("");
+      setSelectedStudents([]);
+    } catch (error) {
+      console.error("Error creating team:", error);
+      if (error.response) {
+        console.error("Response data:", error.response.data);
+        console.error("Response status:", error.response.status);
+        alert(`Failed to create team: ${error.response.data.Reason || "Unknown error"}`);
+      } else if (error.request) {
+        console.error("Request data:", error.request);
+        alert("Failed to create team: No response from the server");
+      } else {
+        console.error("Error message:", error.message);
+        alert("Failed to create team: An unexpected error occurred");
+      }
+    } 
+  };
 
   return (
 <>
-    <Header />
+    <HeaderLogout />
     <NavBar />
 
     <div>
     <main className="main-teamcreation">
-      <form onSubmit = {SubmitHandler} className="students">
+      <form onSubmit = {handleSubmit} className="students">
         <div className="top-display">
           <h2>Team Name:</h2>
           <div className="team-name">
@@ -63,7 +88,9 @@ export default function TeamCreation() {
               pattern=".*\S.*"
               name = "name"
               required
-            ></input>
+              value={teamName}
+              onChange={handleTeamNameChange}
+            />
           </div>
         </div>
         <h2>Select The Team Members:</h2>
@@ -71,14 +98,19 @@ export default function TeamCreation() {
           {students.map((student) => (
             <li key={student.id}>
               <label>
-                <input type="checkbox" name={student.id}/>
+                <input 
+                type="checkbox" 
+                name={student.id}
+                checked={selectedStudents.includes(student.email)}
+                onChange={() => handleCheckboxChange(student.email)}
+                />
                 {student.name} (ID: {student.id}, Email: {student.email})
               </label>
             </li>
           ))}
         </ul>
     <div className="buttons">
-    <button style={{marginLeft: "155px"}}>Cancel</button>
+    <button type="button" style={{marginLeft: "155px"}}>Cancel</button>
     <button type="submit" style={{marginLeft: "30px"}}>Confirm</button>
   </div>
   </form>

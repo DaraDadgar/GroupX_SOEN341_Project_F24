@@ -1,6 +1,7 @@
 import MainSignup from './MainSignup.jsx'
 import GeneralHomePage from './GeneralHomePage.jsx'
 import TeamCreation from './TeamCreation.jsx';
+import MainStudent from './MainStudent.jsx';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 
 
@@ -12,6 +13,7 @@ function App(){
                 <Route path ="/MainSignup" element = {<MainSignup/>}/>
                 <Route path ="/GeneralHomePage" element = {<GeneralHomePage/>}/>
                 <Route path ="/TeamCreation" element = {<TeamCreation/>}/>
+                <Route path ="/MainStudent" element = {<MainStudent/>}/>
             </Routes>
         </Router>
     );
