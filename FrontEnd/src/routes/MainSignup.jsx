@@ -1,20 +1,17 @@
 import React, { useState } from "react";
-import { storeAPI } from "../functions/apiinterface";
+import { storeAPI } from "../functions/apiinterface.jsx";
 import "../css/main-signup.css";
 import { useNavigate } from "react-router-dom";
 
-import Header from "../components/Header.jsx"
-import NavBar from "../components/NavBar.jsx"
+import Header from "../components/Header.jsx";
+import NavBar from "../components/NavBar.jsx";
 
 export default function MainSignup() {
-
-
   const navigate = useNavigate();
 
   const loginNav = () => {
-    navigate("../login")
-  }
-  
+    navigate("../login");
+  };
 
   const [formData, setFormData] = useState({
     usertype: "",
@@ -23,7 +20,7 @@ export default function MainSignup() {
   });
 
   const handleChange = (e) => {
-    const {name, value} = e.target;
+    const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value,
@@ -31,14 +28,14 @@ export default function MainSignup() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const fd = new FormData(e.target)
-    const payload = Object.fromEntries(fd)
-    storeAPI("signup", payload)
-    navigate("/login")
-  }
-  
+    const fd = new FormData(e.target);
+    const payload = Object.fromEntries(fd);
+    storeAPI("signup", payload);
+    navigate("/login");
+  };
+
   return (
     <>
       <main className="main-signup">
@@ -129,7 +126,11 @@ export default function MainSignup() {
 
           <input type="submit" value="Create Account" />
 
-          <span onClick = {loginNav} className="already-account-option" title="Click here to log in">
+          <span
+            onClick={loginNav}
+            className="already-account-option"
+            title="Click here to log in"
+          >
             Already have an account?
           </span>
         </form>

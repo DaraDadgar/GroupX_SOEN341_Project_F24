@@ -20,9 +20,9 @@ jobs:
           node-version: "18"
 
       - name: Install frontend dependencies
-        working-directory: ./FrontEnd
+        working-directory: ./Frontend
         run: npm install
 
       - name: Run ESLint
-        working-directory: ./FrontEnd
+        working-directory: ./Frontend
         run: npm run lint
