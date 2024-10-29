@@ -24,7 +24,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       # Step 3: Build and Push Frontend Docker Image
-      # not sure, will be added later on
+      # not sure, will be added later on.
 
       # Step 4: Build and Push Backend Docker Image
       - name: Build and Push Backend Docker Image
