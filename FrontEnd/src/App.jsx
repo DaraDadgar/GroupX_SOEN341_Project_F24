@@ -30,7 +30,7 @@ function App() {
         { name: "Name X", id: "123", email: "abc@gmail.com" },
         { name: "Name Y", id: "456", email: "def@gmail.com" },
         { name: "Name Z", id: "789", email: "ghi@gmail.com" },
-        {name: "Name K", id: "555", email: "brand@gmail.com"},
+        { name: "Name K", id: "555", email: "brand@gmail.com" },
       ]); // delete this
     };
 
@@ -45,14 +45,13 @@ function App() {
   }, []);
 
   return (
-    
     <Router>
-      <Header/>
-      <NavBar/>
+      <Header />
+      <NavBar />
       <Routes>
         <Route path="/" element={<GeneralHomePage />} />
         <Route path="/login" element={<MainLogin />} />
-        <Route path="/about" element={<About/>} />
+        <Route path="/about" element={<About />} />
         <Route
           path="/TeamCreation"
           element={<TeamCreation students={TeamCreationStudentsList} />}
@@ -61,7 +60,7 @@ function App() {
         <Route path="/Signup" element={<MainSignup />} />
         <Route path="/Teacher" element={<MainTeacher />} />
         <Route path="/Instructor" element={<Instructor />} />
-        <Route path="/teammodification" element={<TeamModification/>}/>
+        <Route path="/teammodification" element={<TeamModification />} />
       </Routes>
     </Router>
   );

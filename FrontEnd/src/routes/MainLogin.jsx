@@ -1,41 +1,40 @@
 import "../css/main-login.css";
-import "../css/general.css"
-import {storeAPI, fetchAPI} from "../functions/apiinterface.jsx"
+import "../css/general.css";
+import { storeAPI, fetchAPI } from "../functions/apiinterface.jsx";
 import { useNavigate } from "react-router-dom";
-import Header from "../components/Header.jsx"
+import Header from "../components/Header.jsx";
 import NavBar from "../components/NavBar.jsx";
 
 export default function MainLogin() {
-
   const navigate = useNavigate();
-  const signupNav = () =>{
-    navigate("../signup")
-  }
+  const signupNav = () => {
+    navigate("../signup");
+  };
 
   const submitHandler = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const formData = new FormData(e.target)
-    const payload = Object.fromEntries(formData)
-    
-    storeAPI("/login", payload).then(data => {
- 
-      if (data.data[0].Response == "VALID" && data.data[0].type == "student"){
-        navigate("/Team")
+    const formData = new FormData(e.target);
+    const payload = Object.fromEntries(formData);
+
+    storeAPI("/login", payload).then((data) => {
+      if (data.data[0].Response == "VALID" && data.data[0].type == "student") {
+        navigate("/Team");
+      } else if (
+        data.data[0].Response == "VALID" &&
+        data.data[0].type == "teacher"
+      ) {
+        navigate("/Teacher");
       }
-      else if(data.data[0].Response == "VALID" && data.data[0].type == "teacher"){
-        navigate("/Teacher")
-      }
-    })
-  }
-  
+    });
+  };
 
   return (
     <>
       <main class="main-login">
         <h2>LOG IN</h2>
 
-        <form onSubmit = {submitHandler} method="post">
+        <form onSubmit={submitHandler} method="post">
           <div class="fields">
             <div class="usertype">
               <label for="usertype">User Type: </label>
@@ -71,9 +70,13 @@ export default function MainLogin() {
             />
           </div>
 
-          <span title="Click here get your password">Forgot your password?</span>
+          <span title="Click here get your password">
+            Forgot your password?
+          </span>
 
-          <span onClick = {signupNav} title="Click here to sign up">Don't have an account?</span>
+          <span onClick={signupNav} title="Click here to sign up">
+            Don't have an account?
+          </span>
 
           <input type="submit" value="Log in" />
         </form>
