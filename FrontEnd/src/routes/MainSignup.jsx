@@ -32,7 +32,25 @@ export default function MainSignup() {
 
     const fd = new FormData(e.target);
     const payload = Object.fromEntries(fd);
-    storeAPI("signup", payload);
+
+    const confirmPasswordInput = e.target["confirm-password"];
+
+  if (payload.password !== payload["confirm-password"]) {
+    confirmPasswordInput.setCustomValidity("Passwords do not match!");
+    confirmPasswordInput.reportValidity();
+    return;
+  } else {
+    confirmPasswordInput.setCustomValidity("");
+  }
+  
+    const finalPayload = {
+      email: payload.email,
+      password: payload.password,
+      type: payload.type,
+      name: `${payload["first-name"]} ${payload["last-name"]}`,
+    };
+
+    storeAPI("signup", finalPayload);
     navigate("/login");
   };
 
@@ -54,18 +72,6 @@ export default function MainSignup() {
                 <input type="radio" name="type" value="teacher" required />
               </label>
             </div>
-
-            <label for="username">Username:</label>
-            <input
-              type="text"
-              id="username"
-              placeholder="JaneDoe98"
-              name="username"
-              minlength="5"
-              maxlength="20"
-              pattern="^[a-zA-Z][a-zA-Z0-9]+$"
-              required
-            />
 
             <label for="first-name">First Name:</label>
             <input
@@ -121,6 +127,7 @@ export default function MainSignup() {
               minlength="8"
               maxlength="32"
               required
+              onInput={(e) => e.target.setCustomValidity("")}
             />
           </div>
 
