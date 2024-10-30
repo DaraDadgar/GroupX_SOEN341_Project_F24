@@ -17,7 +17,7 @@ app.secret_key = os.environ.get("SECRET_KEY")
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://db_user:db_password@db/db_name'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-cors.init_app(app, origins="*")
+cors.init_app(app, supports_credentials=True, origins=["*"])
 db.init_app(app)
 migrate.init_app(app, db)
 
