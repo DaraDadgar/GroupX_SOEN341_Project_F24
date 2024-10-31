@@ -7,7 +7,7 @@ auth_bp = Blueprint('auth_bp', __name__)
 @auth_bp.route("/testpost", methods=['POST'])
 def test_post():
     session['email'] = "testemail"
-    return jsonify(["testamil"]), 201
+    return jsonify(["testemail"]), 201
 
 @auth_bp.route('/login', methods=['POST'])
 def login():

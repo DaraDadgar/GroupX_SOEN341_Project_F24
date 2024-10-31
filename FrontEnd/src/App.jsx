@@ -56,12 +56,11 @@ function App() {
         <Route path="/Signup" element={<MainSignup />} />
 
 
-        <Route element = {<ProtectedStudentsRoutes/>}>
           <Route path="/about" element={<About />} />
           <Route path="/Team" element={<Team />} />
+        <Route element = {<ProtectedStudentsRoutes/>}>
         </Route>
 
-        <Route element = {<ProtectedTeachersRoutes/>}>
           <Route
             path="/TeamCreation"
             element={<TeamCreation students={TeamCreationStudentsList} />}
@@ -69,6 +68,7 @@ function App() {
           <Route path="/Teacher" element={<MainTeacher />} />
           <Route path="/Instructor" element={<Instructor />} />
           <Route path="/teammodification" element={<TeamModification />} />
+        <Route element = {<ProtectedTeachersRoutes/>}>
         </Route>
 
 
