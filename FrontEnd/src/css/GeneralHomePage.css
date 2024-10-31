@@ -1,34 +1,33 @@
-.welcome{
-    color: rgba(255, 255, 255, 1);
-    width: 600px;
-    height: 80px;
-    font-weight: 800px;
-    font-size: 30px;
-    padding-top: 75px;
-    padding-left: 75px;
+.home-page {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  gap: 20px;
 }
 
-.description{
-    margin: 150px auto;
-    width: 70%;
+.home-page > * {
+  color: white;
 }
 
-.text-image{
-    color: white;
+.home-page h1 {
+  padding-top: 20px;
 }
 
-.text-image h2{
-    font-size: 42px;
+.home-page img {
+  height: 430px;
+  border: 3px solid white;
 }
 
-.text-image p{
-    font-size: 16px;
+.home-page h2 {
+  font-size: 30px;
+  font-family: Georgia, "Times New Roman", Times, serif;
 }
 
-img{
-    max-width: 320px;
-    float: left;
-    border: 3px solid white;
-    border-radius: 10px;
-    margin-right: 10px;
+.home-page p {
+  text-wrap: wrap;
+  text-align: justify;
+  width: 700px;
+
+  font-style: italic;
 }
