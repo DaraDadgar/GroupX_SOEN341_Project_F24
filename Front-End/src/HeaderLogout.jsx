@@ -1,10 +1,23 @@
 import "./css/header-lougout.css";
+import { fetchAPI } from "./apiinterface";
+import { useNavigate } from "react-router-dom";
 
 export default function HeaderLogout() {
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try{
+      await fetchAPI("/logout");
+      navigate("/MainLogin");
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
+  };
+
   return (
     <header>
       <h1>Peer Assessment Tool</h1>
-      <span class="login">LOGOUT</span>
+      <button className="logout" onClick={handleLogout}>LOGOUT</button>
     </header>
   );
 }
