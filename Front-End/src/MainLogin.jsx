@@ -1,9 +1,9 @@
 import "./css/main-login.css";
 import "./css/general.css";
-import { storeAPI } from "../functions/apiinterface.jsx";
+import { storeAPI } from "./apiinterface.jsx";
 import { useNavigate } from "react-router-dom";
-import Header from "../components/Header.jsx";
-import NavBar from "../components/NavBar.jsx";
+import Header from "./Header.jsx";
+import NavBar from "./NavBar.jsx";
 
 export default function MainLogin() {
   const navigate = useNavigate();
@@ -31,6 +31,9 @@ export default function MainLogin() {
 
   return (
     <>
+      <Header />
+      <NavBar />
+
       <main class="main-login">
         <h2>LOG IN</h2>
 

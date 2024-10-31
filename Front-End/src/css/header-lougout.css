@@ -1,46 +1,46 @@
 header {
-    background-color: rgba(70, 69, 69, 1);
-  
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  
-    height: 96px;
-    width: 1257px;
-  }
-  
-  header h1 {
-    font-size: 30px;
-    font-weight: 700;
-    color: rgba(204, 129, 63, 1);
-  
-    margin-left: 80px;
-  }
-  
-  header span:first-of-type {
-    margin-left: 50%;
-  }
-  
-  .sign-up:hover {
-    color: rgba(168, 168, 168, 1);
-    background-color: black;
-  }
-  
-  .login {
-    background-color: rgba(204, 129, 63, 1);
-  }
-  
-  .login:hover {
-    color: rgba(204, 129, 63, 1);
-    background-color: black;
-  }
-  
-  header span:active {
-    opacity: 0.7;
-  }
-  
-  header span {
-    padding: 10px 10px;
-    border-radius: 8px;
-    cursor: pointer;
-  }
+  background-color: rgba(70, 69, 69, 1);
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  height: 96px;
+  width: 1257px;
+}
+
+header h1 {
+  font-size: 30px;
+  font-weight: 700;
+  color: rgba(204, 129, 63, 1);
+
+  margin-left: 80px;
+}
+
+header button:first-of-type {
+  margin-left: 50%;
+}
+
+.sign-up:hover {
+  color: rgba(168, 168, 168, 1);
+  background-color: black;
+}
+
+.logout {
+  background-color: rgba(204, 129, 63, 1);
+}
+
+.logout:hover {
+  color: rgba(204, 129, 63, 1);
+  background-color: black;
+}
+
+header button:active {
+  opacity: 0.7;
+}
+
+header button {
+  padding: 10px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
