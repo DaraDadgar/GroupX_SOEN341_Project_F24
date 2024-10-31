@@ -2,7 +2,7 @@ import "../css/GeneralHomePage.css";
 import studentImage from "./StudentGroupPicture.jpeg";
 function GeneralHomePage() {
   return (
-    <main class="home-page">
+    <main className="home-page">
       <h1>Welcome to our Peer Assessment Tool!</h1>
 
       <img className="student-image" src={studentImage} alt="Student" />
