@@ -18,12 +18,14 @@ export default function MainLogin() {
     const formData = new FormData(e.target);
     const payload = Object.fromEntries(formData);
 
+    console.log(payload)
+
     storeAPI("/login", payload).then((data) => {
-      if (data.data[0].Response == "VALID" && data.data[0].type == "student") {
+      if (data.data.Response == "VALID" && data.data.type == "student") {
         navigate("/Team");
       } else if (
-        data.data[0].Response == "VALID" &&
-        data.data[0].type == "teacher"
+        data.data.Response == "VALID" &&
+        data.data.type == "teacher"
       ) {
         navigate("/Teacher");
       }

@@ -4,6 +4,9 @@ import "./App.css";
 
 import "./css/general.css";
 
+import ProtectedStudentsRoutes from "./routes/ProtectedStudentRoutes.jsx";
+import ProtectedTeachersRoutes from "./routes/ProtectedTeacherRoutes.jsx";
+
 import GeneralHomePage from "./routes/GeneralHomePage.jsx";
 import About from "./routes/About.jsx";
 import MainLogin from "./routes/MainLogin.jsx";
@@ -50,16 +53,25 @@ function App() {
       <Routes>
         <Route path="/" element={<GeneralHomePage />} />
         <Route path="/login" element={<MainLogin />} />
-        <Route path="/about" element={<About />} />
-        <Route
-          path="/TeamCreation"
-          element={<TeamCreation students={TeamCreationStudentsList} />}
-        />
-        <Route path="/Team" element={<Team />} />
         <Route path="/Signup" element={<MainSignup />} />
-        <Route path="/Teacher" element={<MainTeacher />} />
-        <Route path="/Instructor" element={<Instructor />} />
-        <Route path="/teammodification" element={<TeamModification />} />
+
+
+        <Route element = {<ProtectedStudentsRoutes/>}>
+          <Route path="/about" element={<About />} />
+          <Route path="/Team" element={<Team />} />
+        </Route>
+
+        <Route element = {<ProtectedTeachersRoutes/>}>
+          <Route
+            path="/TeamCreation"
+            element={<TeamCreation students={TeamCreationStudentsList} />}
+          />
+          <Route path="/Teacher" element={<MainTeacher />} />
+          <Route path="/Instructor" element={<Instructor />} />
+          <Route path="/teammodification" element={<TeamModification />} />
+        </Route>
+
+
       </Routes>
     </Router>
   );
