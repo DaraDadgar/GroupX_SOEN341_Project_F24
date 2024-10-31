@@ -18,6 +18,7 @@ def login():
     else:
         session['email'] = email
         session['id'] = user.id
+        session['user_type'] = user_type
         return jsonify({"Response": "VALID", "type": user_type}), 202
 
 @auth_bp.route('/signup', methods=['POST'])
