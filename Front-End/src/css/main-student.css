@@ -1,0 +1,36 @@
+.main-student {
+    padding-top: 30px;
+  }
+  
+  .main-student .team {
+    background-color: #464545;
+    width: 1000px;
+    height: 200px;
+  
+    margin: 15px auto;
+  
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .main-student .team h2 {
+    font-weight: 800;
+    font-size: 22px;
+  
+    margin: 15px 20px;
+    color: white;
+  }
+  
+  .main-student .team ul {
+    list-style-type: none;
+  
+    margin-left: 50px;
+  
+    overflow: auto;
+  }
+  
+  .main-student .team ul li {
+    color: white;
+    font-weight: lighter;
+    font-size: 11pt;
+  }
