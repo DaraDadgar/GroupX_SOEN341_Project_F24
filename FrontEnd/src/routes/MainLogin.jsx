@@ -18,8 +18,6 @@ export default function MainLogin() {
     const formData = new FormData(e.target);
     const payload = Object.fromEntries(formData);
 
-    console.log(payload)
-
     storeAPI("/login", payload).then((data) => {
       if (data.data.Response == "VALID" && data.data.type == "student") {
         navigate("/Team");
