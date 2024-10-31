@@ -21,6 +21,8 @@ export const fetchAPI = async (route) => {
   }
 };
 
+//Random comment to test CD
+
 //Function to call POST routes
 //pass the desired post route and the data to be stored as arguments (ex.: storeAPI('/signup', data))
 export const storeAPI = async (route, data) => {
