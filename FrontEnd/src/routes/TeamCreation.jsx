@@ -3,12 +3,14 @@ import HeaderLogout from './components/HeaderLogout.jsx'
 import NavBar from './components/NavBar.jsx'
 import { fetchAPI, storeAPI } from "./functions/apiinterface";
 import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 export default function TeamCreation() {
   
   const [students, setStudents] = useState([]);
   const [selectedStudents, setSelectedStudents] = useState([]);
   const [teamName, setTeamName] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchStudents = async () => {
@@ -53,6 +55,7 @@ export default function TeamCreation() {
       alert("Team created successfully!");
       setTeamName("");
       setSelectedStudents([]);
+      navigate("/MainTeacher"); 
     } catch (error) {
       console.log("Error creating team:", error);
       alert("Failed to create the team.");
