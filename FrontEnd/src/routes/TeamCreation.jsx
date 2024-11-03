@@ -41,7 +41,7 @@ export default function TeamCreation() {
   const handleSubmit = async(e) => {
     e.preventDefault();
     if(!teamName.trim() || selectedStudents.length === 0) {
-      alert("Please enter a team name and selest at least one student.");
+      alert("Please enter a team name and select at least one student.");
       return;
     }
 
