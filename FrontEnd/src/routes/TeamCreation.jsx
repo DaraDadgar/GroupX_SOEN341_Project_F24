@@ -1,5 +1,5 @@
 import "./css/team-creation.css";
-import HeaderLogout from './HeaderLogout.jsx'
+import HeaderLogout from './components/HeaderLogout.jsx'
 import NavBar from './components/NavBar.jsx'
 import { fetchAPI, storeAPI } from "./functions/apiinterface";
 import { useEffect, useState } from "react";
