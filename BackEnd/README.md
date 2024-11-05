@@ -277,3 +277,166 @@
       ...
     ]
     ```
+    
+## Assessments Routes
+
+### GET /assessments
+- **Description**: Retrieves a list of all assessments.
+- **Response**:
+  - **200 OK**:
+    ```json
+    [
+      {
+        "id": 1,
+        "receiver_id": 2,
+        "sender_id": 1,
+        "cooperation_score": 4,
+        "conceptual_contribution_score": 5,
+        "practical_contribution_score": 3,
+        "work_ethic_score": 4,
+        "comments": "Great teamwork!"
+      },
+      ...
+    ]
+    ```
+
+### GET /assessments/<int:id>
+- **Description**: Retrieves a specific assessment by its ID.
+- **Parameters**:
+  - `id`: ID of the assessment.
+- **Response**:
+  - **200 OK**:
+    ```json
+    {
+      "id": 1,
+      "receiver_id": 2,
+      "sender_id": 1,
+      "cooperation_score": 4,
+      "conceptual_contribution_score": 5,
+      "practical_contribution_score": 3,
+      "work_ethic_score": 4,
+      "comments": "Great teamwork!"
+    }
+    ```
+  - **404 Not Found**:
+    ```json
+    {
+      "Response": "INVALID",
+      "Reason": "Assessment not found"
+    }
+    ```
+
+### POST /assessments
+- **Description**: Creates a new assessment for a team member.
+- **Request**:
+  - Body:
+    ```json
+    {
+      "sender_id": 1,
+      "receiver_id": 2,
+      "cooperation_score": 4,
+      "conceptual_contribution_score": 5,
+      "practical_contribution_score": 3,
+      "work_ethic_score": 4,
+      "comments": "Good work on the project!"
+    }
+    ```
+- **Response**:
+  - **201 Created**:
+    ```json
+    {
+      "id": 1,
+      "receiver_id": 2,
+      "sender_id": 1,
+      "cooperation_score": 4,
+      "conceptual_contribution_score": 5,
+      "practical_contribution_score": 3,
+      "work_ethic_score": 4,
+      "comments": "Good work on the project!"
+    }
+    ```
+  - **400 Bad Request** (If students are not in the same team):
+    ```json
+    {
+      "Response": "INVALID",
+      "Reason": "Students are not in the same team."
+    }
+    ```
+  - **400 Bad Request** (If assessment already exists):
+    ```json
+    {
+      "Response": "INVALID",
+      "Reason": "You have already assessed this student."
+    }
+    ```
+  - **400 Bad Request** (If score validation fails):
+    ```json
+    {
+      "Response": "INVALID",
+      "Reason": "Scores must be between 0 and 5."
+    }
+    ```
+
+### PUT /assessments/<int:id>
+- **Description**: Updates an existing assessment.
+- **Parameters**:
+  - `id`: ID of the assessment.
+- **Request**:
+  - Body (optional fields):
+    ```json
+    {
+      "cooperation_score": 3,
+      "conceptual_contribution_score": 4,
+      "practical_contribution_score": 3,
+      "work_ethic_score": 5,
+      "comments": "Updated feedback"
+    }
+    ```
+- **Response**:
+  - **200 OK**:
+    ```json
+    {
+      "id": 1,
+      "receiver_id": 2,
+      "sender_id": 1,
+      "cooperation_score": 3,
+      "conceptual_contribution_score": 4,
+      "practical_contribution_score": 3,
+      "work_ethic_score": 5,
+      "comments": "Updated feedback"
+    }
+    ```
+  - **400 Bad Request** (If score validation fails):
+    ```json
+    {
+      "Response": "INVALID",
+      "Reason": "Scores must be between 0 and 5."
+    }
+    ```
+  - **404 Not Found**:
+    ```json
+    {
+      "Response": "INVALID",
+      "Reason": "Assessment not found."
+    }
+    ```
+
+### DELETE /assessments/<int:id>
+- **Description**: Deletes a specific assessment.
+- **Parameters**:
+  - `id`: ID of the assessment.
+- **Response**:
+  - **200 OK**:
+    ```json
+    {
+      "Response": "VALID",
+      "Reason": "Assessment deleted successfully"
+    }
+    ```
+  - **404 Not Found**:
+    ```json
+    {
+      "Response": "INVALID",
+      "Reason": "Assessment not found"
+    }
+    ```
