@@ -1,20 +1,17 @@
 import React, { useState } from "react";
-import { storeAPI } from "../functions/apiinterface";
+import { storeAPI } from "../functions/apiinterface.jsx";
 import "../css/main-signup.css";
 import { useNavigate } from "react-router-dom";
 
-import Header from "../components/Header.jsx"
-import NavBar from "../components/NavBar.jsx"
+import Header from "../components/Header.jsx";
+import NavBar from "../components/NavBar.jsx";
 
 export default function MainSignup() {
-
-
   const navigate = useNavigate();
 
   const loginNav = () => {
-    navigate("../login")
-  }
-  
+    navigate("../login");
+  };
 
   const [formData, setFormData] = useState({
     usertype: "",
@@ -23,7 +20,7 @@ export default function MainSignup() {
   });
 
   const handleChange = (e) => {
-    const {name, value} = e.target;
+    const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value,
@@ -31,19 +28,34 @@ export default function MainSignup() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const fd = new FormData(e.target)
-    const payload = Object.fromEntries(fd)
-    storeAPI("signup", payload)
-    navigate("/login")
+    const fd = new FormData(e.target);
+    const payload = Object.fromEntries(fd);
+
+    const confirmPasswordInput = e.target["confirm-password"];
+
+  if (payload.password !== payload["confirm-password"]) {
+    confirmPasswordInput.setCustomValidity("Passwords do not match!");
+    confirmPasswordInput.reportValidity();
+    return;
+  } else {
+    confirmPasswordInput.setCustomValidity("");
   }
   
+    const finalPayload = {
+      email: payload.email,
+      password: payload.password,
+      type: payload.type,
+      name: `${payload["first-name"]} ${payload["last-name"]}`,
+    };
+
+    storeAPI("signup", finalPayload);
+    navigate("/login");
+  };
+
   return (
     <>
-
-      <Header/>
-      <NavBar/>
       <main className="main-signup">
         <h2>SIGN UP</h2>
         <form onSubmit={handleSubmit}>
@@ -60,18 +72,6 @@ export default function MainSignup() {
                 <input type="radio" name="type" value="teacher" required />
               </label>
             </div>
-
-            <label for="username">Username:</label>
-            <input
-              type="text"
-              id="username"
-              placeholder="JaneDoe98"
-              name="username"
-              minlength="5"
-              maxlength="20"
-              pattern="^[a-zA-Z][a-zA-Z0-9]+$"
-              required
-            />
 
             <label for="first-name">First Name:</label>
             <input
@@ -127,12 +127,17 @@ export default function MainSignup() {
               minlength="8"
               maxlength="32"
               required
+              onInput={(e) => e.target.setCustomValidity("")}
             />
           </div>
 
           <input type="submit" value="Create Account" />
 
-          <span onClick = {loginNav} className="already-account-option" title="Click here to log in">
+          <span
+            onClick={loginNav}
+            className="already-account-option"
+            title="Click here to log in"
+          >
             Already have an account?
           </span>
         </form>
