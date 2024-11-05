@@ -16,13 +16,8 @@ header h1 {
   margin-left: 80px;
 }
 
-header .topright-display {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-
-  padding-right: 30px;
-  margin-left: auto;
+header span:first-of-type {
+  margin-left: 55%;
 }
 
 .sign-up {
@@ -35,14 +30,11 @@ header .topright-display {
   background-color: black;
 }
 
-.login,
-.logout,
-header img {
+.login {
   background-color: rgba(204, 129, 63, 1);
 }
 
-.login:hover,
-.logout:hover {
+.login:hover {
   color: rgba(204, 129, 63, 1);
   background-color: black;
 }
@@ -55,29 +47,4 @@ header span {
   padding: 10px 10px;
   border-radius: 8px;
   cursor: pointer;
-}
-
-header img {
-  background-color: rgba(204, 129, 63, 1);
-
-  height: 39px;
-  border-radius: 8px;
-  margin-right: 20px;
-}
-
-header img:hover {
-  cursor: pointer;
-}
-
-header img:active {
-  opacity: 0.7;
-}
-
-header .top-name {
-  color: whitesmoke;
-
-  font-size: 30px;
-  font-weight: 600;
-
-  margin-right: 30px;
 }
