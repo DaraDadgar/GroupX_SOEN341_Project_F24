@@ -1,34 +1,16 @@
-from flask import Blueprint, jsonify
-from app.models import StudentTeam, Students, Teachers, Teams, Assessments
-from sqlalchemy import event
+from flask import Blueprint, jsonify, request
+from flask_jwt_extended import create_access_token, jwt_required
+
+from app.models import Student
 from app.extensions import db
 
+# Create a Blueprint for the routes
 student_bp = Blueprint('student_bp', __name__)
 
 @student_bp.route('/students', methods=['GET'])
 def get_students():
-    students = Students.query.all()
-    students_list = [student.to_dict() for student in students]
-    return jsonify(students_list), 200
-
-@student_bp.route('/students/available', methods=['GET'])
-def get_available_students():
-    available_students = Students.query.filter_by(is_available=True).all()
-    students_list = [student.to_dict() for student in available_students]
-    return jsonify(students_list), 200
-
-@student_bp.route('/students/<int:id>/team', methods=['GET'])
-def get_student_team(id):
-    student = Students.query.get(id)
-    if not student:
-        return jsonify({"Response": "INVALID", "Reason": "Student not found"}), 404
-
-    student_team = StudentTeam.query.filter_by(student_id=id).first()
-    if not student_team:
-        return jsonify({"Response": "INVALID", "Reason": "Student is not in a team"}), 404
-
-    team = Teams.query.get(student_team.team_id)
-    if not team:
-        return jsonify({"Response": "INVALID", "Reason": "Team not found"}), 404
-
-    return jsonify({"Response": "VALID", "Team": team.to_dict()}), 200
+    try:
+        students = Student.query.all()  # Query all students
+        return jsonify([student.to_dict() for student in students]), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
