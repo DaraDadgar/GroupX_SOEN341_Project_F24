@@ -79,7 +79,11 @@
   opacity: 0.7;
 }
 
-.main-login > form > span {
+.main-login .link {
+  text-decoration: none;
+}
+
+.main-login > form > .link {
   color: rgba(30, 30, 30, 1);
   font-size: 15px;
   font-weight: lighter;
@@ -89,7 +93,7 @@
   margin-top: 20px;
 }
 
-.main-login > form > span:hover {
+.main-login > form > .link:hover {
   text-decoration: underline;
   cursor: pointer;
 }
