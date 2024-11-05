@@ -1,4 +1,5 @@
 from app.extensions import db
+from datetime import datetime
 
 class StudentTeam(db.Model):
     student_id = db.Column(db.Integer, primary_key=True)
@@ -70,4 +71,20 @@ class Assessments(db.Model):
             'practical_contribution_score': self.practical_contribution_score,
             'work_ethic_score': self.work_ethic_score,
             'comments': self.comments,
+        }
+        
+class BlacklistedToken(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    jti = db.Column(db.String(36), nullable=False, unique=True)
+    expires_at = db.Column(db.DateTime, nullable=False)
+    
+    def __init__(self, jti, expires_at):
+        self.jti = jti
+        self.expires_at = expires_at
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'jti': self.jti,
+            'expires_at': self.expires_at
         }
