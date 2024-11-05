@@ -1,7 +1,7 @@
-import "./css/team-creation.css";
-import HeaderLogout from './components/HeaderLogout.jsx'
-import NavBar from './components/NavBar.jsx'
-import { fetchAPI, storeAPI } from "./functions/apiinterface";
+import "../css/team-creation.css";
+import HeaderLogout from '../components/HeaderLogout.jsx'
+import NavBar from '../components/NavBar.jsx'
+import { fetchAPI, storeAPI } from "../functions/apiinterface";
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
@@ -14,7 +14,7 @@ export default function TeamCreation() {
 
   useEffect(() => {
     const fetchStudents = async () => {
-      try {
+      try { 
         const response = await fetchAPI("/students");
         const filteredStudents = response.map(({ id, name, email }) => ({ id, name, email }));
         setStudents(filteredStudents);

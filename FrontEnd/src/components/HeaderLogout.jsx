@@ -1,5 +1,5 @@
-import "./css/header-lougout.css";
-import { fetchAPI } from "./functions/apiinterface";
+import "../css/header-logout.css";
+import { fetchAPI } from "../functions/apiinterface";
 import { useNavigate } from "react-router-dom";
 
 export default function HeaderLogout() {

@@ -10,7 +10,7 @@ function TeamModification() {
             <div class="buttons">
               <button style={{ fontWeight: "bolder" }}>－</button>
             </div>
-          </li>
+          </li> 
           <li>
             <span>Name Y</span>
             <div class="buttons">
