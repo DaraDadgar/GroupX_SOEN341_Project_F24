@@ -25,7 +25,6 @@ class Students(db.Model):
             'id': self.id,
             'name': self.name,
             'email': self.email,
-            'password': self.password,
             'is_available': self.is_available
         }
 
@@ -38,8 +37,7 @@ class Teachers(db.Model):
         return {
             'id': self.id,
             'name': self.name,
-            'email': self.email,
-            'password': self.password 
+            'email': self.email
         }
 
 class Teams(db.Model):
