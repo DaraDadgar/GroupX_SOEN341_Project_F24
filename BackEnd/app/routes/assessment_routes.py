@@ -57,8 +57,15 @@ def create_assessment():
     return jsonify(new_assessment.to_dict()), 201
 
 @assessment_bp.route('/assessments/<int:id>', methods=['PUT'])
+@jwt_required
 def update_assessment(id):
     assessment = Assessments.query.get(id)
+    user_identity = get_jwt_identity()
+    if (user_identity["user_type"] != "student"):
+        return jsonify({"Response": "INVALID", "Reason": "Only students can access this route"}), 403
+    if (user_identity["user_id"] != assessment.sender_id):
+        return jsonify({"Response" : "INVALID", "Reason": "Assessment update is not allowed by current logged in student"}), 403
+
     if not assessment:
         return jsonify({"Response": "INVALID", "Reason": "Assessment not found."}), 404
 
@@ -89,7 +96,13 @@ def update_assessment(id):
     return jsonify(assessment.to_dict()), 200
 
 @assessment_bp.route('/assessments/<int:id>', methods=['DELETE'])
+@jwt_required
 def delete_assessment(id):
+    user_identity = get_jwt_identity()
+    if (user_identity["user_type"] != "student"):
+        return jsonify({"Response": "INVALID", "Reason": "Only students can access this route"}), 403
+    if (user_identity["user_id"] != assessment.sender_id):
+        return jsonify({"Response" : "INVALID", "Reason": "Assessment update is not allowed by current logged in student"}), 403
     assessment = Assessments.query.get(id)
     if not assessment:
         return jsonify({"Response": "INVALID", "Reason": "Assessment not found"}), 404
@@ -99,14 +112,12 @@ def delete_assessment(id):
 
 
 #mod mathieu
-
-
 #Get asssesments for receiver
 @assessment_bp.route('assessments/receiver', methods=['GET'])
 @jwt_required()
 def get_receiver_assessments():
     user_identity = get_jwt_identity()
-    
+
     if user_identity["user_type"] != "student":
         return jsonify({"Response": "INVALID", "Reason": "Only students can access this route"}), 403
 
@@ -125,7 +136,6 @@ def get_sender_assessments():
     
     assessments = Assessments.query.filter_by(sender_id = user_identity["user_id"]).all()
     return jsonify({"Response" : "VALID", "Assessments" : assessments.to_dict()}), 200
-
 
 
 
