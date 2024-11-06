@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from app.extensions import db
 from app.models import Assessments, Students, StudentTeam
+from flask_jwt_required import jwt_required, get_jwt_identity, get_jwt
 
 assessment_bp = Blueprint('assessment_bp', __name__)
 
@@ -92,10 +93,44 @@ def delete_assessment(id):
     assessment = Assessments.query.get(id)
     if not assessment:
         return jsonify({"Response": "INVALID", "Reason": "Assessment not found"}), 404
-
     db.session.delete(assessment)
     db.session.commit()
     return jsonify({"Response": "VALID", "Reason": "Assessment deleted successfully"}), 200
+
+
+#mod mathieu
+
+
+#Get asssesments for receiver
+@assessment_bp.route('assessments/receiver', methods=['GET'])
+@jwt_required()
+def get_receiver_assessments():
+    user_identity = get_jwt_identity()
+    
+    if user_identity["user_type"] != "student":
+        return jsonify({"Response": "INVALID", "Reason": "Only students can access this route"}), 403
+
+    assessments = Assessments.query.filter_by(receiver_id = user_identity["user_id"]).all()
+    return jsonify({"Response" : "VALID", "Assessments" : assessments.to_dict()}), 200
+
+
+#get assessments for sender (which should be the current student that is logged in)
+@assessment_bp.route('assessments/sender', methods=['GET'])
+@jwt_required()
+def get_sender_assessments():
+    user_identity = get_jwt_identity()
+
+    if user_identity["user_type"] != "student":
+        return jsonify({"Response": "INVALID", "Reason": "Only students can access this route"}), 403
+    
+    assessments = Assessments.query.filter_by(sender_id = user_identity["user_id"]).all()
+    return jsonify({"Response" : "VALID", "Assessments" : assessments.to_dict()}), 200
+
+
+
+
+
+
 
 def check_students_in_same_team(sender_id, receiver_id):
     # Check if both students are in the same team
