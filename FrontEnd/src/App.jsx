@@ -52,7 +52,7 @@ function App() {
         <Route path="/" element={<GeneralHomePage />} />
         <Route path="/login" element={<MainLogin />} />
         <Route path="/about" element={<About />} />
-        <Route path="/TeamCreation" element={<TeamCreation students={TeamCreationStudentsList} />} />
+        <Route path="/TeamCreation" element={<TeamCreation />} />
         <Route path="/Team" element={<Team />} />
         <Route path="/Signup" element={<MainSignup />} />
         <Route path="/Teacher" element={<MainTeacher />} />

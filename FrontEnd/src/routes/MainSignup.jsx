@@ -50,7 +50,7 @@ export default function MainSignup() {
       name: `${payload["first-name"]} ${payload["last-name"]}`,
     };
 
-    storeAPI("signup", finalPayload);
+    storeAPI("/signup", finalPayload);
     navigate("/login");
   };
 

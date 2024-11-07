@@ -33,7 +33,7 @@ export default function MainTeacher() {
         <div class-name = "box">
             {teams.map((team) => (
                 <>
-                    <h4>{team.id + team.name}</h4>
+                    <h4>{team.id + "" + team.name}</h4>
                 </>
             ))}
 

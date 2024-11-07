@@ -15,9 +15,9 @@ export default function TeamCreation() {
   useEffect(() => {
     const fetchStudents = async () => {
       try { 
-        const response = await fetchAPI("/students");
-        const filteredStudents = response.map(({ id, name, email }) => ({ id, name, email }));
-        setStudents(filteredStudents);
+        fetchAPI("/students").then(data => {
+          setStudents(data.data)
+      })
       } catch (error) {
         console.error("Error fetching team data: ", error);
       }
@@ -64,9 +64,6 @@ export default function TeamCreation() {
 
   return (
 <>
-    <HeaderLogout />
-    <NavBar />
-
     <div>
     <main className="main-teamcreation">
       <form onSubmit = {handleSubmit} className="students">

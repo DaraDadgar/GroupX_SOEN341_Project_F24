@@ -31,8 +31,6 @@ export default function MainLogin() {
 
   return (
     <>
-      <Header />
-      <NavBar />
 
       <main class="main-login">
         <h2>LOG IN</h2>
