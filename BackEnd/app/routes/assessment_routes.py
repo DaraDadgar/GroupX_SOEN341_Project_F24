@@ -113,7 +113,7 @@ def delete_assessment(id):
 
 #mod mathieu
 #Get asssesments for receiver
-@assessment_bp.route('assessments/receiver', methods=['GET'])
+@assessment_bp.route('/assessments/receiver', methods=['GET'])
 @jwt_required()
 def get_receiver_assessments():
     user_identity = get_jwt_identity()
@@ -126,7 +126,7 @@ def get_receiver_assessments():
 
 
 #get assessments for sender (which should be the current student that is logged in)
-@assessment_bp.route('assessments/sender', methods=['GET'])
+@assessment_bp.route('/assessments/sender', methods=['GET'])
 @jwt_required()
 def get_sender_assessments():
     user_identity = get_jwt_identity()
@@ -136,8 +136,6 @@ def get_sender_assessments():
     
     assessments = Assessments.query.filter_by(sender_id = user_identity["user_id"]).all()
     return jsonify({"Response" : "VALID", "Assessments" : assessments.to_dict()}), 200
-
-
 
 
 
