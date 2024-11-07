@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 
 import "./App.css";
-import axios from "axios";
 import "./css/general.css";
 
 import GeneralHomePage from "./routes/GeneralHomePage.jsx";
@@ -12,8 +11,6 @@ import Team from "./routes/Team.jsx";
 import MainTeacher from "./routes/MainTeacher.jsx";
 import { AuthProvider } from "./config/AuthContext.jsx";
 import ProtectedRoute from "./config/ProtectedRoute.jsx";
-
-import { fetchAPI, storeAPI } from "./functions/apiinterface.jsx";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import MainSignup from "./routes/MainSignup.jsx";
 import Header from "./components/Header.jsx";
