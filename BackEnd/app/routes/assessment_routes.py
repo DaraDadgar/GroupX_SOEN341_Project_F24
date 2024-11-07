@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from app.extensions import db
 from app.models import Assessments, Students, StudentTeam
-from flask_jwt_required import jwt_required, get_jwt_identity, get_jwt
+from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
 
 assessment_bp = Blueprint('assessment_bp', __name__)
 
@@ -57,7 +57,7 @@ def create_assessment():
     return jsonify(new_assessment.to_dict()), 201
 
 @assessment_bp.route('/assessments/<int:id>', methods=['PUT'])
-@jwt_required
+@jwt_required()
 def update_assessment(id):
     assessment = Assessments.query.get(id)
     user_identity = get_jwt_identity()
@@ -96,7 +96,7 @@ def update_assessment(id):
     return jsonify(assessment.to_dict()), 200
 
 @assessment_bp.route('/assessments/<int:id>', methods=['DELETE'])
-@jwt_required
+@jwt_required()
 def delete_assessment(id):
     user_identity = get_jwt_identity()
     if (user_identity["user_type"] != "student"):
@@ -113,7 +113,7 @@ def delete_assessment(id):
 
 #mod mathieu
 #Get asssesments for receiver
-@assessment_bp.route('assessments/receiver', methods=['GET'])
+@assessment_bp.route('/assessments/receiver', methods=['GET'])
 @jwt_required()
 def get_receiver_assessments():
     user_identity = get_jwt_identity()
@@ -126,7 +126,7 @@ def get_receiver_assessments():
 
 
 #get assessments for sender (which should be the current student that is logged in)
-@assessment_bp.route('assessments/sender', methods=['GET'])
+@assessment_bp.route('/assessments/sender', methods=['GET'])
 @jwt_required()
 def get_sender_assessments():
     user_identity = get_jwt_identity()
