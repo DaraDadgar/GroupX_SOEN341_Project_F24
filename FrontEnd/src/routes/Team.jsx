@@ -21,8 +21,8 @@ export default function Team() {
   }, []);
 
   return (
-    <main class="main-student">
-      <div class="team">
+    <main className="main-student">
+      <div className="team">
         <h2>{teamName}</h2>
         <ul>
           {teammates.map((teammate) => (

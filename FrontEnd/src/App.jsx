@@ -16,7 +16,6 @@ import MainSignup from "./routes/MainSignup.jsx";
 import Header from "./components/Header.jsx";
 import NavBar from "./components/NavBar.jsx";
 import Instructor from "./routes/Instructor.jsx";
-import TeamModification from "./routes/TeamModification.jsx";
 
 function App() {
   const [TeamCreationStudentsList, setTeamCreationStudentsList] = useState([]);

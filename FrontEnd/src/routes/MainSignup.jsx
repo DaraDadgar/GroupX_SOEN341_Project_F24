@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { storeAPI } from "../functions/apiinterface.jsx";
 import "../css/main-signup.css";
 import { useNavigate } from "react-router-dom";
