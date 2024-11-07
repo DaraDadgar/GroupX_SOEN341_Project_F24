@@ -1,6 +1,6 @@
 import "../css/main-login.css";
 import "../css/general.css";
-import { storeAPI, fetchAPI } from "../functions/apiinterface.jsx";
+import { storeAPI } from "../functions/apiinterface.jsx";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header.jsx";
 import NavBar from "../components/NavBar.jsx";
@@ -18,11 +18,11 @@ export default function MainLogin() {
     const payload = Object.fromEntries(formData);
 
     storeAPI("/login", payload).then((data) => {
-      if (data.data[0].Response == "VALID" && data.data[0].type == "student") {
+      if (data.data.Response == "VALID" && data.data.type == "student") {
         navigate("/Team");
       } else if (
-        data.data[0].Response == "VALID" &&
-        data.data[0].type == "teacher"
+        data.data.Response == "VALID" &&
+        data.data.type == "teacher"
       ) {
         navigate("/Teacher");
       }
@@ -31,6 +31,7 @@ export default function MainLogin() {
 
   return (
     <>
+
       <main class="main-login">
         <h2>LOG IN</h2>
 

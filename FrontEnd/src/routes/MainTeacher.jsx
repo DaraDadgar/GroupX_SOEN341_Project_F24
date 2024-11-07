@@ -1,10 +1,12 @@
 import { fetchAPI } from "../functions/apiinterface";
 import "../css/main-teacher.css";
 import { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 
 export default function MainTeacher() {
-    const [teams, setTeams] = useState([])
-    const [students, setStudents] = useState([])
+    const [teams, setTeams] = useState([]);
+    const [students, setStudents] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const response = async() => {
@@ -18,13 +20,20 @@ export default function MainTeacher() {
         response()
     },[])
 
+    const handleLogout = async () => {
+        try{
+          navigate("/TeamCreation");
+        } catch (error) {
+          console.error("Error navigating to TeamCreation:", error);
+        }
+      };
 
   return (
     <main class="main-teacher">
         
 
       <div class="top-display">
-        <span class="create-team">Create Team </span>
+        <button class="create-team" onClick={handleLogout}>Create Team </button>
       </div>
 
 
@@ -33,7 +42,7 @@ export default function MainTeacher() {
         <div class-name = "box">
             {teams.map((team) => (
                 <>
-                    <h4>{team.id + team.name}</h4>
+                    <h4>{team.id + "" + team.name}</h4>
                 </>
             ))}
 

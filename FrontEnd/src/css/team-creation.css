@@ -86,7 +86,10 @@
 
   cursor: pointer;
   border: none;
+
+  padding-bottom: 30px;
 }
+
 
 .main-teamcreation .buttons button:hover {
   background-color: #cc813f;
