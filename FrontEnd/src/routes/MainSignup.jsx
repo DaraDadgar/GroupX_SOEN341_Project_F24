@@ -3,9 +3,6 @@ import { storeAPI } from "../functions/apiinterface.jsx";
 import "../css/main-signup.css";
 import { useNavigate } from "react-router-dom";
 
-import Header from "../components/Header.jsx";
-import NavBar from "../components/NavBar.jsx";
-
 export default function MainSignup() {
   const navigate = useNavigate();
 
@@ -35,14 +32,14 @@ export default function MainSignup() {
 
     const confirmPasswordInput = e.target["confirm-password"];
 
-  if (payload.password !== payload["confirm-password"]) {
-    confirmPasswordInput.setCustomValidity("Passwords do not match!");
-    confirmPasswordInput.reportValidity();
-    return;
-  } else {
-    confirmPasswordInput.setCustomValidity("");
-  }
-  
+    if (payload.password !== payload["confirm-password"]) {
+      confirmPasswordInput.setCustomValidity("Passwords do not match!");
+      confirmPasswordInput.reportValidity();
+      return;
+    } else {
+      confirmPasswordInput.setCustomValidity("");
+    }
+
     const finalPayload = {
       email: payload.email,
       password: payload.password,
@@ -60,7 +57,7 @@ export default function MainSignup() {
         <h2>SIGN UP</h2>
         <form onSubmit={handleSubmit}>
           <div className="fields">
-            <label for="type">User Type: </label>
+            <label>User Type: </label>
             <div className="radio-button">
               <label>
                 Student
@@ -73,59 +70,59 @@ export default function MainSignup() {
               </label>
             </div>
 
-            <label for="first-name">First Name:</label>
+            <label>First Name:</label>
             <input
               type="text"
               id="first-name"
               placeholder="Jane"
               name="first-name"
-              minlength="2"
-              maxlength="30"
+              minLength="2"
+              maxLength="30"
               pattern="^[a-zA-Z]+$"
               required
             />
 
-            <label for="last-name">Last Name:</label>
+            <label>Last Name:</label>
             <input
               type="text"
               id="last-name"
               placeholder="Doe"
               name="last-name"
-              minlength="2"
-              maxlength="50"
+              minLength="2"
+              maxLength="50"
               pattern="^[a-zA-Z]+$"
               required
             />
 
-            <label for="email">Email Address:</label>
+            <label>Email Address:</label>
             <input
               type="email"
               id="email"
               placeholder="example@gmail.com"
               name="email"
-              maxlength="254"
+              maxLength="254"
               required
             />
 
-            <label for="password">Password:</label>
+            <label>Password:</label>
             <input
               type="password"
               id="password"
               placeholder="Password"
               name="password"
-              minlength="8"
-              maxlength="32"
+              minLength="8"
+              maxLength="32"
               required
             />
 
-            <label for="confirm-password">Confirm Password:</label>
+            <label>Confirm Password:</label>
             <input
               type="password"
               id="confirm-password"
               placeholder="Confirm Password"
               name="confirm-password"
-              minlength="8"
-              maxlength="32"
+              minLength="8"
+              maxLength="32"
               required
               onInput={(e) => e.target.setCustomValidity("")}
             />

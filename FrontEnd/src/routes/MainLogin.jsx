@@ -2,10 +2,10 @@ import "../css/main-login.css";
 import "../css/general.css";
 import { storeAPI } from "../functions/apiinterface.jsx";
 import { useNavigate } from "react-router-dom";
-import Header from "../components/Header.jsx";
-import NavBar from "../components/NavBar.jsx";
+import { useAuth } from "../config/AuthContext.jsx";
 
 export default function MainLogin() {
+  const { login } = useAuth();
   const navigate = useNavigate();
   const signupNav = () => {
     navigate("../signup");
@@ -18,6 +18,7 @@ export default function MainLogin() {
     const payload = Object.fromEntries(formData);
 
     storeAPI("/login", payload).then((data) => {
+<<<<<<< HEAD
       if (data.data.Response == "VALID" && data.data.type == "student") {
         navigate("/Team");
       } else if (
@@ -25,20 +26,34 @@ export default function MainLogin() {
         data.data.type == "teacher"
       ) {
         navigate("/Teacher");
+=======
+      if (data.data.Response == "VALID") {
+        login(data.data.token, data.data.type);
+
+        data.data.type == "student"
+          ? navigate("/student/home")
+          : navigate("/teacher/home");
+      } else {
+        console.log(data.data.Message);
+>>>>>>> 23a4e48d25a9b081a2b4cfeca625478a2ab705c6
       }
     });
   };
 
   return (
     <>
+<<<<<<< HEAD
 
       <main class="main-login">
+=======
+      <main className="main-login">
+>>>>>>> 23a4e48d25a9b081a2b4cfeca625478a2ab705c6
         <h2>LOG IN</h2>
 
         <form onSubmit={submitHandler} method="post">
-          <div class="fields">
-            <div class="usertype">
-              <label for="usertype">User Type: </label>
+          <div className="fields">
+            <div className="usertype">
+              <label>User Type: </label>
               <div>
                 <label>
                   Student
@@ -52,21 +67,21 @@ export default function MainLogin() {
               </div>
             </div>
 
-            <label for="email">Email Address:</label>
+            <label>Email Address:</label>
             <input
               type="email"
               id="email"
               name="email"
-              maxlength="254"
+              maxLength="254"
               required
             />
 
-            <label for="password">Password:</label>
+            <label>Password:</label>
             <input
               type="password"
               id="password"
               name="password"
-              maxlength="32"
+              maxLength="32"
               required
             />
           </div>

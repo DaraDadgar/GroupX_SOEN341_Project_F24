@@ -1,22 +1,36 @@
 import "../css/Instructor.css";
-function Instructor() {
+export default function Instructor() {
   return (
-    <>
-      <div class="instructor header">
+    <main>
+      <div className="instructor header">
         <h2 style={{ marginTop: "50px" }}> Teams Created:</h2>
-        <div class="buttons">
+        <div className="buttons">
           <button style={{ marginTop: "-20px" }}> Create a New Team</button>
-        </div></div>
-        <div class="instructor header">
+        </div>
+      </div>
+      <div className="instructor header">
         <ul style={{ marginTop: "20px" }}>
           <h3>Team X</h3>
           <li> Name 1</li>
           <li> Name 2</li>
           <li> Name 3</li>
+          <li> Name 1</li>
+          <li> Name 2</li>
+          <li> Name 3</li>
+          <li> Name 1</li>
+          <li> Name 2</li>
+          <li> Name 3</li>
           <li> Etc</li>
-          <div class="delEdit">
-          <button class="delete" onClick={(()=>{confirm("Are you sure you want to delete this team?")})}>DELETE</button>
-          <button class="edit">EDIT</button>
+          <div className="delEdit">
+            <button
+              className="delete"
+              onClick={() => {
+                confirm("Are you sure you want to delete this team?");
+              }}
+            >
+              DELETE
+            </button>
+            <button className="edit">EDIT</button>
           </div>
         </ul>
         <ul style={{ marginTop: "20px" }}>
@@ -25,14 +39,19 @@ function Instructor() {
           <li> Name 2</li>
           <li> Name 3</li>
           <li> Etc</li>
-          <div class="delEdit">
-          <button class="delete" onClick={(()=>{confirm("Are you sure you want to delete this team?")})}>DELETE</button>
-          <button class="edit">EDIT</button>
+          <div className="delEdit">
+            <button
+              className="delete"
+              onClick={() => {
+                confirm("Are you sure you want to delete this team?");
+              }}
+            >
+              DELETE
+            </button>
+            <button className="edit">EDIT</button>
           </div>
         </ul>
-        </div>
-    </>
+      </div>
+    </main>
   );
 }
-
-export default Instructor;

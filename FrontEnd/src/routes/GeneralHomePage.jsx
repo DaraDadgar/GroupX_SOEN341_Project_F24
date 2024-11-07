@@ -1,6 +1,11 @@
 import "../css/GeneralHomePage.css";
+<<<<<<< HEAD
 import studentImage from "./StudentGroupPicture.jpeg";
 function GeneralHomePage() {
+=======
+import studentImage from "../pictures/StudentGroupPicture.jpeg";
+export default function GeneralHomePage() {
+>>>>>>> 23a4e48d25a9b081a2b4cfeca625478a2ab705c6
   return (
     <main className="home-page">
       <h1>Welcome to our Peer Assessment Tool!</h1>
@@ -19,5 +24,8 @@ function GeneralHomePage() {
     </main>
   );
 }
+<<<<<<< HEAD
 
 export default GeneralHomePage;
+=======
+>>>>>>> 23a4e48d25a9b081a2b4cfeca625478a2ab705c6

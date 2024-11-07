@@ -1,115 +1,135 @@
-.main-teacher {
-  padding-top: 30px;
+.main-teacher ul li {
+  list-style: none;
 }
 
-.main-teacher .top-display {
-  width: 1000px;
-  margin: 0px auto;
-}
-.main-teacher .create-team {
-  color: #cc813f;
-  background-color: #464545;
-  padding: 8px 10px;
-
-  font-weight: lighter;
-  font-size: smaller;
+.main-teacher h1 {
+  text-align: center;
 }
 
-.main-teacher .create-team:hover {
-  color: #464545;
-  background-color: #cc813f;
-
-  cursor: pointer;
+.instructor {
+  width: 1200px;
+  max-width: 80vw;
+  margin: 20px auto;
 }
 
-.main-teacher .create-team:active {
-  opacity: 0.7;
+.header {
+  width: 1200px;
+  margin: 0 auto;
 }
 
-.main-teacher .team {
-  background-color: #464545;
-  width: 1000px;
-  height: 200px;
-
-  margin: 15px auto;
-
-  display: flex;
-  flex-direction: column;
-}
-
-.main-teacher .team h2 {
-  font-weight: 800;
-  font-size: 22px;
-
-  margin: 15px 20px;
-  color: white;
-}
-
-.main-teacher .team ul {
-  list-style-type: none;
-
-  margin-left: 50px;
-
-  overflow: auto;
-}
-
-.main-teacher .team ul li {
-  color: white;
-  font-weight: lighter;
-  font-size: 11pt;
-}
-
-.main-teacher .delete {
-  background-color: #ae1616;
-  color: white;
-
-  padding: 5px 10px;
-}
-
-.main-teacher .delete:hover {
-  background-color: white;
-  color: #ae1616;
-
-  cursor: pointer;
-}
-
-.main-teacher .edit {
-  background-color: #a8a8a8;
-  color: white;
-
-  padding: 5px 10px;
-}
-
-.main-teacher .edit:hover {
-  background-color: white;
-  color: #a8a8a8;
-
-  cursor: pointer;
-}
-
-.main-teacher .options > span:active {
-  opacity: 0.7;
-}
-
-.main-teacher .options {
+.instructor .top-display {
   display: flex;
   flex-direction: row;
+  align-items: center;
 
-  gap: 10px;
-  margin-bottom: 10px;
-  margin-right: 10px;
-
-  justify-content: flex-end;
+  margin: 20px 20px;
 }
 
-.container {
+.instructor h2 {
+  color: #cc813f;
+  font-weight: 800;
+  margin-right: 20px;
+}
+
+.instructor h3 {
+  color: #ffffff;
+  font-weight: 800;
+  margin: 20px;
+}
+
+.instructor .top-display .team-name {
   display: flex;
-  justify-content: space-between; /* Optional: add space between */
-  align-items: center; /* Vertically align items */
+  flex-direction: row;
+  justify-content: center;
 }
 
-.box {
-  flex: 1; /* Makes both divs equal width (optional) */
-  padding: 20px;
-  margin: 10px;
+.instructor .top-display .team-name {
+  background-color: #464545;
+  height: 35px;
+  width: 800px;
+}
+
+.instructor .top-display .team-name input {
+  border: none;
+  border-bottom: solid #a8a8a8 1px;
+  background-color: #464545;
+
+  height: 32px;
+  width: 750px;
+
+  color: white;
+  font-size: 12pt;
+}
+
+.instructor ul {
+  background-color: #464545;
+  height: auto;
+  overflow: auto;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+}
+
+.instructor ul li {
+  margin: 0px 50px;
+  color: #ffffff;
+}
+
+.instructor .buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+
+  gap: 20px;
+}
+
+.buttons > * {
+  color: #cc813f;
+  background-color: #464545;
+
+  width: 100px;
+  height: 30px;
+
+  cursor: pointer;
+  border: none;
+}
+
+.instructor .buttons button:hover {
+  background-color: #cc813f;
+  color: #464545;
+}
+
+.instructor .buttons button:active {
+  opacity: 0.7;
+}
+
+/* detele and edit */
+.instructor .delEdit {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+
+  gap: 20px;
+}
+
+.delEdit > * {
+  width: 100px;
+  height: 30px;
+
+  cursor: pointer;
+  border: none;
+}
+
+.instructor .delEdit button:active {
+  opacity: 0.7;
+}
+
+.delete {
+  background-color: red;
+  color: #ffffff;
+}
+
+.edit {
+  background-color: gray;
+  color: #ffffff;
+  margin-right: 20px;
 }
