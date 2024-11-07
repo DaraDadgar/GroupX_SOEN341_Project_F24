@@ -1,6 +1,7 @@
 .main-teamcreation form {
   width: 1200px;
   margin: 20px auto;
+  max-width: 80vw;
 }
 
 .main-teamcreation .top-display {
@@ -18,15 +19,8 @@
 }
 
 .main-teamcreation .top-display .team-name {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-
-.main-teamcreation .top-display .team-name {
   background-color: #464545;
   height: 35px;
-  width: 800px;
 }
 
 .main-teamcreation .top-display .team-name input {
@@ -35,7 +29,6 @@
   background-color: #464545;
 
   height: 32px;
-  width: 750px;
 
   color: white;
   font-size: 12pt;

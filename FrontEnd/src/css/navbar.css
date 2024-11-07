@@ -17,3 +17,13 @@ nav li:hover {
   text-decoration: underline;
   cursor: pointer;
 }
+
+nav > ul > * {
+  text-decoration: none;
+  color: rgb(34, 33, 33);
+}
+
+nav > ul > *:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}

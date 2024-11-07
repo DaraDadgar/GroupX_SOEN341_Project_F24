@@ -22,7 +22,7 @@ def login():
         return jsonify({"Response": "ERROR", "type": "None", "Message": "User does not exist"}), 401
     else:
         # Generate JWT token
-        access_token = create_access_token(identity={"user_id": user.id, "user_type": user_type}, expires_delta=timedelta(hours=2))
+        access_token = create_access_token(identity={"user_id": user.id, "user_type": user_type, "user_name": user.name}, expires_delta=timedelta(hours=2))
         return jsonify({"Response": "VALID", "type": user_type, "token": access_token}), 202
 
 @auth_bp.route('/signup', methods=['POST'])

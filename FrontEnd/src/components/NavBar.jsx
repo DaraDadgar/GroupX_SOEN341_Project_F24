@@ -8,10 +8,8 @@ export default function NavBar() {
         <Link to="/">HOME</Link>
         <Link to="/">FEATURES</Link>
         <Link to="/instructor">INSTRUCTORS</Link>
-        <Link to="/teamcreation">TEAM CREATION</Link>
         <Link to="/">COURSES</Link>
         <Link to="/about">ABOUT US</Link>
-        <Link to="/teammodification">Team Modification</Link>
       </ul>
     </nav>
   );
