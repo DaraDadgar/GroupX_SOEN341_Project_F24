@@ -16,7 +16,8 @@ export default function TeamCreation() {
     const fetchStudents = async () => {
       try { 
         fetchAPI("/students").then(data => {
-          setStudents(data.data)
+          const availableStudents = data.data.filter(student => student.is_available);
+          setStudents(availableStudents);
       })
       } catch (error) {
         console.error("Error fetching team data: ", error);
