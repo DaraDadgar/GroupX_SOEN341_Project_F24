@@ -1,3 +1,4 @@
+import PropTypes from "prop-types"; // Import PropTypes
 import { useEffect, useState } from "react";
 import "../css/main-teacher.css";
 
@@ -11,29 +12,31 @@ export default function MainTeacher() {
   const [teams, setTeams] = useState([]);
   const [students, setStudents] = useState([]);
 
-  const fetchTeams = async () => {
-    const token = localStorage.getItem("token");
-    const teams_info = await fetchProtectedAPI("/teams", token).data;
-    console.log("teams_info", teams_info);
-    setTeams(teams_info);
+  //Uncomment if you want to use fetchTeams (it was not being used, hence why I commented it!)
+//   const fetchTeams = async () => {
+//     const token = localStorage.getItem("token");
+//     const teams_info = await fetchProtectedAPI("/teams", token).data;
+//     console.log("teams_info", teams_info);
+//     setTeams(teams_info);
 
-    const students = await teams_info.map((team) => {
-      fetchProtectedAPI(`/teams${team.id}/students`, token).data;
-    });
+//     const students = await teams_info.map((team) => {
+//       fetchProtectedAPI(`/teams${team.id}/students`, token).data;
+//     });
 
-    setStudents(students);
-  };
+//     setStudents(students);
+//   };
 
   useEffect(() => {}, []);
 
   console.log(teams);
   console.log("students: ", students);
 
-  const team1 = {
-    id: 1,
-    name: "Team X",
-    students: [{ id: 1, name: "Marc Hab" }],
-  };
+  //This part of code was not being used so I commented it
+//   const team1 = {
+//     id: 1,
+//     name: "Team X",
+//     students: [{ id: 1, name: "Marc Hab" }],
+//   };
 
   return (
     <main className="main-teacher">
@@ -86,6 +89,20 @@ function Team({ team, students }) {
     </div>
   );
 }
+
+// Adding PropTypes for `Team` component to validate `team` and `students` props
+Team.propTypes = {
+    team: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+    }).isRequired,
+    students: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+  };
 
 function NoTeam() {
   return <h1>No Teams Created</h1>;

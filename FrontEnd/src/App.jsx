@@ -18,7 +18,7 @@ import NavBar from "./components/NavBar.jsx";
 import Instructor from "./routes/Instructor.jsx";
 
 function App() {
-  const [TeamCreationStudentsList, setTeamCreationStudentsList] = useState([]);
+  const [setTeamCreationStudentsList] = useState([]);
   useEffect(() => {
     const fetchTeamCreationStudentsList = async () => {
       // fetchAPI("/students").then(data => {
