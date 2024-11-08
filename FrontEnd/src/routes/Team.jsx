@@ -26,7 +26,7 @@ export default function Team() {
         <h2>{teamName}</h2>
         <ul>
           {teammates.map((teammate) => (
-            <li>{`${teammate.name}`}</li>
+            <li key={teammate.team_id}>{`${teammate.name}`}</li>
           ))}
         </ul>
       </div>
