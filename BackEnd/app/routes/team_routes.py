@@ -19,8 +19,10 @@ def get_teams():
 @jwt_required()
 def get_team(id):
     user_identity = get_jwt_identity()
-    if user_identity["user_type"] != "teacher":
-        return jsonify({"Response": "INVALID", "Reason": "Only teachers can access this route"}), 403
+    
+    #if user_identity["user_type"] != "teacher":
+    #    return jsonify({"Response": "INVALID", "Reason": "Only teachers can access this route"}), 403
+    
     students_in_team = StudentTeam.query.filter_by(team_id=id).all()
     students = [Students.query.get(student.student_id).to_dict() for student in students_in_team]
     return jsonify(students), 200

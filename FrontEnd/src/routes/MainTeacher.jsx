@@ -23,29 +23,17 @@ export default function MainTeacher() {
         for (let i = 0; i < teams.length; i++) {
           await fetchProtectedAPI(`/teams/${teams[i].id}/students`, token).then(
             (data) => {
-              console.log("studentsX", data.data);
               studs[i] = data.data;
             }
           );
         }
         setStudents(studs);
       });
-    console.log("HEYYYY");
-    console.log(students);
   };
 
   useEffect(() => {
     fetchTeams();
   }, []);
-
-  console.log(teams);
-  console.log("students: ", students);
-
-  const team1 = {
-    id: 1,
-    name: "Team X",
-    students: [{ id: 1, name: "Marc Hab" }],
-  };
 
   return (
     <main className="main-teacher">

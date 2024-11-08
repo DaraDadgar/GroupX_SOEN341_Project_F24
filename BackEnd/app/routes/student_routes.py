@@ -27,8 +27,10 @@ def get_available_students():
 @jwt_required()
 def get_student_team(id):
     user_identity = get_jwt_identity()
-    if user_identity["user_type"] != "teacher":
-        return jsonify({"Response": "INVALID", "Reason": "Only teachers can access this route"}), 403
+
+    if user_identity["user_type"] != "student":
+       return jsonify({"Response": "INVALID", "Reason": "Only students can access this route"}), 403
+
     student = Students.query.get(id)
     if not student:
         return jsonify({"Response": "INVALID", "Reason": "Student not found"}), 404

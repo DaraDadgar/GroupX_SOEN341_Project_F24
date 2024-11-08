@@ -25,6 +25,11 @@
 .main-teamcreation .top-display .team-name {
   background-color: #464545;
   height: 35px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100em;
 }
 
 .main-teamcreation .top-display .team-name input {
@@ -33,6 +38,7 @@
   background-color: #464545;
 
   height: 32px;
+  width: 96%;
 
   color: white;
   font-size: 12pt;
@@ -41,8 +47,6 @@
 .main-teamcreation ul {
   list-style-type: none;
   background-color: #464545;
-
-  height: 300px;
   overflow: auto;
 
   margin-bottom: 20px;
