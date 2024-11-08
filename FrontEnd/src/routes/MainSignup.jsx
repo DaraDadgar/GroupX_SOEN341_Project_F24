@@ -10,11 +10,12 @@ export default function MainSignup() {
     navigate("../login");
   };
 
-  const [formData, setFormData] = useState({
-    usertype: "",
-    email: "",
-    password: "",
-  });
+  //Uncomment if you want to use later
+  // const [formData, setFormData] = useState({
+  //   usertype: "",
+  //   email: "",
+  //   password: "",
+  // });
 
   //this method was not being used so I commented it
   // const handleChange = (e) => {

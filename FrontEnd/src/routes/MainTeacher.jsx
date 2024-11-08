@@ -2,15 +2,16 @@ import PropTypes from "prop-types"; // Import PropTypes
 import { useEffect, useState } from "react";
 import "../css/main-teacher.css";
 
-import { fetchProtectedAPI } from "../functions/apiinterface";
+//import { fetchProtectedAPI } from "../functions/apiinterface";
 import { useNavigate } from "react-router-dom";
 
 export default function MainTeacher() {
   const navigate = useNavigate();
   const create_team = () => navigate("/teacher/team-creation");
 
-  const [teams, setTeams] = useState([]);
-  const [students, setStudents] = useState([]);
+  //I removed setTeams and setStudents from the useState variables because they were not being used
+  const [teams] = useState([]);
+  const [students] = useState([]);
 
   //Uncomment if you want to use fetchTeams (it was not being used, hence why I commented it!)
 //   const fetchTeams = async () => {
