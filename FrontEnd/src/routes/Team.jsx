@@ -1,35 +1,47 @@
 import { useEffect, useState } from "react";
-import "../css/main-student.css";
-import { fetchAPI } from "../functions/apiinterface";
+import "../css/main-teacher.css";
 
-export default function Team() {
-  const [teamName, setTeamName] = useState([]);
-  const [teammates, setTeammates] = useState([]);
+import { fetchProtectedAPI } from "../functions/apiinterface";
+import { useNavigate } from "react-router-dom";
 
-  // useEffect(() => {
-  //   const response = fetchAPI("display_my_team").then(data => console.log(data))
-  // })
-  useEffect(() => {
-    const fetch = async () => {
-      fetchAPI("display_my_team").then((data) => {
-        setTeammates(data.data.students);
-        setTeamName(data.data.team_id);
-      });
-    };
-
-    fetch();
-  }, []);
-
+export default function MyTeam() {
+  const x = 1;
   return (
-    <main class="main-student">
-      <div class="team">
-        <h2>{teamName}</h2>
-        <ul>
-          {teammates.map((teammate) => (
-            <li>{`${teammate.name}`}</li>
-          ))}
-        </ul>
+    <main className="main-teacher">
+      <div className="instructor">
+        <h2 style={{ marginTop: "50px" }}> Your Team:</h2>
       </div>
+      {x ? (
+        <Team
+          team={{ id: 1, name: "Kilo Khara" }}
+          students={[
+            { id: 1, name: "Student A" },
+            { id: 2, name: "Student B" },
+          ]}
+        />
+      ) : (
+        <NoTeam />
+      )}
     </main>
   );
+}
+
+function Team({ team, students }) {
+  return (
+    <div className="instructor">
+      <ul style={{ marginTop: "20px" }}>
+        <h3>{team.name}</h3>
+        {students.map((student) => (
+          <li key={student.id}>{student.name}</li>
+        ))}
+        <div className="delEdit">
+          <button className="evaluate">Evaluate a Team Member</button>
+        </div>
+      </ul>
+    </div>
+  );
+}
+
+function NoTeam() {
+  return <h1>No Teams Created</h1>;
 }
