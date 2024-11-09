@@ -1,4 +1,4 @@
-name: Lint and Test
+name: Lint and Unit Testing
 
 on:
   pull_request:
@@ -26,3 +26,8 @@ jobs:
       - name: Run ESLint
         working-directory: ./Frontend
         run: npm run lint
+
+      # Step 3: Run Jest Unit Tests
+      - name: Run Unit Tests
+        working-directory: ./Frontend
+        run: npm test
