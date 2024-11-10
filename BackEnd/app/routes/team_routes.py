@@ -27,6 +27,24 @@ def get_team(id):
     students = [Students.query.get(student.student_id).to_dict() for student in students_in_team]
     return jsonify(students), 200
 
+
+#Returns teammates in a team i.e. all team members except student himself
+@team_bp.route('/teams/<int:id>/teammates', methods=['GET'])
+@jwt_required()
+def get_teammates(id):
+    user_identity = get_jwt_identity()
+
+    if user_identity["user_type"] != "student":
+       return jsonify({"Response": "INVALID", "Reason": "Only teachers can access this route"}), 403
+    
+    student_id = user_identity["user_id"]
+    
+    students_in_team = StudentTeam.query.filter_by(team_id=id).all()
+    students = [Students.query.get(student.student_id).to_dict() for student in students_in_team if student.student_id != student_id]
+    return jsonify(students), 200
+
+
+
 @team_bp.route('/teams', methods=['POST'])
 @jwt_required()
 def create_team():

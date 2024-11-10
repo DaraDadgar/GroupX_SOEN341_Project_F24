@@ -4,6 +4,7 @@ import { jwtDecode } from "jwt-decode";
 
 import { fetchProtectedAPI } from "../functions/apiinterface";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function MyTeam() {
   const [team, setTeam] = useState(undefined);
@@ -33,8 +34,6 @@ export default function MyTeam() {
     fetchTeam();
   }, []);
 
-  console.log(team);
-  console.log(students);
   return (
     <main className="main-teacher">
       <div className="instructor">
@@ -46,6 +45,8 @@ export default function MyTeam() {
 }
 
 function Team({ team, students }) {
+  const navigate = useNavigate();
+  const select = () => navigate("/student/select-teammate");
   return (
     <div className="instructor">
       <ul style={{ marginTop: "20px" }}>
@@ -54,7 +55,9 @@ function Team({ team, students }) {
           <li key={student.id}>{student.name}</li>
         ))}
         <div className="delEdit">
-          <button className="evaluate">Evaluate a Team Member</button>
+          <button className="evaluate" onClick={select}>
+            Evaluate a Team Member
+          </button>
         </div>
       </ul>
     </div>

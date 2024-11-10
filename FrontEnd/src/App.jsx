@@ -6,6 +6,8 @@ import GeneralHomePage from "./routes/GeneralHomePage.jsx";
 import About from "./routes/About.jsx";
 import MainLogin from "./routes/MainLogin.jsx";
 import TeamCreation from "./routes/TeamCreation.jsx";
+import TeammateSelection from "./routes/TeammateSelection.jsx";
+import Evaluation from "./routes/Evaluation.jsx";
 
 import MainTeacher from "./routes/MainTeacher.jsx";
 import { AuthProvider } from "./config/AuthContext.jsx";
@@ -53,6 +55,24 @@ function App() {
             element={
               <ProtectedRoute allowedRoles={["teacher"]}>
                 <TeamCreation />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/student/select-teammate"
+            element={
+              <ProtectedRoute allowedRoles={["student"]}>
+                <TeammateSelection />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/student/evaluation"
+            element={
+              <ProtectedRoute allowedRoles={["student"]}>
+                <Evaluation />
               </ProtectedRoute>
             }
           />

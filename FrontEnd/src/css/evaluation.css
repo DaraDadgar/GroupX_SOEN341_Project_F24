@@ -2,6 +2,11 @@
   padding: 10px 30px;
 }
 
+.main-eval span {
+  font-weight: 600;
+  font-size: larger;
+}
+
 .main-eval h2 {
   color: #cc813f;
   font-weight: 800;
@@ -14,15 +19,22 @@
   color: #cc813f;
   font-weight: 400;
   font-style: italic;
+  font-weight: 600;
 
   padding-left: 10px;
   margin-top: 35px;
+  margin-bottom: 15px;
 }
 
-.main-eval p {
+.main-eval ul {
   margin-left: 15px;
-  font-weight: 400;
-  font-size: 15px;
+}
+
+.main-eval p,
+.main-eval ul li {
+  margin-left: 15px;
+  font-weight: 500;
+  font-size: 16px;
 }
 
 .main-eval input[type="radio"] {
@@ -52,6 +64,8 @@
   flex-direction: row;
   justify-content: center;
   gap: 100px;
+
+  margin-bottom: 100px;
 }
 
 .main-eval input[type="radio"]:checked + .checkmark {
@@ -60,6 +74,19 @@
 
 .main-eval .checkmark:hover {
   cursor: pointer;
+}
+
+.main-eval textarea {
+  display: block;
+  margin: 10px 0px 0px 15px;
+  background-color: #a8a8a8;
+
+  font-size: 15px;
+  max-width: 80vw;
+}
+
+.main-eval textarea:focus {
+  outline: none; /* Removes the default outline */
 }
 
 .main-eval button {
