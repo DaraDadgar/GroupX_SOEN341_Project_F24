@@ -45,10 +45,10 @@ jobs:
 
       # Step 7: Run ESLint
       - name: Run ESLint
-        working-directory: ./Frontend
+        working-directory: ./FrontEnd
         run: npm run lint
 
       # Step 8: Run Cypress Tests
       - name: Run Cypress tests
-        working-directory: ./Frontend
+        working-directory: ./FrontEnd
         run: npx cypress run
