@@ -24,15 +24,15 @@ jobs:
         working-directory: ./FrontEnd
         run: npm install
 
-      # Step 4: Install backend dependencies
-      - name: Install backend dependencies
-        working-directory: ./BackEnd
-        run: npm install
+      # # Step 4: Install backend dependencies
+      # - name: Install backend dependencies
+      #   working-directory: ./BackEnd
+      #   run: npm install
 
-      # Step 5: Start backend server
-      - name: Start Backend Server
-        working-directory: ./BackEnd
-        run: npm start & # Run backend in the background
+      # # Step 5: Start backend server
+      # - name: Start Backend Server
+      #   working-directory: ./BackEnd
+      #   run: npm start & # Run backend in the background
 
       # # Step 6: Wait for Backend to be Ready
       # # Use curl or a similar command to poll the backend until it's ready.
