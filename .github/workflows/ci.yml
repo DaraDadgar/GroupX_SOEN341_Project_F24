@@ -1,4 +1,4 @@
-name: Lint and Unit Testing
+name: Lint and E2E Testing
 
 on:
   pull_request:
@@ -13,21 +13,42 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Step 2: Set up Node.js for Linting
+      # Step 2: Set up Node.js for Linting and Testing
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "18"
 
+      # Step 3: Install frontend dependencies (including Cypress)
       - name: Install frontend dependencies
         working-directory: ./Frontend
         run: npm install
 
+      # Step 4: Install backend dependencies
+      - name: Install backend dependencies
+        working-directory: ./Backend
+        run: npm install
+
+      # Step 5: Start backend server
+      - name: Start Backend Server
+        working-directory: ./Backend
+        run: npm start & # Run backend in the background
+
+      # # Step 6: Wait for Backend to be Ready
+      # # Use curl or a similar command to poll the backend until it's ready.
+      # - name: Wait for Backend
+      #   run: |
+      #     until curl --output /dev/null --silent --head --fail http://localhost:3000; do
+      #       echo "Waiting for backend..."
+      #       sleep 5
+      #     done
+
+      # Step 7: Run ESLint
       - name: Run ESLint
         working-directory: ./Frontend
         run: npm run lint
 
-      # Step 3: Run Jest Unit Tests
-      - name: Run Unit Tests
+      # Step 8: Run Cypress Tests
+      - name: Run Cypress tests
         working-directory: ./Frontend
-        run: npm test
+        run: npx cypress run
