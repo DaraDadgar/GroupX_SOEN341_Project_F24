@@ -1,7 +1,7 @@
 services:
   frontend:
     build:
-      context: ./frontend
+      context: ./FrontEnd
       dockerfile: Dockerfile
     volumes:
       - "./frontend:/app"
@@ -13,7 +13,7 @@ services:
 
   backend:
     build:
-      context: ./backend
+      context: ./BackEnd
       dockerfile: Dockerfile
     ports:
       - "5001:5000"
