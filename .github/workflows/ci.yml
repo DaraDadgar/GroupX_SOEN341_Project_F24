@@ -21,17 +21,17 @@ jobs:
 
       # Step 3: Install frontend dependencies (including Cypress)
       - name: Install frontend dependencies
-        working-directory: ./Frontend
+        working-directory: ./FrontEnd
         run: npm install
 
       # Step 4: Install backend dependencies
       - name: Install backend dependencies
-        working-directory: ./Backend
+        working-directory: ./BackEnd
         run: npm install
 
       # Step 5: Start backend server
       - name: Start Backend Server
-        working-directory: ./Backend
+        working-directory: ./BackEnd
         run: npm start & # Run backend in the background
 
       # # Step 6: Wait for Backend to be Ready
