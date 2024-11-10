@@ -1,4 +1,4 @@
-name: Lint and Unit Testing
+name: Lint and E2E Testing
 
 on:
   pull_request:
@@ -13,21 +13,36 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Step 2: Set up Node.js for Linting
+      # Step 2: Set up Docker Compose
+      - name: Install Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+
+      # Step 3: Set up Node.js for Linting and Testing
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "18"
 
+      # Step 4: Install frontend dependencies (including Cypress)
       - name: Install frontend dependencies
-        working-directory: ./Frontend
+        working-directory: ./FrontEnd
         run: npm install
 
-      - name: Run ESLint
-        working-directory: ./Frontend
-        run: npm run lint
+      # Step 5: Start services with Docker Compose
+      - name: Start backend and frontend services with Docker Compose
+        run: docker-compose up -d  # Start services in detached mode
 
-      # Step 3: Run Jest Unit Tests
-      - name: Run Unit Tests
-        working-directory: ./Frontend
-        run: npm test
+      # Step 6: Wait for Frontend to be Ready
+      - name: Wait for Frontend
+        run: |
+          until curl --output /dev/null --silent --head --fail http://frontend:3000; do
+            echo "Waiting for frontend to be ready..."
+            sleep 5
+          done
+
+      # Step 7: Run Cypress Tests
+      - name: Run Cypress tests
+        working-directory: ./FrontEnd
+        run: npx cypress run
