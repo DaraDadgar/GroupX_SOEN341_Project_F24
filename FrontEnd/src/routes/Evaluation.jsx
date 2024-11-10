@@ -1,17 +1,43 @@
 import "../css/evaluation.css";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { storeProtectedAPI } from "../functions/apiinterface";
+import { jwtDecode } from "jwt-decode";
 
 export default function Evaluation() {
   const navigate = useNavigate();
   const back = () => navigate("/student/select-teammate");
+  const home = () => navigate("/student/home");
 
-  const [student, setStudent] = useState({ id: 0, name: "None" });
+  const [student, setStudent] = useState({ id: 0, name: "Error" });
 
   useEffect(() => {
     const user_info = JSON.parse(localStorage.getItem("teammate"));
     setStudent(user_info);
   }, []);
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const payload = Object.fromEntries(formData);
+    const token = localStorage.getItem("token");
+    const user_info = jwtDecode(token).sub;
+    const data = {
+      sender_id: user_info.user_id,
+      receiver_id: student.id,
+      cooperation_score: payload["score-1"],
+      conceptual_contribution_score: payload["score-2"],
+      practical_contribution_score: payload["score-3"],
+      work_ethic_score: payload["score-4"],
+      comments: payload["comments"],
+    };
+    storeProtectedAPI("/assessments", data, token).then((response) => {
+      response.data.Response || home();
+    });
+
+    /*storeProtectedAPI("/assessments", data, token);*/
+  };
 
   return (
     <main className="main-eval">
@@ -20,7 +46,7 @@ export default function Evaluation() {
         You are currently evaluating the performance of{" "}
         <span>{student.name}</span>.
       </p>
-      <form>
+      <form onSubmit={submitHandler}>
         <h2>Cooperation</h2>
         <ul>
           <li>Actively participating in meetings; </li>
@@ -81,7 +107,6 @@ export default function Evaluation() {
           maxLength="500"
           rows="6"
           cols="100"
-          required
         ></textarea>
         <button onClick={back}>Cancel</button>
         <button type="submit">Submit</button>

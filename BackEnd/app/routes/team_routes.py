@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from app.extensions import db
-from app.models import StudentTeam, Students, Teachers, Teams, Assessments
+from app.models import StudentTeam, Students, Teachers, Teams, Assessments, StudentEval
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
 team_bp = Blueprint('team_bp', __name__)
@@ -37,10 +37,24 @@ def get_teammates(id):
     if user_identity["user_type"] != "student":
        return jsonify({"Response": "INVALID", "Reason": "Only teachers can access this route"}), 403
     
-    student_id = user_identity["user_id"]
+    user_id = user_identity["user_id"]
     
     students_in_team = StudentTeam.query.filter_by(team_id=id).all()
-    students = [Students.query.get(student.student_id).to_dict() for student in students_in_team if student.student_id != student_id]
+
+    # List of student IDs in the current team, excluding the current student
+    student_ids_in_team = [student.student_id for student in students_in_team if student.student_id != user_id]
+
+    # Query StudentEval to find out if any evaluations have been made and filter them accordingly
+    students = []
+    for student_id in student_ids_in_team:
+        # Check if the student is in the StudentEval table with has_reviewed=False
+        eval = StudentEval.query.filter_by(sender_id=user_id, receiver_id=student_id).first()
+        
+        if eval is None or eval.has_reviewed == False:
+            student = Students.query.get(student_id)
+            if student:
+                students.append(student.to_dict())
+                
     return jsonify(students), 200
 
 
