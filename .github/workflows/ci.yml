@@ -34,13 +34,13 @@ jobs:
       - name: Start backend and frontend services with Docker Compose
         run: docker-compose up -d  # Start services in detached mode
 
-      # Step 6: Wait for Frontend to be Ready
-      - name: Wait for Frontend
-        run: |
-          until curl --output /dev/null --silent --head --fail http://localhost:3000; do
-            echo "Waiting for frontend to be ready..."
-            sleep 5
-          done
+      # # Step 6: Wait for Frontend to be Ready
+      # - name: Wait for Frontend
+      #   run: |
+      #     until curl --output /dev/null --silent --head --fail http://localhost:3000; do
+      #       echo "Waiting for frontend to be ready..."
+      #       sleep 5
+      #     done
 
       # Step 7: Run Cypress Tests
       - name: Run Cypress tests
