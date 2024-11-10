@@ -24,31 +24,19 @@ jobs:
         working-directory: ./FrontEnd
         run: npm install
 
-      # Step 4: Install backend dependencies
-      - name: Install backend dependencies
-        working-directory: ./BackEnd
-        run: npm install
+      # Step 4: Start services with Docker Compose
+      - name: Start backend and frontend services with Docker Compose
+        run: docker-compose up -d  # Start services in detached mode
 
-      # Step 5: Start backend server
-      - name: Start Backend Server
-        working-directory: ./BackEnd
-        run: npm start & # Run backend in the background
+      # Step 5: Wait for Frontend to be Ready
+      - name: Wait for Frontend
+        run: |
+          until curl --output /dev/null --silent --head --fail http://localhost:3000; do
+            echo "Waiting for frontend to be ready..."
+            sleep 5
+          done
 
-      # # Step 6: Wait for Backend to be Ready
-      # # Use curl or a similar command to poll the backend until it's ready.
-      # - name: Wait for Backend
-      #   run: |
-      #     until curl --output /dev/null --silent --head --fail http://localhost:3000; do
-      #       echo "Waiting for backend..."
-      #       sleep 5
-      #     done
-
-      # # Step 7: Run ESLint
-      # - name: Run ESLint
-      #   working-directory: ./Frontend
-      #   run: npm run lint
-
-      # Step 8: Run Cypress Tests
+      # Step 6: Run Cypress Tests
       - name: Run Cypress tests
         working-directory: ./FrontEnd
         run: npx cypress run
