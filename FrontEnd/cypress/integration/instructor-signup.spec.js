@@ -18,6 +18,6 @@ describe("Signup Flow", () => {
 
     // Step 4: Verify successful signup and navigation
     cy.url().should("include", "/login"); // Navigates the user to the login page upon successfull sign up
-    //Added this comment to test if the new ci workflow works or not
+    //Added this comment to test if the new ci workflow works or not.
   });
 });
