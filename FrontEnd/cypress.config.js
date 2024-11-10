@@ -7,5 +7,6 @@ export default defineConfig({
     },
     specPattern: "cypress/integration/instructor-signup.spec.js",
     baseUrl: "http://localhost:3000",
+    supportFile: false,
   },
 });
