@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../css/team-creation.css";
 
 import {
@@ -10,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function TeamCreation() {
   const navigate = useNavigate();
+  const back = () => navigate("/teacher/home");
   const [students, setStudents] = useState([]);
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -73,12 +73,17 @@ export default function TeamCreation() {
               ))}
             </ul>
             <div className="buttons">
-              <button>Cancel</button>
+              <button onClick={back}>Cancel</button>
               <button type="submit">Confirm</button>
             </div>{" "}
           </>
         ) : (
-          <h1>No Students Currently Available</h1>
+          <>
+            <h1>No Students Currently Available</h1>
+            <div className="buttons">
+              <button onClick={back}>Back</button>
+            </div>
+          </>
         )}
       </form>
     </main>

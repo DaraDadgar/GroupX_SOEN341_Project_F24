@@ -13,27 +13,27 @@ export default function MainTeacher() {
 
   const fetchTeams = async () => {
     const token = localStorage.getItem("token");
-    const teams_info = await fetchProtectedAPI("/teams", token).data;
-    console.log("teams_info", teams_info);
-    setTeams(teams_info);
-
-    const students = await teams_info.map((team) => {
-      fetchProtectedAPI(`/teams${team.id}/students`, token).data;
-    });
-
-    setStudents(students);
+    await fetchProtectedAPI("/teams", token)
+      .then((data) => {
+        setTeams(data.data);
+        return data.data;
+      })
+      .then(async (teams) => {
+        let studs = [];
+        for (let i = 0; i < teams.length; i++) {
+          await fetchProtectedAPI(`/teams/${teams[i].id}/students`, token).then(
+            (data) => {
+              studs[i] = data.data;
+            }
+          );
+        }
+        setStudents(studs);
+      });
   };
 
-  useEffect(() => {}, []);
-
-  console.log(teams);
-  console.log("students: ", students);
-
-  const team1 = {
-    id: 1,
-    name: "Team X",
-    students: [{ id: 1, name: "Marc Hab" }],
-  };
+  useEffect(() => {
+    fetchTeams();
+  }, []);
 
   return (
     <main className="main-teacher">

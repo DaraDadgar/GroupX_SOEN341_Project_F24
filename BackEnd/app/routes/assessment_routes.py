@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from app.extensions import db
-from app.models import Assessments, Students, StudentTeam
+from app.models import Assessments, Students, StudentTeam, StudentEval
 from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
 
 assessment_bp = Blueprint('assessment_bp', __name__)
@@ -35,10 +35,10 @@ def create_assessment():
 
     # Validate scores
     scores = [
-        data.get('cooperation_score'),
-        data.get('conceptual_contribution_score'),
-        data.get('practical_contribution_score'),
-        data.get('work_ethic_score')
+        int(data.get('cooperation_score')),
+        int(data.get('conceptual_contribution_score')),
+        int(data.get('practical_contribution_score')),
+        int(data.get('work_ethic_score'))
     ]
     if any(score < 0 or score > 5 for score in scores):
         return jsonify({"Response": "INVALID", "Reason": "Scores must be between 0 and 5."}), 400
@@ -52,6 +52,14 @@ def create_assessment():
         work_ethic_score=data.get('work_ethic_score'),
         comments=data.get('comments', '')
     )
+
+    new_eval = StudentEval(
+        receiver_id = receiver_id,
+        sender_id = sender_id,
+        has_reviewed = True
+    )
+    
+    db.session.add(new_eval)
     db.session.add(new_assessment)
     db.session.commit()
     return jsonify(new_assessment.to_dict()), 201
