@@ -19,6 +19,7 @@ import Header from "./components/Header.jsx";
 import NavBar from "./components/NavBar.jsx";
 import Instructor from "./routes/Instructor.jsx";
 import MyTeam from "./routes/Team.jsx";
+import Dashboard from "./routes/Dashboard.jsx";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path="/login" element={<MainLogin />} />
           <Route path="/about" element={<About />} />
           <Route path="/signup" element={<MainSignup />} />
+          <Route path="/dashboard" element={<Dashboard />} />
 
           <Route
             path="/student/home"
