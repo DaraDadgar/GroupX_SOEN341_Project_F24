@@ -1,35 +1,83 @@
-import { useEffect, useState } from "react";
-import "../css/main-student.css";
-import { fetchAPI } from "../functions/apiinterface";
+import "../css/main-teacher.css";
+import PropTypes from "prop-types";
+import { jwtDecode } from "jwt-decode";
 
-export default function Team() {
-  const [teamName, setTeamName] = useState([]);
-  const [teammates, setTeammates] = useState([]);
+import { fetchProtectedAPI } from "../functions/apiinterface";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-  // useEffect(() => {
-  //   const response = fetchAPI("display_my_team").then(data => console.log(data))
-  // })
+export default function MyTeam() {
+  const [team, setTeam] = useState(undefined);
+  const [students, setStudents] = useState([]);
+
+  const fetchTeam = async () => {
+    const token = localStorage.getItem("token");
+    const user_info = jwtDecode(token).sub;
+
+    await fetchProtectedAPI(`/students/${user_info.user_id}/team`, token).then(
+      async (response) => {
+        if (response.data.Response === "VALID") {
+          setTeam(response.data.Team);
+
+          await fetchProtectedAPI(
+            `/teams/${response.data.Team.id}`,
+            token
+          ).then((response) => {
+            setStudents(response.data);
+          });
+        }
+      }
+    );
+  };
+
   useEffect(() => {
-    const fetch = async () => {
-      fetchAPI("display_my_team").then((data) => {
-        setTeammates(data.data.students);
-        setTeamName(data.data.team_id);
-      });
-    };
-
-    fetch();
+    fetchTeam();
   }, []);
 
   return (
-    <main class="main-student">
-      <div class="team">
-        <h2>{teamName}</h2>
-        <ul>
-          {teammates.map((teammate) => (
-            <li>{`${teammate.name}`}</li>
-          ))}
-        </ul>
+    <main className="main-teacher">
+      <div className="instructor">
+        <h2 style={{ marginTop: "50px" }}> Your Team:</h2>
       </div>
+      {team ? <Team team={team} students={students} /> : <NoTeam />}
     </main>
   );
 }
+
+function Team({ team, students }) {
+  const navigate = useNavigate();
+  const select = () => navigate("/student/select-teammate");
+  return (
+    <div className="instructor">
+      <ul style={{ marginTop: "20px" }}>
+        <h3>{team.name}</h3>
+        {students.map((student) => (
+          <li key={student.id}>{student.name}</li>
+        ))}
+        <div className="delEdit">
+          <button className="evaluate" onClick={select}>
+            Evaluate a Team Member
+          </button>
+        </div>
+      </ul>
+    </div>
+  );
+}
+
+function NoTeam() {
+  return <h1>You have not been assigned a team.</h1>;
+}
+
+// Add PropTypes validation
+Team.propTypes = {
+  team: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+  }).isRequired,
+  students: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+};

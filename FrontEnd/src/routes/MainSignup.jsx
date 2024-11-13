@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { storeAPI } from "../functions/apiinterface.jsx";
 import "../css/main-signup.css";
 import { useNavigate } from "react-router-dom";
@@ -8,20 +7,6 @@ export default function MainSignup() {
 
   const loginNav = () => {
     navigate("../login");
-  };
-
-  const [formData, setFormData] = useState({
-    usertype: "",
-    email: "",
-    password: "",
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
   };
 
   const handleSubmit = async (e) => {

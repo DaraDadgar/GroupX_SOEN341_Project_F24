@@ -106,34 +106,39 @@
 
 /* detele and edit */
 .instructor .delEdit {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-  
-    gap: 20px;
-  }
-  
-  .delEdit > * {
-  
-    width: 100px;
-    height: 30px;
-  
-    cursor: pointer;
-    border: none;
-  }
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
 
-  
-  .instructor .delEdit button:active {
-    opacity: 0.7;
-  }
+  gap: 20px;
+}
 
-  .delete {
-    background-color: red;
-    color: #ffffff;
-  }
+.delEdit > .delete,
+.delEdit > .edit,
+.delEdit > .more {
+  width: 100px;
+  height: 30px;
 
-  .edit {
-    background-color: gray;
-    color: #ffffff;
-    margin-right:20px;
-  }
+  cursor: pointer;
+  border: none;
+}
+
+.instructor .delEdit button:active {
+  opacity: 0.7;
+}
+
+.delete {
+  background-color: red;
+  color: #ffffff;
+}
+
+.edit {
+  background-color: gray;
+  color: #ffffff;
+}
+
+.more {
+  background-color: gray;
+  color: #ffffff;
+}
+

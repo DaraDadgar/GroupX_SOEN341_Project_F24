@@ -86,3 +86,14 @@ class BlacklistedToken(db.Model):
             'jti': self.jti,
             'expires_at': self.expires_at
         }
+
+class StudentEval(db.Model):
+    sender_id = db.Column(db.Integer, primary_key=True)
+    receiver_id = db.Column(db.Integer, primary_key = True)
+    has_reviewed = db.Column(db.Boolean, default= False)
+    def to_dict(self):
+        return {
+            'sender_id': self.sender_id,
+            'receiver_id': self.receiver_id,
+            'has_reviewed': self.has_reviewed
+        }
