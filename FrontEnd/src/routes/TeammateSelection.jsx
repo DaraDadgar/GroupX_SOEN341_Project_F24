@@ -55,6 +55,7 @@ export default function TeammateSelection() {
                         id: student.id,
                         name: student.name,
                       })}
+                      data-testid={student.name}
                       required
                     />
                     {student.name}
@@ -69,7 +70,7 @@ export default function TeammateSelection() {
           </>
         ) : (
           <>
-            <h1>No Students to Assess</h1>
+            <h1 data-testid="emptyStudents">No Students to Assess</h1>
             <div className="buttons">
               <button onClick={back}>Back</button>
             </div>

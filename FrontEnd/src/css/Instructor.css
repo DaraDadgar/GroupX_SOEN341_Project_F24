@@ -114,7 +114,8 @@
 }
 
 .delEdit > .delete,
-.delEdit > .edit {
+.delEdit > .edit,
+.delEdit > .more {
   width: 100px;
   height: 30px;
 
@@ -134,5 +135,10 @@
 .edit {
   background-color: gray;
   color: #ffffff;
-  margin-right: 20px;
 }
+
+.more {
+  background-color: gray;
+  color: #ffffff;
+}
+

@@ -57,7 +57,7 @@ export default function Evaluation() {
         </ul>
 
         <h3>Make Your Selection:</h3>
-        <Scale number="1" />
+        <Scale number="1" data_testid="Cooperation"/>
 
         <h2>Conceptual Contribution</h2>
         <ul>
@@ -70,7 +70,7 @@ export default function Evaluation() {
         </ul>
 
         <h3>Make Your Selection:</h3>
-        <Scale number="2" />
+        <Scale number="2" data_testid="Conceptual"/>
 
         <h2>Practical Contribution</h2>
         <ul>
@@ -86,7 +86,7 @@ export default function Evaluation() {
           </li>
         </ul>
         <h3>Make Your Selection:</h3>
-        <Scale number="3" />
+        <Scale number="3" data_testid="Practical"/>
 
         <h2>Work Ethic</h2>
         <ul>
@@ -97,7 +97,7 @@ export default function Evaluation() {
           <li>Respecting teammates ideas.</li>
         </ul>
         <h3>Make Your Selection:</h3>
-        <Scale number="4" />
+        <Scale number="4" data_testid="Work"/>
 
         <h2>Additional Comments</h2>
         <p>Leave any additional comments in the text below:</p>
@@ -107,6 +107,7 @@ export default function Evaluation() {
           maxLength="500"
           rows="6"
           cols="100"
+          data-testid ="comments"
         ></textarea>
         <button onClick={back}>Cancel</button>
         <button type="submit">Submit</button>
@@ -115,28 +116,28 @@ export default function Evaluation() {
   );
 }
 
-function Scale({ number }) {
+function Scale({ number, data_testid }) {
   return (
-    <div className="scale">
+    <div className="scale" data-testid={data_testid}>
       <label>
-        <input type="radio" name={"score-" + number} value="1" required />
-        <span className="checkmark"></span> 1
+        <input type="radio" name={"score-" + number} value="1"  required />
+        <span className="checkmark" data-testid={data_testid + " 1"}></span> 1
       </label>
       <label>
-        <input type="radio" name={"score-" + number} value="2" />
-        <span className="checkmark"></span> 2
+        <input type="radio" name={"score-" + number} value="2"  />
+        <span className="checkmark" data-testid={data_testid + " 2"}></span> 2
       </label>
       <label>
-        <input type="radio" name={"score-" + number} value="3" />
-        <span className="checkmark"></span> 3
+        <input type="radio" name={"score-" + number} value="3"   />
+        <span className="checkmark"data-testid={data_testid + " 3"}></span> 3
       </label>
       <label>
-        <input type="radio" name={"score-" + number} value="4" />
-        <span className="checkmark"></span> 4
+        <input type="radio" name={"score-" + number} value="4"  />
+        <span className="checkmark" data-testid={data_testid + " 4"}></span> 4
       </label>
       <label>
-        <input type="radio" name={"score-" + number} value="5" />
-        <span className="checkmark"></span> 5
+        <input type="radio" name={"score-" + number} value="5"  />
+        <span className="checkmark" data-testid={data_testid + " 5"}></span> 5
       </label>
     </div>
   );
