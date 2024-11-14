@@ -19,7 +19,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://db_user:db_password@db/
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['JWT_SECRET_KEY'] = app.config['SECRET_KEY']
 
-cors.init_app(app, supports_credentials=True, origins=["*"])
+cors.init_app(app, supports_credentials=True, origins=["http://localhost:3000"])
 db.init_app(app)
 migrate.init_app(app, db)
 jwt.init_app(app)

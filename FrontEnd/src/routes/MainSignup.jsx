@@ -16,6 +16,7 @@ export default function MainSignup() {
     const payload = Object.fromEntries(fd);
 
     const confirmPasswordInput = e.target["confirm-password"];
+    const emailInput = e.target["email"];
 
     if (payload.password !== payload["confirm-password"]) {
       confirmPasswordInput.setCustomValidity("Passwords do not match!");
@@ -32,8 +33,13 @@ export default function MainSignup() {
       name: `${payload["first-name"]} ${payload["last-name"]}`,
     };
 
-    storeAPI("/signup", finalPayload);
-    navigate("/login");
+    storeAPI("/signup", finalPayload).then((response) => {
+      if (response.data.Response === "VALID") navigate("/login");
+      else {
+        emailInput.setCustomValidity("Email already exists!");
+        emailInput.reportValidity();
+      }
+    });
   };
 
   return (
