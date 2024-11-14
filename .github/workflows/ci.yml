@@ -42,6 +42,10 @@ jobs:
       # - name: Wait for Frontend
       #   run: npx wait-on http://localhost:3000  # Wait for frontend to be ready
 
+      # Step 7: Check if Frontend is Accessible
+      - name: Check Frontend Accessibility
+        run: curl -I http://localhost:3000 || echo "Frontend server is not accessible"
+
       # Step 6: Run Cypress Tests (Main Directory)
       - name: Run Cypress tests
         run: npx cypress run
