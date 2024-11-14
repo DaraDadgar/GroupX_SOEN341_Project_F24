@@ -1,0 +1,31 @@
+.assessment-dashboard {
+    font-family: Arial, sans-serif;
+    background: #f0f0f0;
+    padding: 20px;
+    border-radius: 8px;
+    width: 50%;
+    margin: auto;
+}
+
+.assessment-dashboard h1 {
+    color: #333;
+}
+
+.assessment-dashboard ul {
+    list-style: none;
+    padding: 0;
+}
+
+.assessment-dashboard li {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.star {
+    color: orange;
+    font-size: 20px;
+}
+
+.star.filled {
+    color: #ffa500;
+}
