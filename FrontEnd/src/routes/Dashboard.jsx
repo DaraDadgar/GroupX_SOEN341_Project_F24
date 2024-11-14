@@ -1,163 +1,149 @@
-import "../css/Instructor.css";
-import { useEffect, useState } from "react";
-import { fetchProtectedAPI, fetchAPI } from "../functions/apiinterface";
-import { useParams } from "react-router-dom";
+import "../css/dashboard.css";
 
-export default function Dashboard() {
-  const { teamId } = useParams(); // Get the teamId from route parameters for example /dashboard/1
-  const [teamName, setTeamName] = useState("Loading...");
-  const [members, setMembers] = useState([]);
-
-  useEffect(() => {
-    const fetchTeamData = async () => {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        console.error("No token found");
-        return;
-      }
-
-      // Fetch the team list to get the team name
-      const teamsResponse = await fetchProtectedAPI('/teams', token);
-      if (teamsResponse.status === 200) {
-        const currentTeam = teamsResponse.data.find((team) => team.id === parseInt(teamId));
-        setTeamName(currentTeam ? currentTeam.name : "Team Not Found");
-      } else {
-        console.error("Failed to fetch teams");
-      }
-
-      // Fetch members of the specific team
-      const membersResponse = await fetchProtectedAPI(`/teams/${teamId}`, token);
-      if (membersResponse.status === 200) {
-        // Fetch assessment for each member
-        const membersData = await Promise.all(
-          membersResponse.data.map(async (member) => {
-            const assessmentResponse = await fetchAPI(`/assessments/${member.id}`);
-            const assessment = assessmentResponse.status === 200 ? assessmentResponse.data : {};
-            return {
-              ...member,
-              assessment: {
-                cooperation_score: assessment.cooperation_score || "N/A",
-                conceptual_contribution_score: assessment.conceptual_contribution_score || "N/A",
-                practical_contribution_score: assessment.practical_contribution_score || "N/A",
-                work_ethic_score: assessment.work_ethic_score || "N/A",
-                comments: assessment.comments || "No comments",
-              },
-            };
-          })
-        );
-        setMembers(membersData);
-      } else {
-        console.error("Failed to fetch team members");
-      }
-    };
-
-    fetchTeamData();
-  }, [teamId]);
-
-  const renderStars = (average) => {
-    const fullStars = Math.floor(average);
-    const halfStar = average % 1 >= 0.5 ? 1 : 0;
-    const emptyStars = 5 - fullStars - halfStar;
-    return (
-      <span style={{color: "orange", fontSize: "20px"}}>
-        {"★".repeat(fullStars)}
-        {halfStar ? "½" : ""}
-        {"☆".repeat(emptyStars)}
-      </span>
-    );
-  };
-  
+function StarScore({ average }) {
   return (
-    <main>
-      <div className="stars-header">
-        {members.map((member) => {
-          const {
-            cooperation_score,
-            conceptual_contribution_score,
-            practical_contribution_score,
-            work_ethic_score,
-          } = member.assessment;
-          const average =
-            cooperation_score !== "N/A" &&
-            conceptual_contribution_score !== "N/A" &&
-            practical_contribution_score !== "N/A" &&
-            work_ethic_score !== "N/A"
-              ? (
-                  (cooperation_score +
-                    conceptual_contribution_score +
-                    practical_contribution_score +
-                    work_ethic_score) /
-                  4
-                ).toFixed(1)
-              : "N/A";
-
-  return (
-    <div key={member.id} style={{ marginBottom: "10px" }}>
-    <strong>{member.name}:</strong> {average !== "N/A" ? renderStars(average) : "No Rating"}
-  </div>
-);
-})}
-</div>
-
-      <div className="instructor header">
-        <h2 style={{ marginTop: "50px" }}>{teamName}:</h2>
-      </div>
-      <table style={{ width: "100%", borderCollapse: "collapse" }}>
-        <thead>
-          <tr>
-            <th style={cellStyle}>Name</th>
-            <th style={cellStyle}>Cooperation</th>
-            <th style={cellStyle}>Conceptual Contribution</th>
-            <th style={cellStyle}>Practical Contribution</th>
-            <th style={cellStyle}>Work Ethic</th>
-            <th style={cellStyle}>Average</th>
-            <th style={cellStyle}>Comments</th>
-          </tr>
-        </thead>
-        <tbody>
-          {members.map((member) => {
-            const {
-              cooperation_score,
-              conceptual_contribution_score,
-              practical_contribution_score,
-              work_ethic_score,
-            } = member.assessment;
-            const average =
-              cooperation_score !== "N/A" &&
-              conceptual_contribution_score !== "N/A" &&
-              practical_contribution_score !== "N/A" &&
-              work_ethic_score !== "N/A"
-                ? (
-                    (cooperation_score +
-                      conceptual_contribution_score +
-                      practical_contribution_score +
-                      work_ethic_score) /
-                    4
-                  ).toFixed(1)
-                : "N/A";
-
-            return (
-              <tr key={member.id}>
-                <td style={cellStyle}>{member.name}</td>
-                <td style={cellStyle}>{cooperation_score}</td>
-                <td style={cellStyle}>{conceptual_contribution_score}</td>
-                <td style={cellStyle}>{practical_contribution_score}</td>
-                <td style={cellStyle}>{work_ethic_score}</td>
-                <td style={cellStyle}>{average}</td>
-                <td style={cellStyle}>{member.assessment.comments}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </main>
+    <div className="star-row">
+      <span>{average >= 1 ? "★" : "☆"}</span>
+      <span>{average >= 2 ? "★" : "☆"}</span>
+      <span>{average >= 3 ? "★" : "☆"}</span>
+      <span>{average >= 4 ? "★" : "☆"}</span>
+      <span>{average >= 5 ? "★" : "☆"}</span>
+    </div>
   );
 }
 
-const cellStyle = {
-  border: "1px solid black",
-  padding: "10px",
-  textAlign: "center",
-  width: "100px",
-  height: "50px",
-};
+function StarTable({ team_members }) {
+  return (
+    <table className="star-table">
+      <tbody>
+        {team_members.map((student) => (
+          <tr key={student.id}>
+            <th>{student.name}</th>
+            <td>
+              <StarScore average={student.average} />
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
+
+function average(assessment) {
+  const sum =
+    assessment.cooperation_score +
+    assessment.conceptual_contribution_score +
+    assessment.conceptual_contribution_score +
+    assessment.work_ethic_score;
+
+  const avg = sum / 4;
+
+  return avg.toFixed(1);
+}
+
+function StudentTable({ assessments }) {
+  return (
+    <table className="student-table">
+      <thead>
+        <tr>
+          <th>Cooperation</th>
+          <th>Conceptual Contribution</th>
+          <th>Practical Contribution</th>
+          <th>Work Ethic</th>
+          <th>Average</th>
+        </tr>
+      </thead>
+      <tbody>
+        {assessments.map((assessment, index) => {
+          return (
+            <tr key={assessment.id} className={index % 2 == 0 ? "even" : "odd"}>
+              <td>{assessment.cooperation_score}</td>
+              <td>{assessment.conceptual_contribution_score}</td>
+              <td>{assessment.practical_contribution_score}</td>
+              <td>{assessment.work_ethic_score}</td>
+              <td>{average(assessment)}</td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  );
+}
+
+function StudentComments({ assessments }) {
+  return (
+    <textarea
+      id="comments"
+      name="comments"
+      maxLength="500"
+      cols="100"
+      readOnly
+      tabIndex="-1"
+    >
+      This is some text that cannot be edited or focused.
+    </textarea>
+  );
+}
+
+export default function Dashboard() {
+  const team = { id: 4, name: "Team X" };
+  const team_members = [
+    { id: 1, name: "Julia Boutros", average: 1 },
+    { id: 2, name: "Spencer Shay", average: 2 },
+    { id: 3, name: "Oren Argot", average: 3 },
+    { id: 4, name: "Dad", average: 4 },
+  ];
+
+  const team_assessments = [
+    [
+      {
+        id: 1,
+        cooperation_score: 1,
+        conceptual_contribution_score: 2,
+        practical_contribution_score: 3,
+        work_ethic_score: 4,
+        comments: "Excellent!",
+      },
+
+      {
+        id: 2,
+        cooperation_score: 3,
+        conceptual_contribution_score: 4,
+        practical_contribution_score: 5,
+        work_ethic_score: 4,
+        comments: "Great!",
+      },
+      {
+        id: 3,
+        cooperation_score: 1,
+        conceptual_contribution_score: 2,
+        practical_contribution_score: 5,
+        work_ethic_score: 4,
+        comments: "Meh!",
+      },
+      {
+        id: 4,
+        cooperation_score: 3,
+        conceptual_contribution_score: 2,
+        practical_contribution_score: 3,
+        work_ethic_score: 3,
+        comments: "Okay!",
+      },
+    ],
+    [],
+    [],
+    [],
+  ];
+
+  return (
+    <main className="dashboard">
+      <h2>{team.name}</h2>
+
+      <StarTable team_members={team_members} />
+
+      <StudentTable assessments={team_assessments[0]} />
+
+      <StudentComments />
+    </main>
+  );
+}

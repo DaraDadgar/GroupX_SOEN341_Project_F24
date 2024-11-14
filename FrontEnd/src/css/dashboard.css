@@ -1,31 +1,93 @@
-.assessment-dashboard {
-    font-family: Arial, sans-serif;
-    background: #f0f0f0;
-    padding: 20px;
-    border-radius: 8px;
-    width: 50%;
-    margin: auto;
+.dashboard h2 {
+  color: orange;
+  margin: 30px 0px 0px 30px;
 }
 
-.assessment-dashboard h1 {
-    color: #333;
+.dashboard h3 {
+  color: orange;
+  font-size: 16px;
+  font-weight: 400;
 }
 
-.assessment-dashboard ul {
-    list-style: none;
-    padding: 0;
+.dashboard .star-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
 }
 
-.assessment-dashboard li {
-    margin-bottom: 10px;
-    font-size: 18px;
+.dashboard .star-row span {
+  color: orange;
 }
 
-.star {
-    color: orange;
-    font-size: 20px;
+.dashboard .star-table {
+  border-collapse: separate; /* Use separate borders for gaps */
+  border-spacing: 15px;
+
+  margin-left: 75px;
 }
 
-.star.filled {
-    color: #ffa500;
+.dashboard .star-table tr th {
+  color: orange;
+  font-size: 16px;
+  font-weight: 400;
+  text-align: left;
+}
+
+.dashboard .student-table {
+  width: 100%;
+  max-width: 65vw; /* Set the maximum width for the table */
+  margin: 0 auto; /* Center the table if it's smaller than the screen width */
+  table-layout: fixed; /* Ensures each column has equal width */
+  border-collapse: collapse;
+}
+
+.dashboard .student-table th,
+.dashboard .student-table td {
+  text-wrap: wrap;
+  text-align: center;
+
+  width: 20%; /* 100% / 5 columns = 20% width for each column */
+  padding: 10px;
+  border: 1px solid black;
+}
+
+.dashboard .student-table th {
+  color: orange;
+}
+
+.dashboard .student-table td {
+  color: rgb(237, 229, 229);
+}
+
+.dashboard .student-table thead tr {
+  background-color: #464545;
+}
+
+.dashboard .student-table tbody .even {
+  background-color: #a8a8a8;
+}
+
+.dashboard .student-table tbody .odd {
+  background-color: #464545;
+}
+
+.dashboard textarea {
+  display: block;
+  margin: 10px 0px 0px 15px;
+  background-color: #a8a8a8;
+
+  font-size: 15px;
+  max-width: 80vw;
+
+  resize: none;
+
+  min-height: 100px;
+  width: 100%;
+  max-width: 65vw;
+  margin: 0 auto;
+}
+
+.dashboard textarea:focus {
+  outline: none; /* Removes the default outline */
 }

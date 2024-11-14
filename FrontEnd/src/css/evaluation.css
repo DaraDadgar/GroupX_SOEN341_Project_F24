@@ -83,6 +83,8 @@
 
   font-size: 15px;
   max-width: 80vw;
+
+  resize: none;
 }
 
 .main-eval textarea:focus {

@@ -8,6 +8,7 @@ import MainLogin from "./routes/MainLogin.jsx";
 import TeamCreation from "./routes/TeamCreation.jsx";
 import TeammateSelection from "./routes/TeammateSelection.jsx";
 import Evaluation from "./routes/Evaluation.jsx";
+import Dashboard from "./routes/Dashboard.jsx";
 
 import MainTeacher from "./routes/MainTeacher.jsx";
 import { AuthProvider } from "./config/AuthContext.jsx";
@@ -30,7 +31,7 @@ function App() {
         <Routes>
           <Route path="/" element={<GeneralHomePage />} />
           <Route path="/login" element={<MainLogin />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/about" element={<Dashboard />} />
           <Route path="/signup" element={<MainSignup />} />
           <Route path="/dashboard/:teamId" element={<Dashboard />} />
 
