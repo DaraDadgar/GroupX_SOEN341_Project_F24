@@ -23,20 +23,20 @@ jobs:
       - name: Install Dependencies
         run: npm install
         
-      # # Step 3: Install Docker Compose (if not pre-installed)
-      # - name: Install Docker Compose
-      #   run: |
-      #     sudo apt-get update
-      #     sudo apt-get install -y docker-compose
+      # Step 3: Install Docker Compose (if not pre-installed)
+      - name: Install Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
 
-      # # Step 4: Start services with Docker Compose
-      # - name: Start services with Docker Compose
-      #   run: docker-compose up --build -d  # Start services in detached mode
+      # Step 4: Start services with Docker Compose
+      - name: Start services with Docker Compose
+        run: docker-compose up --build -d  # Start services in detached mode
 
-      # #Checking docker log files to ensure the server is running properly
-      # - name: Check Docker Compose Logs
-      #   if: failure()  # Only runs if the previous step fails
-      #   run: docker-compose logs
+      #Checking docker log files to ensure the server is running properly
+      - name: Check Docker Compose Logs
+        if: failure()  # Only runs if the previous step fails
+        run: docker-compose logs
         
       # # Step 5: Wait for Frontend to be Ready
       # - name: Wait for Frontend
