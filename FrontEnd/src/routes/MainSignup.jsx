@@ -19,14 +19,14 @@ export default function MainSignup() {
     const emailInput = e.target["email"];
 
     // Clear email validity on input change
+    confirmPasswordInput.oninput = () =>
+      confirmPasswordInput.setCustomValidity("");
     emailInput.oninput = () => emailInput.setCustomValidity("");
 
     if (payload.password !== payload["confirm-password"]) {
       confirmPasswordInput.setCustomValidity("Passwords do not match!");
       confirmPasswordInput.reportValidity();
       return;
-    } else {
-      confirmPasswordInput.setCustomValidity("");
     }
 
     const finalPayload = {
