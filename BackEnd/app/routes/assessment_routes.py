@@ -142,11 +142,31 @@ def get_sender_assessments():
     if user_identity["user_type"] != "student":
         return jsonify({"Response": "INVALID", "Reason": "Only students can access this route"}), 403
     
+    
     assessments = Assessments.query.filter_by(sender_id = user_identity["user_id"]).all()
     return jsonify({"Response" : "VALID", "Assessments" : assessments.to_dict()}), 200
 
+# @assessment_bp.route('/assessments/sender/<int:student_id>', methods=['GET'])
+# @jwt_required()
+# def get_sender_assessments_id(student_id):
+#     user_identity = get_jwt_identity()
 
+#     if user_identity["user_type"] != "teacher":
+#         return jsonify({"Response": "INVALID", "Reason": "Only teachers can access this route"}), 403
+    
+#     assessments = Assessments.query.filter_by(sender_id = student_id).all()
+#     return jsonify({"Response" : "VALID", "Assessments" : assessments.to_dict()}), 200
 
+# @assessment_bp.route('/assessments/receiver/<int:student_id>', methods=['GET'])
+# @jwt_required()
+# def get_sender_assessments_id(student_id):
+#     user_identity = get_jwt_identity()
+
+#     if user_identity["user_type"] != "teacher":
+#         return jsonify({"Response": "INVALID", "Reason": "Only teachers can access this route"}), 403
+    
+#     assessments = Assessments.query.filter_by(receiver_id = student_id).all()
+#     return jsonify({"Response" : "VALID", "Assessments" : assessments.to_dict()}), 200
 
 
 

@@ -66,6 +66,7 @@ export default function TeamCreation() {
                       type="checkbox"
                       name={`student-${index}`}
                       value={student.email}
+                      data-testid={student.id}
                     />
                     {student.name}
                   </label>
@@ -79,7 +80,7 @@ export default function TeamCreation() {
           </>
         ) : (
           <>
-            <h1>No Students Currently Available</h1>
+            <h1 data-testid = "emptyStudents">No Students Currently Available</h1>
             <div className="buttons">
               <button onClick={back}>Back</button>
             </div>

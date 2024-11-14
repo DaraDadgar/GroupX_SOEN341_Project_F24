@@ -1,11 +1,9 @@
-// cypress.config.js
-import { defineConfig } from "cypress";
+const { defineConfig } = require("cypress");
 
-export default defineConfig({
+module.exports = defineConfig({
   e2e: {
-    baseUrl: "http://localhost:3000", // Update to match your local server URL
     setupNodeEvents(on, config) {
-      // implement node event listeners here if needed
+      // implement node event listeners here
     },
   },
 });

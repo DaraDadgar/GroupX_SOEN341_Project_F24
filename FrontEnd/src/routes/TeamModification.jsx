@@ -32,7 +32,7 @@ function TeamModification() {
         </ul>
         <h2 style={{ marginTop: "50px" }}> Other Students:</h2>
         <ul>
-        <li>
+          <li>
             <span>Name X</span>
             <div class="buttons">
               <button style={{ fontWeight: "bolder" }}>＋</button>
