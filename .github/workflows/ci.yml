@@ -13,11 +13,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Step 2: Set up Docker Compose
-      - name: Install Docker Compose
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y docker-compose
+      # # Step 2: Set up Docker Compose
+      # - name: Install Docker Compose
+      #   run: |
+      #     sudo apt-get update
+      #     sudo apt-get install -y docker-compose
 
       # Step 3: Set up Node.js for Linting and Testing
       - name: Set up Node.js
@@ -30,13 +30,13 @@ jobs:
         working-directory: ./FrontEnd
         run: npm install
 
-      # Step 5: Start services with Docker Compose
-      - name: Start backend and frontend services with Docker Compose
-        run: docker-compose up -d  # Start services in detached mode
+      # # Step 5: Start services with Docker Compose
+      # - name: Start backend and frontend services with Docker Compose
+      #   run: docker-compose up -d  # Start services in detached mode
 
-      # Step 6: Wait for Frontend to be Ready
-      - name: Wait for Frontend
-        run: npm start & wait-on http://localhost:3001
+      # # Step 6: Wait for Frontend to be Ready
+      # - name: Wait for Frontend
+      #   run: npm start & wait-on http://localhost:3001
 
       # Step 7: Run Cypress Tests
       - name: Run Cypress tests
