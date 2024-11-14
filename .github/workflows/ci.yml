@@ -19,6 +19,10 @@ jobs:
         with:
           node-version: "18"
 
+       # Step 3: Install dependencies (including Cypress)
+      - name: Install Dependencies
+        run: npm install
+        
       # Step 3: Install Docker Compose (if not pre-installed)
       - name: Install Docker Compose
         run: |
