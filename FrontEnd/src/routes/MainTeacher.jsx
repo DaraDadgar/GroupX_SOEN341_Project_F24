@@ -40,7 +40,7 @@ export default function MainTeacher() {
       <div className="instructor">
         <h2 style={{ marginTop: "50px" }}> Teams Created:</h2>
         <div className="buttons">
-          <button style={{ marginTop: "-20px" }} onClick={create_team}>
+          <button data-testid="Create Button" style={{ marginTop: "-20px" }} onClick={create_team}>
             {" "}
             Create Team +{" "}
           </button>
@@ -67,7 +67,7 @@ function Team({ team, students }) {
   return (
     <div className="instructor">
       <ul style={{ marginTop: "20px" }}>
-        <h3>{team.name}</h3>
+        <h3 data-testid={team.name}>{team.name}</h3>
         {students.map((student) => (
           <li key={student.id}>{student.name}</li>
         ))}
