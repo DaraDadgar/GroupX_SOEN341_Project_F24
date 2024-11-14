@@ -31,7 +31,7 @@ jobs:
 
       # Step 5: Wait for Frontend to be Ready
       - name: Wait for Frontend
-        run: npx wait-on http://localhost:3001  # Wait for frontend to be ready
+        run: npx wait-on http://localhost:3000  # Wait for frontend to be ready
 
       # Step 6: Run Cypress Tests (Main Directory)
       - name: Run Cypress tests
