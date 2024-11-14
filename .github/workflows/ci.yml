@@ -36,11 +36,7 @@ jobs:
 
       # Step 6: Wait for Frontend to be Ready
       - name: Wait for Frontend
-        run: |
-          until curl --output /dev/null --silent --head --fail http://frontend:3000; do
-            echo "Waiting for frontend to be ready..."
-            sleep 5
-          done
+        run: npm start & wait-on http://localhost:3001
 
       # Step 7: Run Cypress Tests
       - name: Run Cypress tests
