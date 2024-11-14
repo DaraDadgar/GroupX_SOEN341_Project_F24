@@ -27,8 +27,13 @@ jobs:
 
       # Step 4: Start services with Docker Compose
       - name: Start services with Docker Compose
-        run: docker-compose up -d  # Start services in detached mode
+        run: docker-compose up --build -d  # Start services in detached mode
 
+      #Checking docker log files to ensure the server is running properly
+      - name: Check Docker Compose Logs
+        if: failure()  # Only runs if the previous step fails
+        run: docker-compose logs
+        
       # Step 5: Wait for Frontend to be Ready
       - name: Wait for Frontend
         run: npx wait-on http://localhost:3000  # Wait for frontend to be ready
