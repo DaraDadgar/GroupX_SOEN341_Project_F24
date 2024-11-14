@@ -13,28 +13,35 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Step 3: Set up Node.js for Linting and Testing
+      # Step 2: Set up Node.js for Linting (only needed for linting, not dependency installation)
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "18"
 
-      # Step 4: Install frontend dependencies (including Cypress)
-      - name: Install frontend dependencies
-        working-directory: ./FrontEnd
-        run: npm install
+      # Step 3: Install Docker Compose (if not pre-installed)
+      - name: Install Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
 
-      # Step 4: Install backend dependencies (including Cypress)
-      - name: Install frontend dependencies
-        working-directory: ./BackEnd
-        run: npm install
+      # Step 4: Start services with Docker Compose
+      - name: Start services with Docker Compose
+        run: docker-compose up -d  # Start services in detached mode
 
-      # Step 7: Run Cypress Tests
+      # Step 5: Wait for Frontend to be Ready
+      - name: Wait for Frontend
+        run: npx wait-on http://localhost:3001  # Wait for frontend to be ready
+
+      # Step 6: Run Cypress Tests (Main Directory)
       - name: Run Cypress tests
         run: npx cypress run
 
-      # Step 8: Run Linting
+      # Step 7: Run Linting
       - name: Run Linting
         working-directory: ./FrontEnd
         run: npm run lint
 
+      # Step 8: Stop Docker Compose services
+      - name: Stop Docker Compose
+        run: docker-compose down
