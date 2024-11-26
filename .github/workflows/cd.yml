@@ -23,11 +23,14 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # Step 3: Build and Push Frontend Docker Image
-      # not sure, will be added later on
+      # Step 3: Build and Push the Frontend Docker Image
+      - name: Build and Push Frontend Docker Image
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/frontend:latest ./FrontEnd
+          docker push ${{ secrets.DOCKER_USERNAME }}/frontend:latest
 
-      # Step 4: Build and Push Backend Docker Image
+      # Step 4: Build and Push the Backend Docker Image
       - name: Build and Push Backend Docker Image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/backend:latest ./Backend
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/backend:latest ./BackEnd
           docker push ${{ secrets.DOCKER_USERNAME }}/backend:latest
