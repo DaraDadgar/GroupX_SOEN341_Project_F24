@@ -80,12 +80,9 @@
 
 .dashboard textarea {
   display: block;
-  margin: 10px 0px 0px 15px;
   background-color: #a8a8a8;
 
   font-size: 15px;
-  max-width: 80vw;
-
   resize: none;
 
   min-height: 150px;
