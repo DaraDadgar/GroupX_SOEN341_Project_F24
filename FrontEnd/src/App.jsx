@@ -20,7 +20,6 @@ import Header from "./components/Header.jsx";
 import NavBar from "./components/NavBar.jsx";
 import Instructor from "./routes/Instructor.jsx";
 import MyTeam from "./routes/Team.jsx";
-import Dashboard from "./routes/Dashboard.jsx";
 
 function App() {
   return (
