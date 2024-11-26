@@ -97,7 +97,7 @@ StudentTable.propTypes = {
   ).isRequired
 }
 
-function StudentComments({ assessments }) {
+function StudentComments() {
   return (
     <textarea
       id="comments"
