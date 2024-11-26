@@ -1,7 +1,7 @@
 import "../css/evaluation.css";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { storeProtectedAPI } from "../functions/apiinterface";
+import { storeProtectedAPI } from "../functions/ApiInterface";
 import { jwtDecode } from "jwt-decode";
 
 export default function Evaluation() {

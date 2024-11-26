@@ -1,9 +1,6 @@
-import "./App.css";
-
 import "./css/general.css";
 
 import GeneralHomePage from "./routes/GeneralHomePage.jsx";
-import About from "./routes/About.jsx";
 import MainLogin from "./routes/MainLogin.jsx";
 import TeamCreation from "./routes/TeamCreation.jsx";
 import TeammateSelection from "./routes/TeammateSelection.jsx";
@@ -17,7 +14,7 @@ import ProtectedRoute from "./config/ProtectedRoute.jsx";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import MainSignup from "./routes/MainSignup.jsx";
 import Header from "./components/Header.jsx";
-import NavBar from "./components/NavBar.jsx";
+import NavBar from "./components/Navbar.jsx";
 import Instructor from "./routes/Instructor.jsx";
 import MyTeam from "./routes/Team.jsx";
 

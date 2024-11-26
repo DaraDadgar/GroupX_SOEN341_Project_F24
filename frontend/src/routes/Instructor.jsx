@@ -1,7 +1,7 @@
-import "../css/Instructor.css";
+import "../css/instructor.css";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { fetchProtectedAPI, fetchAPI } from "../functions/apiinterface";
+import { fetchProtectedAPI, fetchAPI } from "../functions/ApiInterface";
 
 export default function Instructor() {
   const [teams, setTeams] = useState([]);

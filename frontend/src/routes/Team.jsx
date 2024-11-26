@@ -2,7 +2,7 @@ import "../css/main-teacher.css";
 import PropTypes from "prop-types";
 import { jwtDecode } from "jwt-decode";
 
-import { fetchProtectedAPI } from "../functions/apiinterface";
+import { fetchProtectedAPI } from "../functions/ApiInterface";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 

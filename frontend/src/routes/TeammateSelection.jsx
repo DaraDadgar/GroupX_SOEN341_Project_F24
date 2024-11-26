@@ -1,10 +1,7 @@
 import { useState, useEffect } from "react";
 import "../css/team-creation.css";
 
-import {
-  fetchProtectedAPI,
-  storeProtectedAPI,
-} from "../functions/apiinterface";
+import {fetchProtectedAPI} from "../functions/ApiInterface";
 import { useNavigate } from "react-router-dom";
 
 export default function TeammateSelection() {

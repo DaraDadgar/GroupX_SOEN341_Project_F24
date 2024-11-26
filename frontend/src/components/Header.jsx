@@ -1,6 +1,6 @@
 import "../css/header.css";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../config/useAuth";
+import { useAuth } from "../config/UseAuth";
 import homeIcon from "../pictures/home.png";
 import { jwtDecode } from "jwt-decode";
 

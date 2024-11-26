@@ -4,7 +4,7 @@ import "../css/team-creation.css";
 import {
   fetchProtectedAPI,
   storeProtectedAPI,
-} from "../functions/apiinterface";
+} from "../functions/ApiInterface";
 import { useNavigate } from "react-router-dom";
 
 export default function TeamCreation() {

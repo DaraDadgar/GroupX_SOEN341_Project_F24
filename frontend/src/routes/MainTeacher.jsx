@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "../css/main-teacher.css";
 
-import { fetchProtectedAPI } from "../functions/apiinterface";
+import { fetchProtectedAPI } from "../functions/ApiInterface";
 import { useNavigate } from "react-router-dom";
 
 export default function MainTeacher() {
