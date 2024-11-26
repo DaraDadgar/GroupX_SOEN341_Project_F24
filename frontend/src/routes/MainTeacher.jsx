@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import "../css/main-teacher.css";
 
+import PropTypes from "prop-types";
+
 import { fetchProtectedAPI } from "../functions/ApiInterface";
 import { useNavigate } from "react-router-dom";
 
@@ -85,6 +87,18 @@ function Team({ team, students }) {
       </ul>
     </div>
   );
+}
+
+Team.propTypes = {
+  team: PropTypes.shape({
+    name: PropTypes.string.isRequired
+  }).isRequired,
+  students: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired
+    })
+  ).isRequired
 }
 
 function NoTeam() {

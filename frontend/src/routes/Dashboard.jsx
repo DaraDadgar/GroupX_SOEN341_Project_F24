@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import "../css/dashboard.css";
 
 function StarScore({ average }) {
@@ -10,6 +11,10 @@ function StarScore({ average }) {
       <span>{average >= 5 ? "★" : "☆"}</span>
     </div>
   );
+}
+
+StarScore.propTypes = {
+  average: PropTypes.number.isRequired
 }
 
 function StarTable({ team_members }) {
@@ -27,6 +32,16 @@ function StarTable({ team_members }) {
       </tbody>
     </table>
   );
+}
+
+StarTable.propTypes = {
+  team_members: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      average: PropTypes.number.isRequired,
+    })
+  ).isRequired
 }
 
 function average(assessment) {
@@ -68,6 +83,18 @@ function StudentTable({ assessments }) {
       </tbody>
     </table>
   );
+}
+
+StudentTable.propTypes = {
+  assessments: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      cooperation_score: PropTypes.number.isRequired,
+      conceptual_contribution_score: PropTypes.number.isRequired,
+      practical_contribution_score: PropTypes.number.isRequired,
+      work_ethic_score: PropTypes.number.isRequired
+    })
+  ).isRequired
 }
 
 function StudentComments({ assessments }) {
@@ -147,3 +174,4 @@ export default function Dashboard() {
     </main>
   );
 }
+
