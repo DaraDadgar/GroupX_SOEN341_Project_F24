@@ -21,8 +21,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-
-  margin: 20px 20px;
+  margin: 20px;
 }
 
 .instructor h2 {
@@ -32,7 +31,7 @@
 }
 
 .instructor h3 {
-  color: #ffffff;
+  color: #fff;
   font-weight: 800;
   margin: 20px;
 }
@@ -41,9 +40,6 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-}
-
-.instructor .top-display .team-name {
   background-color: #464545;
   height: 35px;
   width: 800px;
@@ -53,10 +49,8 @@
   border: none;
   border-bottom: solid #a8a8a8 1px;
   background-color: #464545;
-
   height: 32px;
   width: 750px;
-
   color: white;
   font-size: 12pt;
 }
@@ -70,25 +64,22 @@
 }
 
 .instructor ul li {
-  margin: 0px 50px;
-  color: #ffffff;
+  margin: 0 50px;
+  color: #fff;
 }
 
 .instructor .buttons {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-
   gap: 20px;
 }
 
 .buttons > * {
   color: #cc813f;
   background-color: #464545;
-
   width: 100px;
   height: 30px;
-
   cursor: pointer;
   border: none;
 }
@@ -103,45 +94,42 @@
 }
 
 /* detele and edit */
-.instructor .delEdit {
+.instructor .del-edit {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-
   gap: 20px;
-}
-
-.delEdit > .delete,
-.delEdit > .edit {
-  width: 100px;
-  height: 30px;
-
-  cursor: pointer;
-  border: none;
-}
-
-.instructor .delEdit button:active {
-  opacity: 0.7;
 }
 
 .delete {
   background-color: red;
-  color: #ffffff;
+  color: #fff;
 }
 
 .edit {
   background-color: gray;
-  color: #ffffff;
+  color: #fff;
   margin-right: 20px;
+}
+
+.del-edit > .delete,
+.del-edit > .edit {
+  width: 100px;
+  height: 30px;
+  cursor: pointer;
+  border: none;
+}
+
+.instructor .del-edit button:active {
+  opacity: 0.7;
 }
 
 .evaluate {
   background-color: #cc813f;
-  color: #ffffff;
+  color: #fff;
   margin-right: 20px;
   width: 170px;
   height: 30px;
-
   cursor: pointer;
   border: none;
 }
