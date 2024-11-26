@@ -18,6 +18,8 @@ import NavBar from "./components/Navbar.jsx";
 import Instructor from "./routes/Instructor.jsx";
 import MyTeam from "./routes/Team.jsx";
 
+//Added this comment to test the CI workflow funtionalities
+
 function App() {
   return (
     <AuthProvider>
