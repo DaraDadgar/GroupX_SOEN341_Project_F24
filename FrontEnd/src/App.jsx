@@ -3,7 +3,6 @@ import "./App.css";
 import "./css/general.css";
 
 import GeneralHomePage from "./routes/GeneralHomePage.jsx";
-import About from "./routes/About.jsx";
 import MainLogin from "./routes/MainLogin.jsx";
 import TeamCreation from "./routes/TeamCreation.jsx";
 import TeammateSelection from "./routes/TeammateSelection.jsx";
@@ -18,7 +17,6 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import MainSignup from "./routes/MainSignup.jsx";
 import Header from "./components/Header.jsx";
 import NavBar from "./components/NavBar.jsx";
-import Instructor from "./routes/Instructor.jsx";
 import MyTeam from "./routes/Team.jsx";
 
 function App() {
@@ -30,7 +28,6 @@ function App() {
         <Routes>
           <Route path="/" element={<GeneralHomePage />} />
           <Route path="/login" element={<MainLogin />} />
-          <Route path="/about" element={<Dashboard />} />
           <Route path="/signup" element={<MainSignup />} />
 
           <Route
@@ -61,6 +58,15 @@ function App() {
           />
 
           <Route
+            path="/teacher/team/dashboard"
+            element={
+              <ProtectedRoute allowedRoles={["teacher"]}>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
             path="/student/select-teammate"
             element={
               <ProtectedRoute allowedRoles={["student"]}>
@@ -77,8 +83,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-
-          <Route path="/Instructor" element={<Instructor />} />
         </Routes>
       </Router>
     </AuthProvider>

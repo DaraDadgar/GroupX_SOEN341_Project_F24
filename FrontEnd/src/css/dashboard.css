@@ -9,6 +9,12 @@
   font-weight: 400;
 }
 
+.dashboard h4 {
+  color: orange;
+  font-size: 20px;
+  margin: 30px 90px;
+}
+
 .dashboard .star-row {
   display: flex;
   flex-direction: row;
@@ -82,12 +88,36 @@
 
   resize: none;
 
-  min-height: 100px;
+  min-height: 150px;
   width: 100%;
   max-width: 65vw;
   margin: 0 auto;
+
+  padding: 10px;
 }
 
 .dashboard textarea:focus {
   outline: none; /* Removes the default outline */
+}
+
+.dashboard button {
+  color: #cc813f;
+  background-color: #464545;
+
+  width: 100px;
+  height: 30px;
+
+  cursor: pointer;
+  border: none;
+
+  margin: 10px 90px;
+}
+
+.dashboard button:hover {
+  background-color: #cc813f;
+  color: #464545;
+}
+
+.dashboard button:active {
+  opacity: 0.7;
 }

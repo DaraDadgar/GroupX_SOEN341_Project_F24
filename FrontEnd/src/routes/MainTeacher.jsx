@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 export default function MainTeacher() {
   const navigate = useNavigate();
   const create_team = () => navigate("/teacher/team-creation");
-
   const [teams, setTeams] = useState([]);
   const [students, setStudents] = useState([]);
 
@@ -64,6 +63,10 @@ export default function MainTeacher() {
 }
 
 function Team({ team, students }) {
+  const navigate = useNavigate();
+  const team_info = (team, students) => {
+    navigate(`/teacher/team/dashboard`, { state: { team, students } }); // Pass team data in the state object
+  };
   return (
     <div className="instructor">
       <ul style={{ marginTop: "20px" }}>
@@ -72,6 +75,11 @@ function Team({ team, students }) {
           <li key={student.id}>{student.name}</li>
         ))}
         <div className="delEdit">
+          <button className="more" onClick={() => team_info(team, students)}>
+            {" "}
+            MORE
+          </button>
+          <button className="edit">EDIT</button>
           <button
             className="delete"
             onClick={() => {
@@ -80,7 +88,6 @@ function Team({ team, students }) {
           >
             DELETE
           </button>
-          <button className="edit">EDIT</button>
         </div>
       </ul>
     </div>

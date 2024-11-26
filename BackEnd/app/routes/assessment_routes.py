@@ -132,6 +132,18 @@ def get_receiver_assessments():
     assessments = Assessments.query.filter_by(receiver_id = user_identity["user_id"]).all()
     return jsonify({"Response" : "VALID", "Assessments" : assessments.to_dict()}), 200
 
+#Marc
+#Get assessments for a student 
+@assessment_bp.route('/assessments/student/<int:id>', methods=['GET'])
+@jwt_required()
+def get_student_assessments(id):
+    assessments = Assessments.query.filter_by(receiver_id = id).all()
+
+    if len(assessments) == 0:
+        return jsonify({"Response": "Valid", "Assessments": []}),200
+
+    return jsonify({"Response" : "VALID", "Assessments" : [assessment.to_dict() for assessment in assessments]}), 200
+
 
 #get assessments for sender (which should be the current student that is logged in)
 @assessment_bp.route('/assessments/sender', methods=['GET'])
