@@ -58,6 +58,7 @@
   margin: 0 50px;
   color: #fff;
 }
+
 /* 
 .instructor li label {
   color: #ffffff;
@@ -137,8 +138,8 @@
   gap: 20px;
 }
 
-.delEdit > .delete,
-.delEdit > .edit {
+.del-edit > .delete,
+.del-edit > .edit {
   width: 100px;
   height: 30px;
   cursor: pointer;
