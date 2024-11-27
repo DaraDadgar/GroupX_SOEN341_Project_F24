@@ -3,7 +3,7 @@
   margin: 20px auto;
 }
 
-.header {
+.instructor .header {
   width: 1200px;
   margin: 0 auto;
 }
@@ -65,16 +65,16 @@
   color: #ffffff;
 }
 /* 
-.instructor li label {
-  color: #ffffff;
-  font-weight: 200;
-  font-size: 12pt;
-}
-
-.instructor li input {
-  margin-right: 15px;
-  margin-left: 10px;
-} */
+  .instructor li label {
+    color: #ffffff;
+    font-weight: 200;
+    font-size: 12pt;
+  }
+  
+  .instructor li input {
+    margin-right: 15px;
+    margin-left: 10px;
+  } */
 
 .instructor .buttons {
   display: flex;
@@ -84,7 +84,7 @@
   gap: 20px;
 }
 
-.buttons > * {
+.instructor .buttons > * {
   color: #cc813f;
   background-color: #464545;
 
@@ -113,9 +113,9 @@
   gap: 20px;
 }
 
-.delEdit > .delete,
-.delEdit > .edit,
-.delEdit > .more {
+.instructor .delEdit > .delete,
+.instructor .delEdit > .edit,
+.instructor .delEdit > .more {
   width: 100px;
   height: 30px;
 
@@ -127,18 +127,17 @@
   opacity: 0.7;
 }
 
-.delete {
+.instructor .delete {
   background-color: red;
   color: #ffffff;
 }
 
-.edit {
+.instructor .edit {
   background-color: gray;
   color: #ffffff;
 }
 
-.more {
+.instructor .more {
   background-color: gray;
   color: #ffffff;
 }
-

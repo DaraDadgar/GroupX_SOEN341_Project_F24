@@ -1,4 +1,7 @@
 import "../css/dashboard.css";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { fetchProtectedAPI } from "../functions/ApiInterface";
 
 function StarScore({ average }) {
   return (
@@ -29,16 +32,32 @@ function StarTable({ team_members }) {
   );
 }
 
-function average(assessment) {
-  const sum =
+function sum_score(assessment) {
+  return (
     assessment.cooperation_score +
     assessment.conceptual_contribution_score +
-    assessment.conceptual_contribution_score +
-    assessment.work_ethic_score;
+    assessment.practical_contribution_score +
+    assessment.work_ethic_score
+  );
+}
 
-  const avg = sum / 4;
-
+function average(assessment) {
+  const avg = sum_score(assessment) / 4;
   return avg.toFixed(1);
+}
+
+function total_avg(assessments) {
+  let tot = 0;
+
+  for (const assessment of assessments) {
+    tot += sum_score(assessment) / 4;
+  }
+
+  if (tot > 0) {
+    tot = tot / assessments.length;
+  }
+
+  return Math.ceil(tot);
 }
 
 function StudentTable({ assessments }) {
@@ -77,73 +96,87 @@ function StudentComments({ assessments }) {
       name="comments"
       maxLength="500"
       cols="100"
+      value={assessments
+        .map((assessment) => `• ${assessment.comments}`)
+        .join("\n")}
       readOnly
       tabIndex="-1"
-    >
-      This is some text that cannot be edited or focused.
-    </textarea>
+    ></textarea>
+  );
+}
+
+function StudentDash({ student }) {
+  return (
+    <>
+      <h4>{student.name}:</h4>
+      <StudentTable assessments={student.assessments} />
+      <h4>Comments Received:</h4>
+      <StudentComments assessments={student.assessments} />
+    </>
+  );
+}
+
+function StudentsDash({ students }) {
+  return (
+    <>
+      {students.map((student, index) => (
+        <StudentDash key={student.id} student={student} />
+      ))}
+    </>
   );
 }
 
 export default function Dashboard() {
-  const team = { id: 4, name: "Team X" };
-  const team_members = [
-    { id: 1, name: "Julia Boutros", average: 1 },
-    { id: 2, name: "Spencer Shay", average: 2 },
-    { id: 3, name: "Oren Argot", average: 3 },
-    { id: 4, name: "Dad", average: 4 },
-  ];
+  const location = useLocation(); // Retrieve the state passed via navigate
+  const navigate = useNavigate();
+  const { team, students } = location.state; // Extract the team data
+  const [team_members, setTeamMembers] = useState(students);
+  const [loading, setLoading] = useState(true);
 
-  const team_assessments = [
-    [
-      {
-        id: 1,
-        cooperation_score: 1,
-        conceptual_contribution_score: 2,
-        practical_contribution_score: 3,
-        work_ethic_score: 4,
-        comments: "Excellent!",
-      },
+  const fetchAssessments = async () => {
+    const token = localStorage.getItem("token");
 
-      {
-        id: 2,
-        cooperation_score: 3,
-        conceptual_contribution_score: 4,
-        practical_contribution_score: 5,
-        work_ethic_score: 4,
-        comments: "Great!",
-      },
-      {
-        id: 3,
-        cooperation_score: 1,
-        conceptual_contribution_score: 2,
-        practical_contribution_score: 5,
-        work_ethic_score: 4,
-        comments: "Meh!",
-      },
-      {
-        id: 4,
-        cooperation_score: 3,
-        conceptual_contribution_score: 2,
-        practical_contribution_score: 3,
-        work_ethic_score: 3,
-        comments: "Okay!",
-      },
-    ],
-    [],
-    [],
-    [],
-  ];
+    try {
+      const newStudents = [...team_members]; // Create a copy of the students array
+
+      // Fetch data for each student
+      for (let i = 0; i < newStudents.length; i++) {
+        const response = await fetchProtectedAPI(
+          `/assessments/student/${newStudents[i].id}`,
+          token
+        );
+        const ass = response.data.Assessments;
+
+        // Calculate and update student average and assessments
+        newStudents[i] = {
+          ...newStudents[i],
+          average: total_avg(ass),
+          assessments: ass,
+        };
+      }
+
+      // Update the state with the new students data
+      setTeamMembers(newStudents);
+      setLoading(false); // Set loading to false once the data is fetched
+    } catch (error) {
+      console.error("Error fetching assessments:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchAssessments(); // Call fetchAssessments when component mounts
+  }, []); // Empty dependency array to run only once on mount
+
+  if (loading) {
+    return <div></div>; // Show a loading message or spinner while data is being fetched
+  }
 
   return (
     <main className="dashboard">
       <h2>{team.name}</h2>
-
       <StarTable team_members={team_members} />
-
-      <StudentTable assessments={team_assessments[0]} />
-
-      <StudentComments />
+      <StudentsDash students={team_members} />
+      <button onClick={() => navigate("/teacher/home")}>Back</button>
     </main>
   );
 }
