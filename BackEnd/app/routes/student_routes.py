@@ -7,29 +7,29 @@ from app.extensions import db
 student_bp = Blueprint('student_bp', __name__)
 
 @student_bp.route('/students', methods=['GET'])
-@jwt_required()
+#@jwt_required()
 def get_students():
     students = Students.query.all()
     students_list = [student.to_dict() for student in students]
     return jsonify(students_list), 200
 
 @student_bp.route('/students/available', methods=['GET'])
-@jwt_required()
+#@jwt_required()
 def get_available_students():
-    user_identity = get_jwt_identity()
-    if user_identity["user_type"] != "teacher":
-        return jsonify({"Response": "INVALID", "Reason": "Only teachers can access this route"}), 403
+    #user_identity = get_jwt_identity()
+    #if user_identity["user_type"] != "teacher":
+        #return jsonify({"Response": "INVALID", "Reason": "Only teachers can access this route"}), 403
     available_students = Students.query.filter_by(is_available=True).all()
     students_list = [student.to_dict() for student in available_students]
     return jsonify(students_list), 200
 
 @student_bp.route('/students/<int:id>/team', methods=['GET'])
-@jwt_required()
+#@jwt_required()
 def get_student_team(id):
-    user_identity = get_jwt_identity()
+    #user_identity = get_jwt_identity()
 
-    if user_identity["user_type"] != "student":
-       return jsonify({"Response": "INVALID", "Reason": "Only students can access this route"}), 403
+    #if user_identity["user_type"] != "student":
+       #return jsonify({"Response": "INVALID", "Reason": "Only students can access this route"}), 403
 
     student = Students.query.get(id)
     if not student:
@@ -46,12 +46,12 @@ def get_student_team(id):
     return jsonify({"Response": "VALID", "Team": team.to_dict()}), 200
 
 @student_bp.route('/students/team', methods=['GET'])
-@jwt_required()
+#@jwt_required()
 def get_student_team_by_token():
     user_identity = get_jwt_identity()
     
-    if user_identity["user_type"] != "student":
-        return jsonify({"Response": "INVALID", "Reason": "Only students can access this route"}), 403
+    #if user_identity["user_type"] != "student":
+        #return jsonify({"Response": "INVALID", "Reason": "Only students can access this route"}), 403
 
     student_id = user_identity["user_id"]
 

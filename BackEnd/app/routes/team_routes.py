@@ -6,19 +6,19 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 team_bp = Blueprint('team_bp', __name__)
 
 @team_bp.route('/teams', methods=['GET'])
-@jwt_required()
+#@jwt_required()
 def get_teams():
-    user_identity = get_jwt_identity()
-    if user_identity["user_type"] != "teacher":
-        return jsonify({"Response": "INVALID", "Reason": "Only teachers can access this route"}), 403
+    #user_identity = get_jwt_identity()
+    #if user_identity["user_type"] != "teacher":
+        #return jsonify({"Response": "INVALID", "Reason": "Only teachers can access this route"}), 403
     teams = Teams.query.all()
     team_list = [team.to_dict() for team in teams]
     return jsonify(team_list), 200
 
 @team_bp.route('/teams/<int:id>', methods=['GET'])
-@jwt_required()
+#@jwt_required()
 def get_team(id):
-    user_identity = get_jwt_identity()
+    #user_identity = get_jwt_identity()
     
     #if user_identity["user_type"] != "teacher":
     #    return jsonify({"Response": "INVALID", "Reason": "Only teachers can access this route"}), 403
@@ -30,12 +30,12 @@ def get_team(id):
 
 #Returns teammates in a team i.e. all team members except student himself
 @team_bp.route('/teams/<int:id>/teammates', methods=['GET'])
-@jwt_required()
+#@jwt_required()
 def get_teammates(id):
     user_identity = get_jwt_identity()
 
-    if user_identity["user_type"] != "student":
-       return jsonify({"Response": "INVALID", "Reason": "Only teachers can access this route"}), 403
+    #if user_identity["user_type"] != "student":
+       #return jsonify({"Response": "INVALID", "Reason": "Only teachers can access this route"}), 403
     
     user_id = user_identity["user_id"]
     
@@ -60,14 +60,14 @@ def get_teammates(id):
 
 
 @team_bp.route('/teams', methods=['POST'])
-@jwt_required()
+#@jwt_required()
 def create_team():
     team_name = request.json['name']
     students_emails = request.json['student_emails']
     
-    user_identity = get_jwt_identity()
-    if user_identity["user_type"] != "teacher":
-        return jsonify({"Response": "INVALID", "Reason": "Only teachers can access this route"}), 403
+    #user_identity = get_jwt_identity()
+    #if user_identity["user_type"] != "teacher":
+        #return jsonify({"Response": "INVALID", "Reason": "Only teachers can access this route"}), 403
 
     existing_team = Teams.query.filter_by(name=team_name).first()
     if existing_team:
@@ -94,11 +94,11 @@ def create_team():
     return jsonify({"Response": "VALID"}), 201
 
 @team_bp.route('/teams/<int:id>', methods=['DELETE'])
-@jwt_required()
+#@jwt_required()
 def delete_team(id):
-    user_identity = get_jwt_identity()
-    if user_identity["user_type"] != "teacher":
-        return jsonify({"Response": "INVALID", "Reason": "Only teachers can access this route"}), 403
+    #user_identity = get_jwt_identity()
+    #if user_identity["user_type"] != "teacher":
+        #return jsonify({"Response": "INVALID", "Reason": "Only teachers can access this route"}), 403
     
     team = Teams.query.get(id)
     if not team:
@@ -117,11 +117,11 @@ def delete_team(id):
     return jsonify({"Response": "VALID", "Reason": "Team deleted successfully"}), 200
 
 @team_bp.route('/teams/<int:id>', methods=['PUT'])
-@jwt_required()
+#@jwt_required()
 def update_team(id):
-    user_identity = get_jwt_identity()
-    if user_identity["user_type"] != "teacher":
-        return jsonify({"Response": "INVALID", "Reason": "Only teachers can access this route"}), 403
+    #user_identity = get_jwt_identity()
+    #if user_identity["user_type"] != "teacher":
+        #return jsonify({"Response": "INVALID", "Reason": "Only teachers can access this route"}), 403
 
     team = Teams.query.get(id)
     if not team:
@@ -158,11 +158,11 @@ def update_team(id):
     return jsonify({"Response": "VALID", "Reason": "Team updated successfully"}), 200
 
 @team_bp.route('/teams/<int:id>/students', methods=['GET'])
-@jwt_required()
+#@jwt_required()
 def get_students_from_team(id):
-    user_identity = get_jwt_identity()
-    if user_identity["user_type"] != "teacher":
-        return jsonify({"Response": "INVALID", "Reason": "Only teachers can access this route"}), 403
+    #user_identity = get_jwt_identity()
+    #if user_identity["user_type"] != "teacher":
+        #return jsonify({"Response": "INVALID", "Reason": "Only teachers can access this route"}), 403
     
     student_teams = StudentTeam.query.filter_by(team_id=id).all()
     student_ids = [student_team.student_id for student_team in student_teams]

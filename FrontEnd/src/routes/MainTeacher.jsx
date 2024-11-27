@@ -9,6 +9,7 @@ export default function MainTeacher() {
   const create_team = () => navigate("/teacher/team-creation");
   const [teams, setTeams] = useState([]);
   const [students, setStudents] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const fetchTeams = async () => {
     const token = localStorage.getItem("token");
@@ -27,12 +28,17 @@ export default function MainTeacher() {
           );
         }
         setStudents(studs);
+        setLoading(false);
       });
   };
 
   useEffect(() => {
     fetchTeams();
   }, []);
+
+  if (loading) {
+    return <div></div>;
+  }
 
   return (
     <main className="main-teacher">
