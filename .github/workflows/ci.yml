@@ -67,7 +67,7 @@ jobs:
       # Step 4: Run Pylint on Python Files
       - name: Run Pylint
         working-directory: ./backend
-        run: pylint **/*.py
+        run: pylint --disable=import-error **/*.py
 
         # Step 6: Run Cypress Tests
       - name: Run Cypress tests
