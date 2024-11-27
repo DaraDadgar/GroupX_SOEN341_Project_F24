@@ -2,7 +2,6 @@ import "../css/main-teacher.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { fetchProtectedAPI, fetchAPI, deleteTeam } from "../functions/ApiInterface";
-import PropTypes from "prop-types";
 
 export default function MainTeacher() {
   const [teams, setTeams] = useState([]);
