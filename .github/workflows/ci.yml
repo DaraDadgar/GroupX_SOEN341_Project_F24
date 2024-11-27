@@ -13,7 +13,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Step 2: Set up Node.js for Linting (only needed for linting, not dependency installation)
+      # Step 2: Set up Node.js for Linting
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -53,7 +53,28 @@ jobs:
         working-directory: ./frontend
         run: npm run stylelint
 
-        # Step 6: Run Cypress Tests (Main Directory)
+      # Step 2: Set up Python environment
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12' 
+
+      # Step 3: Install Pylint
+      - name: Install Pylint
+        working-directory: ./backend
+        run: pip install pylint
+
+      # Step 3: Install dependencies from requirements.txt
+      - name: Install dependencies
+        working-directory: ./backend 
+        run: pip install -r requirements.txt
+
+      # Step 4: Run Pylint on Python Files
+      - name: Run Pylint
+        working-directory: ./backend
+        run: pylint **/*.py
+
+        # Step 6: Run Cypress Tests
       - name: Run Cypress tests
         run: npx cypress run
 
