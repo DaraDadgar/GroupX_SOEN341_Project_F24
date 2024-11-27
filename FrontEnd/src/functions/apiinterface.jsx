@@ -20,9 +20,7 @@ export const deleteTeam = async (route, token) => {
   });
 
   try {
-    const response = await apiClientX.delete(`/teams/${teamId}`, {
-      withCredentials: true,
-    });
+    const response = await apiClientX.delete(`/teams/${route}`, { withCredentials: true });
     return response;
   } catch (error) {
     console.error("Error deleting team:", error);
