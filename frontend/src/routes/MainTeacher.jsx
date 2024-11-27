@@ -136,7 +136,7 @@ export default function MainTeacher() {
               </tbody>
             </table>
 
-            <div className="delEdit">
+            <div className="del-edit">
               <button
                 className="delete"
                 onClick={() => HandleDeleteTeam(team.id)}
