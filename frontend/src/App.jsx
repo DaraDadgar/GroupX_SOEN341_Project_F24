@@ -15,7 +15,6 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import MainSignup from "./routes/MainSignup.jsx";
 import Header from "./components/Header.jsx";
 import NavBar from "./components/Navbar.jsx";
-import Instructor from "./routes/Instructor.jsx";
 import MyTeam from "./routes/Team.jsx";
 
 function App() {
@@ -75,8 +74,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-
-          <Route path="/Instructor" element={<Instructor />} />
         </Routes>
       </Router>
     </AuthProvider>

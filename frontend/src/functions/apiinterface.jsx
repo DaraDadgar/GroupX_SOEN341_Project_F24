@@ -9,7 +9,7 @@ const apiClient = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
-export const deleteTeam = async (route, token) => {
+export const deleteTeam = async (teamId, token) => {
   const apiClientX = axios.create({
     baseURL: "http://localhost:5001",
     timeout: 1000,
@@ -20,7 +20,7 @@ export const deleteTeam = async (route, token) => {
   });
 
   try {
-    const response = await apiClientX.delete(`/teams/${route}`, { withCredentials: true });
+    const response = await apiClientX.delete(`/teams/${teamId}`, { withCredentials: true });
     return response;
   } catch (error) {
     console.error("Error deleting team:", error);

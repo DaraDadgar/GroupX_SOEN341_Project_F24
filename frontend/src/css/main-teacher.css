@@ -1,14 +1,5 @@
-.main-teacher ul li {
-  list-style: none;
-}
-
-.main-teacher h1 {
-  text-align: center;
-}
-
-.instructor {
+.instructor form {
   width: 1200px;
-  max-width: 80vw;
   margin: 20px auto;
 }
 
@@ -73,6 +64,17 @@
   margin: 0px 50px;
   color: #ffffff;
 }
+/* 
+.instructor li label {
+  color: #ffffff;
+  font-weight: 200;
+  font-size: 12pt;
+}
+
+.instructor li input {
+  margin-right: 15px;
+  margin-left: 10px;
+} */
 
 .instructor .buttons {
   display: flex;
@@ -112,7 +114,8 @@
 }
 
 .delEdit > .delete,
-.delEdit > .edit {
+.delEdit > .edit,
+.delEdit > .more {
   width: 100px;
   height: 30px;
 
@@ -132,16 +135,10 @@
 .edit {
   background-color: gray;
   color: #ffffff;
-  margin-right: 20px;
 }
 
-.evaluate {
-  background-color: #cc813f;
+.more {
+  background-color: gray;
   color: #ffffff;
-  margin-right: 20px;
-  width: 170px;
-  height: 30px;
-
-  cursor: pointer;
-  border: none;
 }
+
