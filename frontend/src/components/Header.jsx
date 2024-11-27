@@ -38,7 +38,7 @@ function LoggedOut() {
 
 function LoggedIn() {
   const { token, role, logout } = useAuth();
-  const user_info = jwtDecode(token).sub;
+  const user_info = jwtDecode(token);
   const title =
     role === "student" ? user_info.user_name : "Prof " + user_info.user_name;
 

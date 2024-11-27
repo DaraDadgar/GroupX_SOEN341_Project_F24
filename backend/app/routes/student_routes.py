@@ -26,7 +26,7 @@ def get_students():
 @student_bp.route('/students/available', methods=['GET'])
 @jwt_required()
 def get_available_students():
-    user_identity = get_jwt_identity()
+    user_identity = int(get_jwt_identity())
     user_claims = get_jwt()
     if user_claims.get("user_type") != "teacher":
         return jsonify({"Response": "INVALID", "Reason": "Only teacher can access this route"}), 403
@@ -37,7 +37,7 @@ def get_available_students():
 @student_bp.route('/students/<int:id>/team', methods=['GET'])
 @jwt_required()
 def get_student_team(id):
-    user_identity = get_jwt_identity()
+    user_identity = int(get_jwt_identity())
 
     user_claims = get_jwt()
     if user_claims.get("user_type") != "student":
@@ -49,7 +49,7 @@ def get_student_team(id):
 
     student_team = StudentTeam.query.filter_by(student_id=id).first()
     if not student_team:
-        return jsonify({"Response": "INVALID", "Reason": "Student is not in a team"}), 404
+        return jsonify({"Response": "INVALID", "Reason": "Student is not in a team"}), 203
 
     team = Teams.query.get(student_team.team_id)
     if not team:
@@ -60,12 +60,12 @@ def get_student_team(id):
 @student_bp.route('/students/team', methods=['GET'])
 @jwt_required()
 def get_student_team_by_token():
-    user_identity = get_jwt_identity()
+    user_identity = int(get_jwt_identity())
     user_claims = get_jwt()
     if user_claims.get("user_type") != "student":
         return jsonify({"Response": "INVALID", "Reason": "Only student can access this route"}), 403
 
-    student_id = user_claims.get("user_id")
+    student_id = user_identity
 
     student = Students.query.get(student_id)
     if not student:

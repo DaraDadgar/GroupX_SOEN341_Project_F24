@@ -1,7 +1,7 @@
 import "../css/instructor.css";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { fetchProtectedAPI, fetchAPI } from "../functions/ApiInterface";
+import { fetchAPI, fetchProtectedAPI } from "../functions/ApiInterface";
 
 export default function Instructor() {
   const [teams, setTeams] = useState([]);
@@ -15,7 +15,7 @@ export default function Instructor() {
       }
 
       // Fetch all teams
-      const teamsResponse = await fetchProtectedAPI('/teams', token);
+      const teamsResponse = await fetchProtectedAPI("/teams", token);
       if (teamsResponse.status === 200) {
         const teamList = teamsResponse.data;
 
@@ -23,20 +23,30 @@ export default function Instructor() {
         const teamsWithMembers = await Promise.all(
           teamList.map(async (team) => {
             // Fetch members of the team
-            const membersResponse = await fetchProtectedAPI(`/teams/${team.id}`, token);
+            const membersResponse = await fetchProtectedAPI(
+              `/teams/${team.id}`,
+              token
+            );
             if (membersResponse.status === 200) {
               const members = await Promise.all(
                 membersResponse.data.map(async (member) => {
                   // Fetch assessment for each member
-                  const assessmentResponse = await fetchAPI(`/assessments/${member.id}`);
-                  const assessment = assessmentResponse.status === 200 ? assessmentResponse.data : {};
+                  const assessmentResponse = await fetchAPI(
+                    `/assessments/${member.id}`
+                  );
+                  const assessment =
+                    assessmentResponse.status === 200
+                      ? assessmentResponse.data
+                      : {};
 
                   return {
                     ...member,
                     assessment: {
                       cooperation_score: assessment.cooperation_score || "N/A",
-                      conceptual_contribution_score: assessment.conceptual_contribution_score || "N/A",
-                      practical_contribution_score: assessment.practical_contribution_score || "N/A",
+                      conceptual_contribution_score:
+                        assessment.conceptual_contribution_score || "N/A",
+                      practical_contribution_score:
+                        assessment.practical_contribution_score || "N/A",
                       work_ethic_score: assessment.work_ethic_score || "N/A",
                       comments: assessment.comments || "No comments",
                     },
@@ -71,7 +81,15 @@ export default function Instructor() {
 
       <div className="instructor header">
         {teams.map((team) => (
-          <ul key={team.id} style={{ marginTop: "20px", padding: "25px", color: "white", textAlign: "center" }}>
+          <ul
+            key={team.id}
+            style={{
+              marginTop: "20px",
+              padding: "25px",
+              color: "white",
+              textAlign: "center",
+            }}
+          >
             <table style={{ marginBottom: "20px" }}>
               <thead>
                 <tr>
@@ -86,27 +104,49 @@ export default function Instructor() {
               </thead>
               <tbody>
                 {team.members.map((member) => {
-                  const { cooperation_score, conceptual_contribution_score, practical_contribution_score, work_ethic_score } = member.assessment;
+                  const {
+                    cooperation_score,
+                    conceptual_contribution_score,
+                    practical_contribution_score,
+                    work_ethic_score,
+                  } = member.assessment;
                   const average =
                     cooperation_score !== "N/A" &&
                     conceptual_contribution_score !== "N/A" &&
                     practical_contribution_score !== "N/A" &&
                     work_ethic_score !== "N/A"
                       ? (
-                          (cooperation_score + conceptual_contribution_score + practical_contribution_score + work_ethic_score) /
+                          (cooperation_score +
+                            conceptual_contribution_score +
+                            practical_contribution_score +
+                            work_ethic_score) /
                           4
                         ).toFixed(1)
                       : "N/A";
 
                   return (
                     <tr key={member.id}>
-                      <td style={{ borderBottom: "2px solid white" }}>{member.name}</td>
-                      <td style={{ borderBottom: "2px solid white" }}>{cooperation_score}</td>
-                      <td style={{ borderBottom: "2px solid white" }}>{conceptual_contribution_score}</td>
-                      <td style={{ borderBottom: "2px solid white" }}>{practical_contribution_score}</td>
-                      <td style={{ borderBottom: "2px solid white" }}>{work_ethic_score}</td>
-                      <td style={{ borderBottom: "2px solid white" }}>{average}</td>
-                      <td style={{ borderBottom: "2px solid white" }}>{member.assessment.comments}</td>
+                      <td style={{ borderBottom: "2px solid white" }}>
+                        {member.name}
+                      </td>
+                      <td style={{ borderBottom: "2px solid white" }}>
+                        {cooperation_score}
+                      </td>
+                      <td style={{ borderBottom: "2px solid white" }}>
+                        {conceptual_contribution_score}
+                      </td>
+                      <td style={{ borderBottom: "2px solid white" }}>
+                        {practical_contribution_score}
+                      </td>
+                      <td style={{ borderBottom: "2px solid white" }}>
+                        {work_ethic_score}
+                      </td>
+                      <td style={{ borderBottom: "2px solid white" }}>
+                        {average}
+                      </td>
+                      <td style={{ borderBottom: "2px solid white" }}>
+                        {member.assessment.comments}
+                      </td>
                     </tr>
                   );
                 })}

@@ -3,7 +3,7 @@
   margin: 20px auto;
 }
 
-.header {
+.instructor .header {
   width: 1200px;
   margin: 0 auto;
 }
@@ -60,16 +60,16 @@
 }
 
 /* 
-.instructor li label {
-  color: #ffffff;
-  font-weight: 200;
-  font-size: 12pt;
-}
-
-.instructor li input {
-  margin-right: 15px;
-  margin-left: 10px;
-} */
+  .instructor li label {
+    color: #ffffff;
+    font-weight: 200;
+    font-size: 12pt;
+  }
+  
+  .instructor li input {
+    margin-right: 15px;
+    margin-left: 10px;
+  } */
 
 .instructor .buttons {
   display: flex;
@@ -78,7 +78,7 @@
   gap: 20px;
 }
 
-.buttons > * {
+.instructor .buttons > * {
   color: #cc813f;
   background-color: #464545;
   width: 100px;
@@ -109,12 +109,12 @@
   color: #fff;
 }
 
-.edit {
+.instructor .edit {
   background-color: gray;
   color: #fff;
 }
 
-.more {
+.instructor .more {
   background-color: gray;
   color: #fff;
 }

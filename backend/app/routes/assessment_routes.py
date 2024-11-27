@@ -133,7 +133,22 @@ def get_receiver_assessments():
         return jsonify({"Response": "INVALID", "Reason": "Only student can access this route"}), 403
 
     assessments = Assessments.query.filter_by(receiver_id = user_identity["user_id"]).all()
-    return jsonify({"Response" : "VALID", "Assessments" : assessments.to_dict()}), 200
+    return jsonify({"Response" : "VALID", "Assessments" : [assessment.to_dict() for assessment in assessments]}), 200
+
+
+#Marc
+#Get assessments for a student 
+@assessment_bp.route('/assessments/student/<int:id>', methods=['GET'])
+@jwt_required()
+def get_student_assessments(id):
+    assessments = Assessments.query.filter_by(receiver_id = id).all()
+
+    if len(assessments) == 0:
+        return jsonify({"Response": "Valid", "Assessments": []}),200
+
+    return jsonify({"Response" : "VALID", "Assessments" : [assessment.to_dict() for assessment in assessments]}), 200
+
+
 
 #Get assemssment for receiver - Instructor
 @assessment_bp.route('/assessments/receiver/<int:student_id>', methods=['GET'])

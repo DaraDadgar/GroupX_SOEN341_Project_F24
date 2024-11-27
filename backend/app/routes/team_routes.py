@@ -8,7 +8,7 @@ team_bp = Blueprint('team_bp', __name__)
 @team_bp.route('/teams', methods=['GET'])
 @jwt_required()
 def get_teams():
-    user_identity = get_jwt_identity()
+    user_identity = int(get_jwt_identity())
     user_claims = get_jwt()
     if user_claims.get("user_type") != "teacher":
         return jsonify({"Response": "INVALID", "Reason": "Only teachers can access this route"}), 403
@@ -19,10 +19,10 @@ def get_teams():
 @team_bp.route('/teams/<int:id>', methods=['GET'])
 @jwt_required()
 def get_team(id):
-    user_identity = get_jwt_identity()
+    user_identity = int(get_jwt_identity())
     user_claims = get_jwt()
-    if user_claims.get("user_type") != "teacher":
-        return jsonify({"Response": "INVALID", "Reason": "Only teachers can access this route"}), 403
+    #if user_claims.get("user_type") != "teacher":
+    #    return jsonify({"Response": "INVALID", "Reason": "Only teachers can access this route"}), 403
     
     students_in_team = StudentTeam.query.filter_by(team_id=id).all()
     students = [Students.query.get(student.student_id).to_dict() for student in students_in_team]
@@ -33,7 +33,7 @@ def get_team(id):
 @team_bp.route('/teams/<int:id>/teammates', methods=['GET'])
 @jwt_required()
 def get_teammates(id):
-    user_identity = get_jwt_identity()
+    user_identity = int(get_jwt_identity())
     user_claims = get_jwt()
     if user_claims.get("user_type") != "student":
         return jsonify({"Response": "INVALID", "Reason": "Only student can access this route"}), 403
@@ -66,7 +66,7 @@ def create_team():
     team_name = request.json['name']
     students_emails = request.json['student_emails']
     
-    user_identity = get_jwt_identity()
+    user_identity = int(get_jwt_identity())
     user_claims = get_jwt()
     if user_claims.get("user_type") != "teacher":
         return jsonify({"Response": "INVALID", "Reason": "Only teacher can access this route"}), 403
@@ -98,7 +98,7 @@ def create_team():
 @team_bp.route('/teams/<int:id>', methods=['DELETE'])
 @jwt_required()
 def delete_team(id):
-    user_identity = get_jwt_identity()
+    user_identity = int(get_jwt_identity())
     user_claims = get_jwt()
     if user_claims.get("user_type") != "teacher":
         return jsonify({"Response": "INVALID", "Reason": "Only teacher can access this route"}), 403
@@ -122,7 +122,7 @@ def delete_team(id):
 @team_bp.route('/teams/<int:id>', methods=['PUT'])
 @jwt_required()
 def update_team(id):
-    user_identity = get_jwt_identity()
+    user_identity = int(get_jwt_identity())
     user_claims = get_jwt()
     if user_claims.get("user_type") != "teacher":
         return jsonify({"Response": "INVALID", "Reason": "Only teacher can access this route"}), 403
@@ -164,7 +164,7 @@ def update_team(id):
 @team_bp.route('/teams/<int:id>/students', methods=['GET'])
 @jwt_required()
 def get_students_from_team(id):
-    user_identity = get_jwt_identity()
+    user_identity = int(get_jwt_identity())
     user_claims = get_jwt()
     if user_claims.get("user_type") != "teacher":
         return jsonify({"Response": "INVALID", "Reason": "Only teacher can access this route"}), 403
