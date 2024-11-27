@@ -129,7 +129,6 @@
   border: none;
 }
 
-
 /* detele and edit */
 .instructor .del-edit {
   display: flex;
@@ -142,7 +141,6 @@
 .delEdit > .edit {
   width: 100px;
   height: 30px;
-
   cursor: pointer;
   border: none;
 }
@@ -163,17 +161,16 @@
 
 .main-teacher .more {
   background-color: gray;
-  color: #ffffff;
+  color: #fff;
   margin-right: 20px;
 }
 
 .evaluate {
   background-color: #cc813f;
-  color: #ffffff;
+  color: #fff;
   margin-right: 20px;
   width: 170px;
   height: 30px;
-
   cursor: pointer;
   border: none;
 }
