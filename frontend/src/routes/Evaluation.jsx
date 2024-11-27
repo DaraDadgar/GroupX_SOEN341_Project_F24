@@ -22,9 +22,9 @@ export default function Evaluation() {
     const formData = new FormData(e.target);
     const payload = Object.fromEntries(formData);
     const token = localStorage.getItem("token");
-    const user_info = jwtDecode(token).sub;
+    const user_info = jwtDecode(token);
     const data = {
-      sender_id: user_info.user_id,
+      sender_id: user_info.sub,
       receiver_id: student.id,
       cooperation_score: payload["score-1"],
       conceptual_contribution_score: payload["score-2"],

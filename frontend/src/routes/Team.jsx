@@ -12,9 +12,9 @@ export default function MyTeam() {
 
   const fetchTeam = async () => {
     const token = localStorage.getItem("token");
-    const user_info = jwtDecode(token).sub;
+    const user_info = jwtDecode(token);
 
-    await fetchProtectedAPI(`/students/${user_info.user_id}/team`, token).then(
+    await fetchProtectedAPI(`/students/${user_info.sub}/team`, token).then(
       async (response) => {
         if (response.data.Response === "VALID") {
           setTeam(response.data.Team);
