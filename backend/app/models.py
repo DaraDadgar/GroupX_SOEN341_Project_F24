@@ -1,5 +1,17 @@
+"""
+This module contains the database models used in the system for various entities including students, teachers, teams, assessments, and blacklisted tokens.
+
+Classes:
+    StudentTeam: Represents the association between students and teams.
+    Students: Represents a student entity in the system.
+    Teachers: Represents a teacher entity in the system.
+    Teams: Represents a team entity in the system.
+    Assessments: Represents an assessment given by one student to another.
+    BlacklistedToken: Represents a blacklisted JWT token, used for managing invalidated tokens.
+    StudentEval: Represents an evaluation between two students in the system.
+"""
+
 from app.extensions import db
-from datetime import datetime
 
 class StudentTeam(db.Model):
     """

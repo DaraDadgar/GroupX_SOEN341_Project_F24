@@ -1,8 +1,7 @@
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
-from flask_cors import CORS
-from flask_jwt_extended import JWTManager
+"""
+This module sets up the Flask application with necessary extensions,
+routes, and configurations.
+"""
 import os
 from app.extensions import db, migrate, cors, jwt
 from app.routes.auth_routes import auth_bp
@@ -11,6 +10,7 @@ from app.routes.student_routes import student_bp
 from app.routes.team_routes import team_bp
 from app.routes.assessment_routes import assessment_bp
 from app.models import BlacklistedToken
+from flask import Flask
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY")
