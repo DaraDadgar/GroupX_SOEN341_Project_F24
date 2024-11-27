@@ -1,3 +1,7 @@
+.root {
+  --dark-orange: rgba(204 129 63 / 100%);
+}
+
 .main-login {
   background-color: rgba(168 168 168 / 100%);
   width: 450px;
@@ -35,8 +39,14 @@
   margin: 0 20px;
   font-size: 18px;
   padding: 5px 0;
+  padding-left: 5px;
   border: none;
   border-radius: 5px;
+  transition: all 1s ease;
+}
+
+.main-login .fields > input:focus{
+  background-color: rgb(218, 253, 211);
 }
 
 .main-login .usertype {
@@ -59,12 +69,14 @@
   margin: 30px 120px;
   border: none;
   border-radius: 10px;
+  transition: 0.3s;
 }
 
 .main-login input[type="submit"]:hover {
   color: rgba(70 69 69 / 100%);
   background-color: rgba(204 129 63 / 100%);
   cursor: pointer;
+  transform: scale(1.05);
 }
 
 .main-login input[type="submit"]:active {
@@ -78,9 +90,12 @@
   font-style: italic;
   align-self: center;
   margin-top: 20px;
+  transition: 0.3s;
+  text-decoration: underline;
+  text-decoration-color: transparent;
 }
 
 .main-login > form > span:hover {
-  text-decoration: underline;
+  text-decoration-color:  rgb(34 33 33);
   cursor: pointer;
 }

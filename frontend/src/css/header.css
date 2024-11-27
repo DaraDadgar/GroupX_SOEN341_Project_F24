@@ -1,9 +1,22 @@
+:root {
+  --bg-color:rgba(70 69 69 / 100%);
+}
+
+
+
 header {
-  background-color: rgba(70 69 69 / 100%);
+  /* background-color: rgba(70 69 69 / 100%); */
+  background: linear-gradient(to right, #ff7e5f, #feb47b);
   display: flex;
   flex-direction: row;
   align-items: center;
+  background-size: 200% 100%; /* Larger background for transition */
+  background-position: 0% 50%; /* Start position */
   height: 96px;
+  transition: background-position 1s ease;
+}
+header:hover {
+  background-position: 100% 50%;
 }
 
 header h1 {
@@ -24,23 +37,34 @@ header .topright-display {
 .sign-up {
   background-color: rgba(168 168 168 / 100%);
   margin-right: 30px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .sign-up:hover {
   color: rgba(168 168 168 / 100%);
   background-color: black;
+  transform: scale(1.1);
 }
 
 .login,
 .logout,
 header img {
   background-color: rgba(204 129 63 / 100%);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.logo {
+  background-color: var(--bg-color);
+  height: 80%;
+  width: 15%;
+  margin-left: 1%;
 }
 
 .login:hover,
 .logout:hover {
   color: rgba(204 129 63 / 100%);
   background-color: black;
+  transform: scale(1.1);
 }
 
 header span {
