@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { storeProtectedAPI } from "../functions/ApiInterface";
 import { jwtDecode } from "jwt-decode";
 
+import PropTypes from "prop-types";
+
 export default function Evaluation() {
   const navigate = useNavigate();
   const back = () => navigate("/student/select-teammate");
@@ -141,4 +143,9 @@ function Scale({ number, data_testid }) {
       </label>
     </div>
   );
+}
+
+Scale.propTypes = {
+  number: PropTypes.number.isRequired,
+  data_testid: PropTypes.number.isRequired
 }
