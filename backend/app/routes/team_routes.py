@@ -113,6 +113,9 @@ def delete_team(id):
         if student:
             student.is_available = True
 
+        Assessments.query.filter_by(sender_id = student_team.student_id).delete()
+        StudentEval.query.filter_by(sender_id = student_team.student_id).delete()
+
     StudentTeam.query.filter_by(team_id=id).delete()
     db.session.delete(team)
     db.session.commit()

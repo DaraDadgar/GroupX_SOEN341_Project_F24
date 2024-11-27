@@ -6,7 +6,6 @@ import TeamCreation from "./routes/TeamCreation.jsx";
 import TeammateSelection from "./routes/TeammateSelection.jsx";
 import Evaluation from "./routes/Evaluation.jsx";
 import Dashboard from "./routes/Dashboard.jsx";
-import Instructor from "./routes/Instructor.jsx";
 import MainTeacher from "./routes/MainTeacher.jsx";
 import { AuthProvider } from "./config/AuthContext.jsx";
 import ProtectedRoute from "./config/ProtectedRoute.jsx";
@@ -29,7 +28,6 @@ function App() {
           <Route path="/" element={<GeneralHomePage />} />
           <Route path="/login" element={<MainLogin />} />
           <Route path="/signup" element={<MainSignup />} />
-          <Route path="/instructor" element={<Instructor />} />
 
           <Route
             path="/student/home"

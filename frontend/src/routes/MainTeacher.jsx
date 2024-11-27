@@ -1,114 +1,156 @@
-import { useEffect, useState } from "react";
 import "../css/main-teacher.css";
-
-import PropTypes from "prop-types";
-
-import { fetchProtectedAPI } from "../functions/ApiInterface";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { fetchProtectedAPI, fetchAPI, deleteTeam } from "../functions/ApiInterface";
 
 export default function MainTeacher() {
-  const navigate = useNavigate();
-  const create_team = () => navigate("/teacher/team-creation");
   const [teams, setTeams] = useState([]);
-  const [students, setStudents] = useState([]);
+  const navigate = useNavigate();
 
-  const fetchTeams = async () => {
+  const handleCreateTeam = () => {
+    navigate('/teacher/team-creation');
+  };
+
+  const HandleDeleteTeam = async(teamId) => {
     const token = localStorage.getItem("token");
-    await fetchProtectedAPI("/teams", token)
-      .then((data) => {
-        setTeams(data.data);
-        return data.data;
-      })
-      .then(async (teams) => {
-        let studs = [];
-        for (let i = 0; i < teams.length; i++) {
-          await fetchProtectedAPI(`/teams/${teams[i].id}/students`, token).then(
-            (data) => {
-              studs[i] = data.data;
-            }
-          );
-        }
-        setStudents(studs);
-      });
+    if(!token){
+      alert("Authentication error. Please log in again.");
+      return;
+    }
+
+    if(window.confirm("Are you sure you want to delete this team?")) {
+      const response = await deleteTeam(teamId, token);
+      if (response.status === 200) {
+        alert("Team deleted successfully");
+        setTeams(teams.filter(team=>team.id !== teamId));
+      } else {
+        alert("Failed to delete team: " + response.data?.Reason || "Unknown error");
+      }
+    }
   };
 
   useEffect(() => {
-    fetchTeams();
+    const fetchTeamsData = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        console.error("No token found");
+        return;
+      }
+
+      // Fetch all teams
+      const teamsResponse = await fetchProtectedAPI('/teams', token);
+      if (teamsResponse.status === 200) {
+        const teamList = teamsResponse.data;
+
+        // Fetch members and assessments for each team
+        const teamsWithMembers = await Promise.all(
+          teamList.map(async (team) => {
+            // Fetch members of the team
+            const membersResponse = await fetchProtectedAPI(`/teams/${team.id}`, token);
+            if (membersResponse.status === 200) {
+              const members = await Promise.all(
+                membersResponse.data.map(async (member) => {
+                  // Fetch assessment for each member
+                  const assessmentResponse = await fetchAPI(`/assessments/${member.id}`);
+                  const assessment = assessmentResponse.status === 200 ? assessmentResponse.data : {};
+
+                  return {
+                    ...member,
+                    assessment: {
+                      cooperation_score: assessment.cooperation_score || "N/A",
+                      conceptual_contribution_score: assessment.conceptual_contribution_score || "N/A",
+                      practical_contribution_score: assessment.practical_contribution_score || "N/A",
+                      work_ethic_score: assessment.work_ethic_score || "N/A",
+                      comments: assessment.comments || "No comments",
+                    },
+                  };
+                })
+              );
+              return { ...team, members };
+            } else {
+              console.error(`Failed to fetch members for team ${team.id}`);
+              return { ...team, members: [] };
+            }
+          })
+        );
+
+        setTeams(teamsWithMembers);
+      } else {
+        console.error("Failed to fetch teams");
+      }
+    };
+
+    fetchTeamsData();
   }, []);
 
   return (
-    <main className="main-teacher">
-      <div className="instructor">
-        <h2 style={{ marginTop: "50px" }}> Teams Created:</h2>
+    <main>
+      <div className="instructor header">
+        <h2 style={{ marginTop: "50px" }}>Teams Created:</h2>
         <div className="buttons">
-          <button style={{ marginTop: "-20px" }} onClick={create_team}>
-            {" "}
-            Create Team +{" "}
-          </button>
+          <button onClick={handleCreateTeam} style={{ marginTop: "-20px" }}>Create a New Team</button>
         </div>
       </div>
-      {teams.length ? (
-        <div>
-          {teams.map((team, index) => (
-            <Team
-              key={team.id}
-              team={team}
-              students={students[index] || []} // Passing students array for this team
-            />
-          ))}
-        </div>
-      ) : (
-        <NoTeam />
-      )}
+
+      <div className="instructor header">
+        {teams.map((team) => (
+          <ul key={team.id} style={{ marginTop: "20px", padding: "25px", color: "white", textAlign: "center" }}>
+            <table style={{ marginBottom: "20px" }}>
+              <thead>
+                <tr>
+                  <th style={{ padding: "25px" }}>{team.name}</th>
+                  <th style={{ padding: "25px" }}>Cooperation</th>
+                  <th style={{ padding: "25px" }}>Conceptual Contribution</th>
+                  <th style={{ padding: "25px" }}>Practical Contribution</th>
+                  <th style={{ padding: "25px" }}>Work Ethic</th>
+                  <th style={{ padding: "25px" }}>Average</th>
+                  <th style={{ padding: "25px" }}>Evaluations</th>
+                </tr>
+              </thead>
+              <tbody>
+                {team.members.map((member) => {
+                  const { cooperation_score, conceptual_contribution_score, practical_contribution_score, work_ethic_score } = member.assessment;
+                  const average =
+                    cooperation_score !== "N/A" &&
+                    conceptual_contribution_score !== "N/A" &&
+                    practical_contribution_score !== "N/A" &&
+                    work_ethic_score !== "N/A"
+                      ? (
+                          (cooperation_score + conceptual_contribution_score + practical_contribution_score + work_ethic_score) /
+                          4
+                        ).toFixed(1)
+                      : "N/A";
+
+                  return (
+                    <tr key={member.id}>
+                      <td style={{ borderBottom: "2px solid white" }}>{member.name}</td>
+                      <td style={{ borderBottom: "2px solid white" }}>{cooperation_score}</td>
+                      <td style={{ borderBottom: "2px solid white" }}>{conceptual_contribution_score}</td>
+                      <td style={{ borderBottom: "2px solid white" }}>{practical_contribution_score}</td>
+                      <td style={{ borderBottom: "2px solid white" }}>{work_ethic_score}</td>
+                      <td style={{ borderBottom: "2px solid white" }}>{average}</td>
+                      <td style={{ borderBottom: "2px solid white" }}>{member.assessment.comments}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+
+            <div className="del-edit">
+              <button
+                className="delete"
+                onClick={() => HandleDeleteTeam(team.id)}
+              >
+                DELETE
+              </button>
+              <button className="edit">EDIT</button>
+              <button className="more">
+                <Link to={`/dashboard/${team.id}`}>MORE</Link>
+              </button>
+            </div>
+          </ul>
+        ))}
+      </div>
     </main>
   );
 }
-
-function Team({ team, students }) {
-  const navigate = useNavigate();
-  const team_info = (team, students) => {
-    navigate(`/teacher/team/dashboard`, { state: { team, students } }); // Pass team data in the state object
-  };
-  return (
-    <div className="instructor">
-      <ul style={{ marginTop: "20px" }}>
-        <h3>{team.name}</h3>
-        {students.map((student) => (
-          <li key={student.id}>{student.name}</li>
-        ))}
-        <div className="del-edit">
-          <button className="more" onClick={() => team_info(team, students)}>
-            {" "}
-            MORE
-          </button>
-          <button className="edit">EDIT</button>
-          <button
-            className="delete"
-            onClick={() => {
-              confirm("Are you sure you want to delete this team?");
-            }}
-          >
-            DELETE
-          </button>
-        </div>
-      </ul>
-    </div>
-  );
-}
-
-Team.propTypes = {
-  team: PropTypes.shape({
-    name: PropTypes.string.isRequired
-  }).isRequired,
-  students: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired
-    })
-  ).isRequired
-}
-
-function NoTeam() {
-  return <h1>No Teams Created</h1>;
-}
-
