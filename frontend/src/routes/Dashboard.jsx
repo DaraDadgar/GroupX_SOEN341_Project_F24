@@ -116,7 +116,7 @@ StudentTable.propTypes = {
   ).isRequired
 }
 
-function StudentComments() {
+function StudentComments({ assessments }) {
   return (
     <textarea
       id="comments"
@@ -132,6 +132,14 @@ function StudentComments() {
   );
 }
 
+StudentComments.propTypes = {
+  assessments: PropTypes.arrayOf(
+    PropTypes.shape({
+      comments: PropTypes.string
+    })
+  ).isRequired
+}
+
 function StudentDash({ student }) {
   return (
     <>
@@ -143,14 +151,38 @@ function StudentDash({ student }) {
   );
 }
 
+StudentDash.propTypes = {
+  student: PropTypes.shape({
+    name: PropTypes.string.isRequired, 
+    assessments: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        cooperation_score: PropTypes.number.isRequired,
+        conceptual_contribution_score: PropTypes.number.isRequired,
+        practical_contribution_score: PropTypes.number.isRequired,
+        work_ethic_score: PropTypes.number.isRequired
+      })
+    ).isRequired
+  }).isRequired,
+}
+
 function StudentsDash({ students }) {
   return (
     <>
-      {students.map((student, index) => (
+      {students.map((student) => (
         <StudentDash key={student.id} student={student} />
       ))}
     </>
   );
+}
+
+// Define prop types for StudentsDash component
+StudentsDash.propTypes = {
+  students: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+    })
+  ).isRequired,
 }
 
 export default function Dashboard() {
