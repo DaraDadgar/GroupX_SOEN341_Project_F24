@@ -75,8 +75,8 @@ export default function Instructor() {
       <div className="instructor header">
         <h2 style={{ marginTop: "50px" }}>Teams Created:</h2>
         <div className="buttons">
-          <button style={{ marginTop: "-20px" }}>Create a New Team</button>
-          <button style={{ marginTop: "-20px"}}>Download Teams</button>
+          <button>Create a New Team</button>
+          <button>Download Teams</button>
         </div>
       </div>
 
