@@ -76,6 +76,7 @@ export default function Instructor() {
         <h2 style={{ marginTop: "50px" }}>Teams Created:</h2>
         <div className="buttons">
           <button style={{ marginTop: "-20px" }}>Create a New Team</button>
+          <button style={{ marginTop: "-20px"}}>Download Teams</button>
         </div>
       </div>
 
@@ -178,22 +179,7 @@ export default function Instructor() {
           bottom: "20px",
         }}
       >
-        <button
-          style={{
-            padding: "10px 20px",
-            fontSize: "16px",
-            borderRadius: "5px",
-            backgroundColor: "#4CAF50",
-            color: "white",
-            border: "none",
-            cursor: "pointer",
-          }}
-          onClick={() => {
-            alert("Starting download...");
-          }}
-        >
-          Download
-        </button>
+        
       </div>
     </main>
   );
