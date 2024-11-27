@@ -108,13 +108,12 @@ def update_assessment(id):
 @jwt_required()
 def delete_assessment(id):
     user_identity = get_jwt_identity()
-
+    assessment = Assessments.query.get(id)
     user_claims = get_jwt()
     if user_claims.get("user_type") != "student":
         return jsonify({"Response": "INVALID", "Reason": "Only student can access this route"}), 403
     if (user_claims.get("user_id") != assessment.sender_id):
         return jsonify({"Response" : "INVALID", "Reason": "Assessment update is not allowed by current logged in student"}), 403
-    assessment = Assessments.query.get(id)
     if not assessment:
         return jsonify({"Response": "INVALID", "Reason": "Assessment not found"}), 404
     db.session.delete(assessment)
