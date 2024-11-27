@@ -10,7 +10,7 @@ from app.routes.teacher_routes import teacher_bp
 from app.routes.student_routes import student_bp
 from app.routes.team_routes import team_bp
 from app.routes.assessment_routes import assessment_bp
-from app.models import StudentTeam, Students, Teachers, Teams, Assessments, BlacklistedToken
+from app.models import BlacklistedToken
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY")
