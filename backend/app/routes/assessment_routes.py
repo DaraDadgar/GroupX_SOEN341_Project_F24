@@ -69,9 +69,10 @@ def create_assessment():
 def update_assessment(id):
     assessment = Assessments.query.get(id)
     user_identity = get_jwt_identity()
-    if (user_identity["user_type"] != "student"):
-        return jsonify({"Response": "INVALID", "Reason": "Only students can access this route"}), 403
-    if (user_identity["user_id"] != assessment.sender_id):
+    user_claims = get_jwt()
+    if user_claims.get("user_type") != "student":
+        return jsonify({"Response": "INVALID", "Reason": "Only student can access this route"}), 403
+    if (user_claims.get("user_id") != assessment.sender_id):
         return jsonify({"Response" : "INVALID", "Reason": "Assessment update is not allowed by current logged in student"}), 403
 
     if not assessment:
@@ -107,9 +108,10 @@ def update_assessment(id):
 @jwt_required()
 def delete_assessment(id):
     user_identity = get_jwt_identity()
-    if (user_identity["user_type"] != "student"):
-        return jsonify({"Response": "INVALID", "Reason": "Only students can access this route"}), 403
-    if (user_identity["user_id"] != assessment.sender_id):
+    user_claims = get_jwt()
+    if user_claims.get("user_type") != "student":
+        return jsonify({"Response": "INVALID", "Reason": "Only student can access this route"}), 403
+    if (user_claims.get("user_id") != assessment.sender_id):
         return jsonify({"Response" : "INVALID", "Reason": "Assessment update is not allowed by current logged in student"}), 403
     assessment = Assessments.query.get(id)
     if not assessment:
@@ -125,9 +127,9 @@ def delete_assessment(id):
 @jwt_required()
 def get_receiver_assessments():
     user_identity = get_jwt_identity()
-
-    if user_identity["user_type"] != "student":
-        return jsonify({"Response": "INVALID", "Reason": "Only students can access this route"}), 403
+    user_claims = get_jwt()
+    if user_claims.get("user_type") != "student":
+        return jsonify({"Response": "INVALID", "Reason": "Only student can access this route"}), 403
 
     assessments = Assessments.query.filter_by(receiver_id = user_identity["user_id"]).all()
     return jsonify({"Response" : "VALID", "Assessments" : assessments.to_dict()}), 200
@@ -138,8 +140,9 @@ def get_receiver_assessments():
 def get_sender_assessments_id(student_id):
     user_identity = get_jwt_identity()
 
-    if user_identity["user_type"] != "teacher":
-        return jsonify({"Response": "INVALID", "Reason": "Only teachers can access this route"}), 403
+    user_claims = get_jwt()
+    if user_claims.get("user_type") != "student":
+        return jsonify({"Response": "INVALID", "Reason": "Only student can access this route"}), 403
 
     assessments = Assessments.query.filter_by(receiver_id = student_id).all()
     return jsonify({"Response" : "VALID", "Assessments" : assessments.to_dict()}), 200
@@ -151,8 +154,9 @@ def get_sender_assessments_id(student_id):
 def get_sender_assessments():
     user_identity = get_jwt_identity()
 
-    if user_identity["user_type"] != "student":
-        return jsonify({"Response": "INVALID", "Reason": "Only students can access this route"}), 403
+    user_claims = get_jwt()
+    if user_claims.get("user_type") != "student":
+        return jsonify({"Response": "INVALID", "Reason": "Only student can access this route"}), 403
     
     
     assessments = Assessments.query.filter_by(sender_id = user_identity["user_id"]).all()

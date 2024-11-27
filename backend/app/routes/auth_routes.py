@@ -22,8 +22,10 @@ def login():
         return jsonify({"Response": "ERROR", "type": "None", "Message": "User does not exist"}), 401
     else:
         # Generate JWT token
-        access_token = create_access_token(identity={"user_id": user.id, "user_type": user_type, "user_name": user.name}, expires_delta=timedelta(hours=2))
+        access_token = create_access_token(identity=str(user.id), additional_claims ={"user_type": user_type, "username" : email}, expires_delta=timedelta(hours=2))
+        # access_token = create_access_token(identity={"user_id": str(user.id), "user_type" : user_type}, expires_delta=timedelta(hours=2))
         return jsonify({"Response": "VALID", "type": user_type, "token": access_token}), 202
+
 
 @auth_bp.route('/signup', methods=['POST'])
 def signup():
@@ -41,7 +43,8 @@ def signup():
         db.session.commit()
         
         # Generate JWT token upon signup
-        access_token = create_access_token(identity={"user_id": new_user.id, "user_type": user_type}, expires_delta=timedelta(hours=2))
+        # access_token = create_access_token(identity={"user_id": new_user.id, "user_type": user_type}, expires_delta=timedelta(hours=2))
+        access_token = create_access_token(identity=str(user.id), additional_claims ={"user_type": user_type, "username" : email}, expires_delta=timedelta(hours=2))
         return jsonify({"Response": "VALID", "type": user_type, "token": access_token}), 201
     else:
         return jsonify({"Response": "ERROR", "type": "None", "Message": "Email already in use"}), 206

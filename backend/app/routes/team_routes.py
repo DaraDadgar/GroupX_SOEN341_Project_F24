@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from app.extensions import db
 from app.models import StudentTeam, Students, Teachers, Teams, Assessments, StudentEval
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask_jwt_extended import jwt_required, get_jwt_identity, decode_token, get_jwt
 
 team_bp = Blueprint('team_bp', __name__)
 
@@ -9,7 +9,8 @@ team_bp = Blueprint('team_bp', __name__)
 @jwt_required()
 def get_teams():
     user_identity = get_jwt_identity()
-    if user_identity["user_type"] != "teacher":
+    user_claims = get_jwt()
+    if user_claims.get("user_type") != "teacher":
         return jsonify({"Response": "INVALID", "Reason": "Only teachers can access this route"}), 403
     teams = Teams.query.all()
     team_list = [team.to_dict() for team in teams]
@@ -19,9 +20,9 @@ def get_teams():
 @jwt_required()
 def get_team(id):
     user_identity = get_jwt_identity()
-    
-    #if user_identity["user_type"] != "teacher":
-    #    return jsonify({"Response": "INVALID", "Reason": "Only teachers can access this route"}), 403
+    user_claims = get_jwt()
+    if user_claims.get("user_type") != "teacher":
+        return jsonify({"Response": "INVALID", "Reason": "Only teachers can access this route"}), 403
     
     students_in_team = StudentTeam.query.filter_by(team_id=id).all()
     students = [Students.query.get(student.student_id).to_dict() for student in students_in_team]
@@ -33,11 +34,11 @@ def get_team(id):
 @jwt_required()
 def get_teammates(id):
     user_identity = get_jwt_identity()
-
-    if user_identity["user_type"] != "student":
-       return jsonify({"Response": "INVALID", "Reason": "Only teachers can access this route"}), 403
+    user_claims = get_jwt()
+    if user_claims.get("user_type") != "student":
+        return jsonify({"Response": "INVALID", "Reason": "Only student can access this route"}), 403
     
-    user_id = user_identity["user_id"]
+    user_id = user_identity
     
     students_in_team = StudentTeam.query.filter_by(team_id=id).all()
 
@@ -66,8 +67,9 @@ def create_team():
     students_emails = request.json['student_emails']
     
     user_identity = get_jwt_identity()
-    if user_identity["user_type"] != "teacher":
-        return jsonify({"Response": "INVALID", "Reason": "Only teachers can access this route"}), 403
+    user_claims = get_jwt()
+    if user_claims.get("user_type") != "teacher":
+        return jsonify({"Response": "INVALID", "Reason": "Only teacher can access this route"}), 403
 
     existing_team = Teams.query.filter_by(name=team_name).first()
     if existing_team:
@@ -97,9 +99,10 @@ def create_team():
 @jwt_required()
 def delete_team(id):
     user_identity = get_jwt_identity()
-    if user_identity["user_type"] != "teacher":
-        return jsonify({"Response": "INVALID", "Reason": "Only teachers can access this route"}), 403
-    
+    user_claims = get_jwt()
+    if user_claims.get("user_type") != "teacher":
+        return jsonify({"Response": "INVALID", "Reason": "Only teacher can access this route"}), 403
+
     team = Teams.query.get(id)
     if not team:
         return jsonify({"Response": "INVALID", "Reason": "Team not found"}), 404
@@ -120,8 +123,9 @@ def delete_team(id):
 @jwt_required()
 def update_team(id):
     user_identity = get_jwt_identity()
-    if user_identity["user_type"] != "teacher":
-        return jsonify({"Response": "INVALID", "Reason": "Only teachers can access this route"}), 403
+    user_claims = get_jwt()
+    if user_claims.get("user_type") != "teacher":
+        return jsonify({"Response": "INVALID", "Reason": "Only teacher can access this route"}), 403
 
     team = Teams.query.get(id)
     if not team:
@@ -161,8 +165,9 @@ def update_team(id):
 @jwt_required()
 def get_students_from_team(id):
     user_identity = get_jwt_identity()
-    if user_identity["user_type"] != "teacher":
-        return jsonify({"Response": "INVALID", "Reason": "Only teachers can access this route"}), 403
+    user_claims = get_jwt()
+    if user_claims.get("user_type") != "teacher":
+        return jsonify({"Response": "INVALID", "Reason": "Only teacher can access this route"}), 403
     
     student_teams = StudentTeam.query.filter_by(team_id=id).all()
     student_ids = [student_team.student_id for student_team in student_teams]
