@@ -84,6 +84,10 @@
   border: none;
 }
 
+.del-edit {
+  margin-right: 20px;
+}
+
 .instructor .buttons button:hover {
   background-color: #cc813f;
   color: #464545;
@@ -91,10 +95,6 @@
 
 .instructor .buttons button:active {
   opacity: 0.7;
-}
-
-.del-edit {
-  margin-right: 20px;
 }
 
 .del-edit > .delete,
@@ -106,6 +106,7 @@
   border: none;
 }
 
+
 /* detele and edit */
 .instructor .del-edit {
   display: flex;
@@ -113,6 +114,7 @@
   justify-content: flex-end;
   gap: 20px;
 }
+
 
 .instructor .del-edit button:active {
   opacity: 0.7;

@@ -54,7 +54,7 @@ function Team({ team, students }) {
         {students.map((student) => (
           <li key={student.id}>{student.name}</li>
         ))}
-        <div className="delEdit">
+        <div className="del-edit">
           <button className="evaluate" onClick={select}>
             Evaluate a Team Member
           </button>
