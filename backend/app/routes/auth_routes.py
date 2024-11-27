@@ -44,7 +44,7 @@ def signup():
         
         # Generate JWT token upon signup
         # access_token = create_access_token(identity={"user_id": new_user.id, "user_type": user_type}, expires_delta=timedelta(hours=2))
-        access_token = create_access_token(identity=str(user.id), additional_claims ={"user_type": user_type, "username" : email}, expires_delta=timedelta(hours=2))
+        access_token = create_access_token(identity=str(new_user.id), additional_claims ={"user_type": user_type, "username" : email}, expires_delta=timedelta(hours=2))
         return jsonify({"Response": "VALID", "type": user_type, "token": access_token}), 201
     else:
         return jsonify({"Response": "ERROR", "type": "None", "Message": "Email already in use"}), 206
