@@ -10,7 +10,6 @@ Classes:
     BlacklistedToken: Represents a blacklisted JWT token, used for managing invalidated tokens.
     StudentEval: Represents an evaluation between two students in the system.
 """
-
 from app.extensions import db
 
 class StudentTeam(db.Model):
