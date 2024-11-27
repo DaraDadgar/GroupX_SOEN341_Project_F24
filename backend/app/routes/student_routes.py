@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
 from app.models import StudentTeam, Students, Teachers, Teams, Assessments
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
 from sqlalchemy import event
 from app.extensions import db
 
@@ -27,8 +27,9 @@ def get_students():
 @jwt_required()
 def get_available_students():
     user_identity = get_jwt_identity()
-    if user_identity["user_type"] != "teacher":
-        return jsonify({"Response": "INVALID", "Reason": "Only teachers can access this route"}), 403
+    user_claims = get_jwt()
+    if user_claims.get("user_type") != "teacher":
+        return jsonify({"Response": "INVALID", "Reason": "Only teacher can access this route"}), 403
     available_students = Students.query.filter_by(is_available=True).all()
     students_list = [student.to_dict() for student in available_students]
     return jsonify(students_list), 200
@@ -38,8 +39,9 @@ def get_available_students():
 def get_student_team(id):
     user_identity = get_jwt_identity()
 
-    if user_identity["user_type"] != "student":
-       return jsonify({"Response": "INVALID", "Reason": "Only students can access this route"}), 403
+    user_claims = get_jwt()
+    if user_claims.get("user_type") != "student":
+        return jsonify({"Response": "INVALID", "Reason": "Only students can access this route"}), 403
 
     student = Students.query.get(id)
     if not student:
@@ -59,11 +61,11 @@ def get_student_team(id):
 @jwt_required()
 def get_student_team_by_token():
     user_identity = get_jwt_identity()
-    
-    if user_identity["user_type"] != "student":
-        return jsonify({"Response": "INVALID", "Reason": "Only students can access this route"}), 403
+    user_claims = get_jwt()
+    if user_claims.get("user_type") != "student":
+        return jsonify({"Response": "INVALID", "Reason": "Only student can access this route"}), 403
 
-    student_id = user_identity["user_id"]
+    student_id = user_claims.get("user_id")
 
     student = Students.query.get(student_id)
     if not student:
