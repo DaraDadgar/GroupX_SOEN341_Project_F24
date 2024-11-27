@@ -26,7 +26,7 @@ jwt.init_app(app)
 
 # Token blacklist check
 @jwt.token_in_blocklist_loader
-def check_if_token_is_blacklisted(jwt_header, jwt_payload):
+def check_if_token_is_blacklisted(jwt_payload):
     """
     Check if the given JWT token is blacklisted.
 
