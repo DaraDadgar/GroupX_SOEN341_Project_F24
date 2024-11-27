@@ -3,8 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { fetchProtectedAPI, fetchAPI, deleteTeam } from "../functions/ApiInterface";
 import PropTypes from "prop-types";
-import { fetchProtectedAPI } from "../functions/ApiInterface";
-import { useNavigate } from "react-router-dom";
 
 export default function MainTeacher() {
   const [teams, setTeams] = useState([]);
@@ -153,15 +151,6 @@ export default function MainTeacher() {
             </div>
           </ul>
         ))}
-      </div>
-
-      <div
-        style={{
-          position: "fixed",
-          right: "20px",
-          bottom: "20px",
-        }}
-      >
       </div>
     </main>
   );

@@ -86,6 +86,27 @@
   border: none;
 }
 
+.delete {
+  background-color: #cc813f;
+  margin-left: 600px;
+  border: none;
+}
+
+.edit {
+  background-color: #cc813f;
+  margin-left: 20px;
+  border: none;
+}
+
+.more {
+  background-color: #cc813f;
+  margin-left: 20px;
+  border: none;
+  width: 100px;
+  height: 30px;
+  color: black;
+}
+
 .del-edit {
   margin-right: 20px;
 }
@@ -131,7 +152,7 @@
 }
 
 .main-teacher .delete {
-  background-color: red;
+  background-color: #cc813f;
   color: #fff;
 }
 
