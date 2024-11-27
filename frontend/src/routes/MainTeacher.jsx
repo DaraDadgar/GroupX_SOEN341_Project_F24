@@ -126,7 +126,7 @@ function Team({ team, students }) {
                         <td>{student.assessments[2] ==0 ? "N/A" : student.assessments[2].toFixed(1)}</td>
                         <td>{student.assessments[3] ==0 ? "N/A" : student.assessments[3].toFixed(1)}</td>
                         <td>{student.assessments[4] ==0 ? "N/A" : student.assessments[4].toFixed(1)}</td>
-                        <td>{student.assessments[5] ==0 ? "N/A" : student.assessments[5].toFixed(1)}</td>
+                        <td>{student.assessments[5] ==0 ? "N/A" : student.assessments[5]}</td>
                       </tr>
                     );
                   })}
