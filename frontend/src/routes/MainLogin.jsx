@@ -76,7 +76,7 @@ export default function MainLogin() {
           </span>
 
           <span onClick={signupNav} title="Click here to sign up">
-            Don't have an account?
+            Don &#39; t have an account?
           </span>
 
           <input type="submit" value="Log in" />

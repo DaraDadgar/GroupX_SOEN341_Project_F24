@@ -64,6 +64,11 @@ jobs:
         working-directory: ./backend
         run: pip install pylint
 
+      # Step 3: Install dependencies from requirements.txt
+      - name: Install dependencies
+        working-directory: ./backend 
+        run: pip install -r requirements.txt
+
       # Step 4: Run Pylint on Python Files
       - name: Run Pylint
         working-directory: ./backend
