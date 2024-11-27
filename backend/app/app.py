@@ -1,7 +1,8 @@
-"""
-This module sets up the Flask application with necessary extensions,
-routes, and configurations.
-"""
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from flask_cors import CORS
+from flask_jwt_extended import JWTManager
 import os
 from app.extensions import db, migrate, cors, jwt
 from app.routes.auth_routes import auth_bp
@@ -9,8 +10,7 @@ from app.routes.teacher_routes import teacher_bp
 from app.routes.student_routes import student_bp
 from app.routes.team_routes import team_bp
 from app.routes.assessment_routes import assessment_bp
-from app.models import BlacklistedToken
-from flask import Flask
+from app.models import StudentTeam, Students, Teachers, Teams, Assessments, BlacklistedToken
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY")
@@ -26,17 +26,7 @@ jwt.init_app(app)
 
 # Token blacklist check
 @jwt.token_in_blocklist_loader
-def check_if_token_is_blacklisted(jwt_payload):
-    """
-    Check if the given JWT token is blacklisted.
-
-    Args:
-        jwt_header (dict): The JWT header dictionary.
-        jwt_payload (dict): The JWT payload dictionary, containing the token information.
-
-    Returns:
-        bool: True if the token is blacklisted, False otherwise.
-    """
+def check_if_token_is_blacklisted(jwt_header, jwt_payload):
     jti = jwt_payload['jti']
     return BlacklistedToken.query.filter_by(jti=jti).first() is not None
 
