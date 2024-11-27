@@ -4,6 +4,33 @@ import "../css/main-teacher.css";
 import { fetchProtectedAPI } from "../functions/ApiInterface";
 import { useNavigate } from "react-router-dom";
 
+function assessments_avg(assessments){
+  let coop_avg = 0;
+  let conc_avg = 0;
+  let prac_avg = 0;
+  let ethi_avg = 0;
+
+  for (const assessment of assessments){
+    coop_avg += assessment.cooperation_score;
+    conc_avg += assessment.conceptual_contribution_score;
+    prac_avg += assessment.practical_contribution_score;
+    ethi_avg += assessment.work_ethic_score;
+  }
+
+  const num_ass = assessments.length;
+  if (num_ass > 0){
+    coop_avg /= num_ass;
+    conc_avg /= num_ass;
+    prac_avg /= num_ass;
+    ethi_avg /= num_ass;
+  }
+
+  const total_avg = (coop_avg + conc_avg + prac_avg + ethi_avg)/4;
+
+  return [coop_avg, conc_avg, prac_avg, ethi_avg, total_avg, num_ass];
+
+}
+
 export default function MainTeacher() {
   const navigate = useNavigate();
   const create_team = () => navigate("/teacher/team-creation");
@@ -21,8 +48,15 @@ export default function MainTeacher() {
         let studs = [];
         for (let i = 0; i < teams.length; i++) {
           await fetchProtectedAPI(`/teams/${teams[i].id}/students`, token).then(
-            (data) => {
-              studs[i] = data.data;
+            async (response) => {
+              let team_members = []
+              for (let j = 0; j < response.data.length; j++){
+                 await fetchProtectedAPI(`assessments/student/${response.data[j].id}`, token).then( (result) => {
+                  const avgs = assessments_avg(result.data.Assessments);
+                  team_members[j] = {...response.data[j], "assessments" : avgs};
+                })
+              }
+              studs[i] = team_members;
             }
           );
         }
@@ -70,10 +104,35 @@ function Team({ team, students }) {
   return (
     <div className="instructor">
       <ul style={{ marginTop: "20px" }}>
-        <h3>{team.name}</h3>
-        {students.map((student) => (
-          <li key={student.id}>{student.name}</li>
-        ))}
+      <table style={{ marginBottom: "20px" }}>
+        <thead>
+          <tr>
+            <th>{team.name}</th>
+            <th>Cooperation</th>
+            <th>Conceptual Contribution</th>
+            <th>Practical Contribution</th>
+            <th>Work Ethic</th>
+            <th>Average</th>
+            <th>Evaluations</th>
+          </tr>
+        </thead>
+        <tbody>
+          {students.map((student) => {
+                    return (
+                      <tr key={student.id}>
+                        <td> {student.name}</td>
+                        <td>{student.assessments[0] ==0 ? "N/A" : student.assessments[0].toFixed(1)}</td>
+                        <td>{student.assessments[1] ==0 ? "N/A" : student.assessments[1].toFixed(1)}</td>
+                        <td>{student.assessments[2] ==0 ? "N/A" : student.assessments[2].toFixed(1)}</td>
+                        <td>{student.assessments[3] ==0 ? "N/A" : student.assessments[3].toFixed(1)}</td>
+                        <td>{student.assessments[4] ==0 ? "N/A" : student.assessments[4].toFixed(1)}</td>
+                        <td>{student.assessments[5] ==0 ? "N/A" : student.assessments[5].toFixed(1)}</td>
+                      </tr>
+                    );
+                  })}
+
+        </tbody>
+      </table>
         <div className="delEdit">
           <button className="more" onClick={() => team_info(team, students)}>
             {" "}

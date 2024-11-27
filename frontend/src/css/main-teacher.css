@@ -153,3 +153,24 @@
   cursor: pointer;
   border: none;
 }
+
+.main-teacher table {
+  color: white;
+  margin: 0 auto;
+  width: 100%;
+  padding: 25px 20px 0px 20px;
+
+  border-collapse: separate;
+  border-spacing: 0px 7px;
+}
+
+.main-teacher table tbody td {
+  border-bottom: 2px solid white;
+  text-align: center;
+  text-wrap: wrap;
+ }
+
+ .main-teacher table thead th {
+  text-wrap: wrap;
+  padding: 0px 5px 15px 5px;
+ }

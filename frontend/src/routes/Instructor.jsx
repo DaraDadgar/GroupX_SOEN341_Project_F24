@@ -152,49 +152,11 @@ export default function Instructor() {
                 })}
               </tbody>
             </table>
-
-            <div className="delEdit">
-              <button
-                className="delete"
-                onClick={() => {
-                  confirm("Are you sure you want to delete this team?");
-                }}
-              >
-                DELETE
-              </button>
-              <button className="edit">EDIT</button>
-              <button className="more">
-                <Link to={`/dashboard/${team.id}`}>MORE</Link>
-              </button>
-            </div>
           </ul>
         ))}
       </div>
 
-      <div
-        style={{
-          position: "fixed",
-          right: "20px",
-          bottom: "20px",
-        }}
-      >
-        <button
-          style={{
-            padding: "10px 20px",
-            fontSize: "16px",
-            borderRadius: "5px",
-            backgroundColor: "#4CAF50",
-            color: "white",
-            border: "none",
-            cursor: "pointer",
-          }}
-          onClick={() => {
-            alert("Starting download...");
-          }}
-        >
-          Download
-        </button>
-      </div>
+  
     </main>
   );
 }
