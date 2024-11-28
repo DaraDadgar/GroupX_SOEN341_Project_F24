@@ -1,4 +1,3 @@
-import React from "react";
 import "../css/features.css";
 
 export default function FeaturesPage() {

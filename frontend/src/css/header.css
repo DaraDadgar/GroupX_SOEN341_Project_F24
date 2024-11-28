@@ -15,6 +15,7 @@ header {
   height: 96px;
   transition: background-position 1s ease;
 }
+
 header:hover {
   background-position: 100% 50%;
 }

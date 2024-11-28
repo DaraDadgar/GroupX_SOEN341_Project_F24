@@ -1,5 +1,5 @@
 .main-signup {
-  background: linear-gradient(to top,rgb(220, 220, 220), rgb(145, 145, 145));
+  background: linear-gradient(to top,rgb(220 220 220), rgb(145 145 145));
   width: 600px;
   height: 600px;
   margin: 50px auto;
@@ -40,7 +40,7 @@
 .main-signup .fields input {
   margin: 0 10px;
   font-size: 18px;
-  padding: 0px;
+  padding: 0;
   padding-left: 5px;
   border: none;
   border-radius: 5px;
@@ -48,7 +48,7 @@
 }
 
 .main-signup .fields input:focus {
-  background-color: rgb(218, 253, 211);
+  background-color: rgb(218 253 211);
 }
 
 .main-signup input[type="radio"] {

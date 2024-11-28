@@ -1,4 +1,3 @@
-import React from "react";
 import "../css/about-us.css"; // Optional for styling
 import dara from "../pictures/dara.jpg"
 import oren from "../pictures/oren.jpg"
@@ -51,7 +50,7 @@ export default function AboutUs() {
           </div>
           <div className="team-member-desc">
             <p className="desc">Oren is an expert in optimizing workflows and refining software development methodologies.
-               Their analytical approach ensures that the team's processes are efficient, effective, and scalable.</p>
+               Their analytical approach ensures that the team&#39; s processes are efficient, effective, and scalable.</p>
           </div>
         </div>
         <div className="team-member">

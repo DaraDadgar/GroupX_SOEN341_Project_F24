@@ -1,6 +1,6 @@
 /* General Layout */
 .about-us-container {
-    font-family: 'Arial', sans-serif;
+    font-family: Arial, sans-serif;
     padding: 40px;
     max-width: 60vw;
     margin: 0 auto;
@@ -14,26 +14,26 @@
   
   .about-us-header h1 {
     font-size: 2.5rem;
-    color: rgba(204, 129, 63, 1);
+    color: rgba(204 129 63 / 100%);
     margin-bottom: 10px;
   }
   
   .about-us-header p {
     font-size: 1.2rem;
-    color: rgba(70, 69, 69, 1);
+    color: rgba(70 69 69 / 100%);
     margin-top: 10px;
   }
   
   /* Content Section */
   .about-us-section h2 {
     font-size: 2rem;
-    color: rgba(204, 129, 63, 1);
+    color: rgba(204 129 63 / 100%);
     margin-top: 40px;
   }
   
   .about-us-section p {
     font-size: 1.1rem;
-    color: rgba(70, 69, 69, 1);
+    color: rgba(70 69 69 / 100%);
     line-height: 1.6;
     margin-top: 10px;
     text-wrap: wrap;
@@ -49,24 +49,27 @@
   
   .team-member {
     text-align: center;
-    margin: 20px 0px;
+    margin: 20px 0;
     flex: 1;
     background-color: #ecf0f1;
     height: 250px;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0 0 0 / 10%);
     transition: 2s;
   }
+
   .team-member-img {
     position: absolute;
     width: 15%;
     left: 42.5%;
     transition: 2s;
   }
+
   .team-member:hover .team-member-img{
     transform: translateX(-200px);
   }
+
   .team-member-desc{
     position: absolute;
     height: 220px;
@@ -75,9 +78,11 @@
     opacity: 0;
     transition: opacity 1s ease-in-out;
   }
+
   .desc {
     color: black;
   }
+
   .team-member:hover .team-member-desc{
     opacity: 1;
   }
@@ -86,11 +91,13 @@
     font-size: 1.5rem;
     color: #2c3e50;
   }
+
   .team-member p {
     font-size: 1.1rem;
     color: #7f8c8d;
     margin-top: 10px;
   }
+  
   .team-member img {
     width: 150px;
     height: 150px;
@@ -108,7 +115,7 @@
   }
   
   .about-us-footer a {
-    color: rgba(204, 129, 63, 1);
+    color: rgba(204 129 63 / 50%);
     text-decoration: none;
     font-weight: bold;
   }

@@ -1,9 +1,11 @@
 button {
   transition: 0.3s;
 }
+
 button:hover{
   transform: scale(1.05);
 }
+
 .main-teacher ul li {
   list-style: none;
 }
@@ -90,6 +92,7 @@ button:hover{
   cursor: pointer;
   border: none;
 }
+
 .instructor .buttons button:hover {
   background-color: #cc813f;
   color: #464545;
@@ -169,17 +172,19 @@ button:hover{
   padding: 0 5px 15px;
  }
 
- .copyLogo{
+ .copy-logo{
   width : 25px;
   height : 25px;
  }
 
- .copyLogo:hover{
+ .copy-logo:hover{
   cursor: pointer;
  }
- .teamMateDiv {
+
+ .team-mate-div {
   display: flex;
  }
- .teamMateDiv .copyLogo{
+
+ .team-mate-div .copy-logo{
   margin-left: 50px;
  }

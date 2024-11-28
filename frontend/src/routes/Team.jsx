@@ -52,14 +52,19 @@ const handleCopyClick = (email) => {
 function Team({ team, students }) {
   const navigate = useNavigate();
   const select = () => navigate("/student/select-teammate");
+
   return (
     <div className="instructor" data-testid={team.name}>
       <ul style={{ marginTop: "20px" }}>
         <h3>{team.name}</h3>
         {students.map((student) => (
-          <div className = "teamMateDiv">
-            <img className = "copyLogo" src={copy} onClick={() => handleCopyClick(student.email)}></img>
-            <li key={student.id}>{student.name}</li>
+          <div className="team-mate-div" key={student.id}>
+            <img
+              className="copy-logo"
+              src={copy}
+              onClick={() => handleCopyClick(student.email)}
+            />
+            <li>{student.name}</li>
           </div>
         ))}
         <div className="del-edit">
