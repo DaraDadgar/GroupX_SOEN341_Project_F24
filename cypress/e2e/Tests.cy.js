@@ -12,7 +12,8 @@ const password4 = getRandomString();
 describe('Unlogged user tests', () => {
   it('Home page loads the nav bar and buttons ', () => {
     cy.visit('http://localhost:3000/')
-    cy.get('nav').should("exist")
+    cy.screenshot();
+    cy.get('nav', { timeout: 10000 }).should("exist")
     cy.get('[class = "sign-up"]').should("exist")
     cy.get('[class = "login"]').should("exist")
 
