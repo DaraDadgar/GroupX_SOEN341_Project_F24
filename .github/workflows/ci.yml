@@ -5,8 +5,19 @@ on:
     branches: [main]
 
 jobs:
+
   lint-and-test:
     runs-on: ubuntu-latest
+    services:
+      app:
+        image: groupx_soen341_project_f24 # Replace with your actual Docker image
+        ports:
+          - 3000:3000 # Map app:3000 to localhost:3000
+        options: >-
+          --health-cmd="curl -f http://localhost:3000 || exit 1"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
 
     steps:
       # Step 1: Checkout the repository
@@ -62,7 +73,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y docker-compose
-
+      
       # Step 11: Start the application with Docker Compose
       - name: Start services with Docker Compose
         run: docker-compose up -d  # Start services in detached mode
