@@ -1,5 +1,14 @@
-.instructor form {
+.main-teacher ul li {
+  list-style: none;
+}
+
+.main-teacher h1 {
+  text-align: center;
+}
+
+.instructor {
   width: 1200px;
+  max-width: 80vw;
   margin: 20px auto;
 }
 
@@ -59,18 +68,6 @@
   color: #fff;
 }
 
-/* 
-.instructor li label {
-  color: #ffffff;
-  font-weight: 200;
-  font-size: 12pt;
-}
-
-.instructor li input {
-  margin-right: 15px;
-  margin-left: 10px;
-} */
-
 .instructor .buttons {
   display: flex;
   flex-direction: row;
@@ -87,31 +84,6 @@
   border: none;
 }
 
-.delete {
-  background-color: #cc813f;
-  margin-left: 600px;
-  border: none;
-}
-
-.edit {
-  background-color: #cc813f;
-  margin-left: 20px;
-  border: none;
-}
-
-.more {
-  background-color: #cc813f;
-  margin-left: 20px;
-  border: none;
-  width: 100px;
-  height: 30px;
-  color: black;
-}
-
-.del-edit {
-  margin-right: 20px;
-}
-
 .instructor .buttons button:hover {
   background-color: #cc813f;
   color: #464545;
@@ -121,13 +93,8 @@
   opacity: 0.7;
 }
 
-.del-edit > .delete,
-.del-edit > .edit,
-.del-edit > .more {
-  width: 100px;
-  height: 30px;
-  cursor: pointer;
-  border: none;
+.del-edit {
+  margin-right: 20px;
 }
 
 /* detele and edit */
@@ -139,7 +106,8 @@
 }
 
 .del-edit > .delete,
-.del-edit > .edit {
+.del-edit > .edit,
+.del-edit > .more {
   width: 100px;
   height: 30px;
   cursor: pointer;
@@ -151,7 +119,7 @@
 }
 
 .main-teacher .delete {
-  background-color: #cc813f;
+  background-color: red;
   color: #fff;
 }
 
@@ -163,10 +131,9 @@
 .main-teacher .more {
   background-color: gray;
   color: #fff;
-  margin-right: 20px;
 }
 
-.evaluate {
+.main-teacher .evaluate {
   background-color: #cc813f;
   color: #fff;
   margin-right: 20px;
@@ -175,3 +142,23 @@
   cursor: pointer;
   border: none;
 }
+
+.main-teacher table {
+  color: white;
+  margin: 0 auto;
+  width: 100%;
+  padding: 25px 20px 0;
+  border-collapse: separate;
+  border-spacing: 0 7px;
+}
+
+.main-teacher table tbody td {
+  border-bottom: 2px solid white;
+  text-align: center;
+  text-wrap: wrap;
+ }
+
+ .main-teacher table thead th {
+  text-wrap: wrap;
+  padding: 0 5px 15px;
+ }

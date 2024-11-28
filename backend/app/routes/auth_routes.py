@@ -19,7 +19,7 @@ def login():
     user = table.query.filter_by(email=email, password=password).first()
 
     if user is None:
-        return jsonify({"Response": "ERROR", "type": "None", "Message": "User does not exist"}), 401
+        return jsonify({"Response": "ERROR", "type": "None", "Message": "User does not exist"}), 203
     else:
         # Generate JWT token
         access_token = create_access_token(identity=str(user.id), additional_claims ={"user_type": user_type, "user_name" : user.name}, expires_delta=timedelta(hours=2))

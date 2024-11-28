@@ -17,6 +17,11 @@ export default function MainLogin() {
     const formData = new FormData(e.target);
     const payload = Object.fromEntries(formData);
 
+    const emailInput = e.target["email"];
+    const passInput = e.target["password"];
+    emailInput.oninput = () => emailInput.setCustomValidity("");
+    passInput.oninput = () => emailInput.setCustomValidity("");
+
     storeAPI("/login", payload).then((data) => {
       if (data.data.Response == "VALID") {
         login(data.data.token, data.data.type);
@@ -25,7 +30,8 @@ export default function MainLogin() {
           ? navigate("/student/home")
           : navigate("/teacher/home");
       } else {
-        console.log(data.data.Message);
+        emailInput.setCustomValidity("Email/Password combination does not exist");
+        emailInput.reportValidity();
       }
     });
   };
@@ -70,10 +76,6 @@ export default function MainLogin() {
               required
             />
           </div>
-
-          <span title="Click here get your password">
-            Forgot your password?
-          </span>
 
           <span onClick={signupNav} title="Click here to sign up">
             Don &#39; t have an account?

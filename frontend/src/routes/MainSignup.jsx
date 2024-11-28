@@ -25,7 +25,7 @@ export default function MainSignup() {
 
     if (payload.password !== payload["confirm-password"]) {
       confirmPasswordInput.setCustomValidity("Passwords do not match!");
-      confirmPasswordInput.reportValidity();
+      confirmPasswordInput.reportValidity("");
       return;
     }
 

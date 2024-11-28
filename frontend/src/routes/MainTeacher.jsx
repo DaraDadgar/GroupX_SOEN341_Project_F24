@@ -1,156 +1,158 @@
-import "../css/main-teacher.css";
-import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { fetchProtectedAPI, fetchAPI, deleteTeam } from "../functions/ApiInterface";
+import "../css/main-teacher.css";
+
+import { fetchProtectedAPI } from "../functions/ApiInterface";
+import { useNavigate } from "react-router-dom";
+
+function assessments_avg(assessments){
+  let coop_avg = 0;
+  let conc_avg = 0;
+  let prac_avg = 0;
+  let ethi_avg = 0;
+
+  for (const assessment of assessments){
+    coop_avg += assessment.cooperation_score;
+    conc_avg += assessment.conceptual_contribution_score;
+    prac_avg += assessment.practical_contribution_score;
+    ethi_avg += assessment.work_ethic_score;
+  }
+
+  const num_ass = assessments.length;
+  if (num_ass > 0){
+    coop_avg /= num_ass;
+    conc_avg /= num_ass;
+    prac_avg /= num_ass;
+    ethi_avg /= num_ass;
+  }
+
+  const total_avg = (coop_avg + conc_avg + prac_avg + ethi_avg)/4;
+
+  return [coop_avg, conc_avg, prac_avg, ethi_avg, total_avg, num_ass];
+
+}
 
 export default function MainTeacher() {
-  const [teams, setTeams] = useState([]);
   const navigate = useNavigate();
+  const create_team = () => navigate("/teacher/team-creation");
+  const [teams, setTeams] = useState([]);
+  const [students, setStudents] = useState([]);
 
-  const handleCreateTeam = () => {
-    navigate('/teacher/team-creation');
-  };
-
-  const HandleDeleteTeam = async(teamId) => {
+  const fetchTeams = async () => {
     const token = localStorage.getItem("token");
-    if(!token){
-      alert("Authentication error. Please log in again.");
-      return;
-    }
-
-    if(window.confirm("Are you sure you want to delete this team?")) {
-      const response = await deleteTeam(teamId, token);
-      if (response.status === 200) {
-        alert("Team deleted successfully");
-        setTeams(teams.filter(team=>team.id !== teamId));
-      } else {
-        alert("Failed to delete team: " + response.data?.Reason || "Unknown error");
-      }
-    }
+    await fetchProtectedAPI("/teams", token)
+      .then((data) => {
+        setTeams(data.data);
+        return data.data;
+      })
+      .then(async (teams) => {
+        let studs = [];
+        for (let i = 0; i < teams.length; i++) {
+          await fetchProtectedAPI(`/teams/${teams[i].id}/students`, token).then(
+            async (response) => {
+              let team_members = []
+              for (let j = 0; j < response.data.length; j++){
+                 await fetchProtectedAPI(`assessments/student/${response.data[j].id}`, token).then( (result) => {
+                  const avgs = assessments_avg(result.data.Assessments);
+                  team_members[j] = {...response.data[j], "assessments" : avgs};
+                })
+              }
+              studs[i] = team_members;
+            }
+          );
+        }
+        setStudents(studs);
+      });
   };
 
   useEffect(() => {
-    const fetchTeamsData = async () => {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        console.error("No token found");
-        return;
-      }
-
-      // Fetch all teams
-      const teamsResponse = await fetchProtectedAPI('/teams', token);
-      if (teamsResponse.status === 200) {
-        const teamList = teamsResponse.data;
-
-        // Fetch members and assessments for each team
-        const teamsWithMembers = await Promise.all(
-          teamList.map(async (team) => {
-            // Fetch members of the team
-            const membersResponse = await fetchProtectedAPI(`/teams/${team.id}`, token);
-            if (membersResponse.status === 200) {
-              const members = await Promise.all(
-                membersResponse.data.map(async (member) => {
-                  // Fetch assessment for each member
-                  const assessmentResponse = await fetchAPI(`/assessments/${member.id}`);
-                  const assessment = assessmentResponse.status === 200 ? assessmentResponse.data : {};
-
-                  return {
-                    ...member,
-                    assessment: {
-                      cooperation_score: assessment.cooperation_score || "N/A",
-                      conceptual_contribution_score: assessment.conceptual_contribution_score || "N/A",
-                      practical_contribution_score: assessment.practical_contribution_score || "N/A",
-                      work_ethic_score: assessment.work_ethic_score || "N/A",
-                      comments: assessment.comments || "No comments",
-                    },
-                  };
-                })
-              );
-              return { ...team, members };
-            } else {
-              console.error(`Failed to fetch members for team ${team.id}`);
-              return { ...team, members: [] };
-            }
-          })
-        );
-
-        setTeams(teamsWithMembers);
-      } else {
-        console.error("Failed to fetch teams");
-      }
-    };
-
-    fetchTeamsData();
+    fetchTeams();
   }, []);
 
   return (
-    <main>
-      <div className="instructor header">
-        <h2 style={{ marginTop: "50px" }}>Teams Created:</h2>
+    <main className="main-teacher">
+      <div className="instructor">
+        <h2 style={{ marginTop: "50px" }}> Teams Created:</h2>
         <div className="buttons">
-          <button onClick={handleCreateTeam} style={{ marginTop: "-20px" }}>Create a New Team</button>
+          <button style={{ marginTop: "-20px" }} onClick={create_team}>
+            {" "}
+            Create Team +{" "}
+          </button>
         </div>
       </div>
-
-      <div className="instructor header">
-        {teams.map((team) => (
-          <ul key={team.id} style={{ marginTop: "20px", padding: "25px", color: "white", textAlign: "center" }}>
-            <table style={{ marginBottom: "20px" }}>
-              <thead>
-                <tr>
-                  <th style={{ padding: "25px" }}>{team.name}</th>
-                  <th style={{ padding: "25px" }}>Cooperation</th>
-                  <th style={{ padding: "25px" }}>Conceptual Contribution</th>
-                  <th style={{ padding: "25px" }}>Practical Contribution</th>
-                  <th style={{ padding: "25px" }}>Work Ethic</th>
-                  <th style={{ padding: "25px" }}>Average</th>
-                  <th style={{ padding: "25px" }}>Evaluations</th>
-                </tr>
-              </thead>
-              <tbody>
-                {team.members.map((member) => {
-                  const { cooperation_score, conceptual_contribution_score, practical_contribution_score, work_ethic_score } = member.assessment;
-                  const average =
-                    cooperation_score !== "N/A" &&
-                    conceptual_contribution_score !== "N/A" &&
-                    practical_contribution_score !== "N/A" &&
-                    work_ethic_score !== "N/A"
-                      ? (
-                          (cooperation_score + conceptual_contribution_score + practical_contribution_score + work_ethic_score) /
-                          4
-                        ).toFixed(1)
-                      : "N/A";
-
-                  return (
-                    <tr key={member.id}>
-                      <td style={{ borderBottom: "2px solid white" }}>{member.name}</td>
-                      <td style={{ borderBottom: "2px solid white" }}>{cooperation_score}</td>
-                      <td style={{ borderBottom: "2px solid white" }}>{conceptual_contribution_score}</td>
-                      <td style={{ borderBottom: "2px solid white" }}>{practical_contribution_score}</td>
-                      <td style={{ borderBottom: "2px solid white" }}>{work_ethic_score}</td>
-                      <td style={{ borderBottom: "2px solid white" }}>{average}</td>
-                      <td style={{ borderBottom: "2px solid white" }}>{member.assessment.comments}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-
-            <div className="del-edit">
-              <button
-                className="delete"
-                onClick={() => HandleDeleteTeam(team.id)}
-              >
-                DELETE
-              </button>
-              <button className="edit">EDIT</button>
-              <button className="more">
-                <Link to={`/dashboard/${team.id}`}>MORE</Link>
-              </button>
-            </div>
-          </ul>
-        ))}
-      </div>
+      {teams.length ? (
+        <div>
+          {teams.map((team, index) => (
+            <Team
+              key={team.id}
+              team={team}
+              students={students[index] || []} // Passing students array for this team
+            />
+          ))}
+        </div>
+      ) : (
+        <NoTeam />
+      )}
     </main>
   );
+}
+
+function Team({ team, students }) {
+  const navigate = useNavigate();
+  const team_info = (team, students) => {
+    navigate(`/teacher/team/dashboard`, { state: { team, students } }); // Pass team data in the state object
+  };
+  return (
+    <div className="instructor">
+      <ul style={{ marginTop: "20px" }}>
+      <table style={{ marginBottom: "20px" }}>
+        <thead>
+          <tr>
+            <th>{team.name}</th>
+            <th>Cooperation</th>
+            <th>Conceptual Contribution</th>
+            <th>Practical Contribution</th>
+            <th>Work Ethic</th>
+            <th>Average</th>
+            <th>Evaluations</th>
+          </tr>
+        </thead>
+        <tbody>
+          {students.map((student) => {
+                    return (
+                      <tr key={student.id}>
+                        <td> {student.name}</td>
+                        <td>{student.assessments[0] ==0 ? "N/A" : student.assessments[0].toFixed(1)}</td>
+                        <td>{student.assessments[1] ==0 ? "N/A" : student.assessments[1].toFixed(1)}</td>
+                        <td>{student.assessments[2] ==0 ? "N/A" : student.assessments[2].toFixed(1)}</td>
+                        <td>{student.assessments[3] ==0 ? "N/A" : student.assessments[3].toFixed(1)}</td>
+                        <td>{student.assessments[4] ==0 ? "N/A" : student.assessments[4].toFixed(1)}</td>
+                        <td>{student.assessments[5] ==0 ? "N/A" : student.assessments[5]}</td>
+                      </tr>
+                    );
+                  })}
+
+        </tbody>
+      </table>
+        <div className="del-edit">
+          <button className="more" onClick={() => team_info(team, students)}>
+            {" "}
+            MORE
+          </button>
+          <button className="edit">EDIT</button>
+          <button
+            className="delete"
+            onClick={() => {
+              confirm("Are you sure you want to delete this team?");
+            }}
+          >
+            DELETE
+          </button>
+        </div>
+      </ul>
+    </div>
+  );
+}
+
+function NoTeam() {
+  return <h1>No Teams Created</h1>;
 }
