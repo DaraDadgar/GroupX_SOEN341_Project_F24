@@ -133,7 +133,7 @@ function Team({ team, students }) {
 
         </tbody>
       </table>
-        <div className="delEdit">
+        <div className="del-edit">
           <button className="more" onClick={() => team_info(team, students)}>
             {" "}
             MORE
