@@ -1,4 +1,3 @@
-import React from "react";
 import "../css/about-us.css"; // Optional for styling
 import dara from "../pictures/dara.jpg"
 import oren from "../pictures/oren.jpg"
