@@ -104,11 +104,11 @@ export default function MainTeacher() {
       <div className="instructor">
         <h2 style={{ marginTop: "50px" }}> Teams Created:</h2>
         <div className="buttons">
-          <button style={{ marginTop: "-20px" }} onClick={create_team}>
+          <button style={{ marginTop: "-20px" }} data-testid="Create Button" onClick={create_team}>
             {" "}
             Create Team +{" "}
           </button>
-          <button style={{ marginTop: "-20px" }} onClick={downloadTeams}>
+          <button style={{ marginTop: "-20px" }} onClick={downloadTeams} data-testid="Download button">
             {" "}
             Download Teams ↓{" "}
           </button>
@@ -154,7 +154,7 @@ function Team({ team, students }) {
     }
   };
   return (
-    <div className="instructor">
+    <div className="instructor" data-testid={team.name}>
       <ul style={{ marginTop: "20px" }}>
       <table style={{ marginBottom: "20px" }}>
         <thead>
@@ -186,13 +186,14 @@ function Team({ team, students }) {
         </tbody>
       </table>
         <div className="del-edit">
-          <button className="more" onClick={() => team_info(team, students)}>
+          <button className="more" data-testid={team.name + " more button"} onClick={() => team_info(team, students)}>
             {" "}
             MORE
           </button>
           <button className="edit">EDIT</button>
           <button
             className="delete"
+            data-testid={team.name + " delete button"}
             onClick={() => {
               HandleDeleteTeam(team.id);
             }}

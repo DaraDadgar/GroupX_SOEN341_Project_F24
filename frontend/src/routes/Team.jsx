@@ -1,6 +1,7 @@
 import "../css/main-teacher.css";
 import PropTypes from "prop-types";
 import { jwtDecode } from "jwt-decode";
+import copy from "../assets/copy.svg";
 
 import { fetchProtectedAPI } from "../functions/ApiInterface";
 import { useState, useEffect } from "react";
@@ -44,15 +45,22 @@ export default function MyTeam() {
   );
 }
 
+const handleCopyClick = (email) => {
+  navigator.clipboard.writeText(email)
+};
+
 function Team({ team, students }) {
   const navigate = useNavigate();
   const select = () => navigate("/student/select-teammate");
   return (
-    <div className="instructor">
+    <div className="instructor" data-testid={team.name}>
       <ul style={{ marginTop: "20px" }}>
         <h3>{team.name}</h3>
         {students.map((student) => (
-          <li key={student.id}>{student.name}</li>
+          <div className = "teamMateDiv">
+            <img className = "copyLogo" src={copy} onClick={() => handleCopyClick(student.email)}></img>
+            <li key={student.id}>{student.name}</li>
+          </div>
         ))}
         <div className="del-edit">
           <button className="evaluate" onClick={select}>

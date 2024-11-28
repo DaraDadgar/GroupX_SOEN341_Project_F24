@@ -1,3 +1,16 @@
+const firstname = getRandomString();
+const lastname = getRandomString();
+const email = getRandomEmail();
+const password = getRandomString();
+
+const firstname2 = getRandomString();
+const lastname2 = getRandomString();
+const email2 = getRandomEmail();
+const password2 = getRandomString();
+
+const teamName = getRandomString();
+
+
 const firstname3 = getRandomString();
 const lastname3 = getRandomString();
 const email3 = getRandomEmail();
@@ -7,6 +20,8 @@ const firstname4 = getRandomString();
 const lastname4 = getRandomString();
 const email4 = getRandomEmail();
 const password4 = getRandomString();
+
+const downloadsFolder = Cypress.config('downloadsFolder')
 
 
 describe('Unlogged user tests', () => {
@@ -114,18 +129,7 @@ describe('Signup and Login for teachers tests', () => {
 describe('Teachers team creation tests', () => {
   it("Teachers should be able to create a team according to students available \n Desc: Make two students and assign them together, then make sure the new team is visible", () => {
     cy.visit('http://localhost:3000/signup')
-    const firstname = getRandomString();
-    const lastname = getRandomString();
-    const email = getRandomEmail();
-    const password = getRandomString();
-
-    const firstname2 = getRandomString();
-    const lastname2 = getRandomString();
-    const email2 = getRandomEmail();
-    const password2 = getRandomString();
-
-    const teamName = getRandomString();
-
+    
     cy.get('[type="radio"][value = "student"]').click()
     cy.get('[id="last-name"]').type(lastname)
     cy.get('[id="first-name"]').type(firstname)
@@ -169,56 +173,8 @@ describe('Teachers team creation tests', () => {
 
 describe('Student evaluation tests', () => {
   it("Students should be able to assess their teammates and only do it once \n Desc: Making 2 students and assessing from one of their perspective", () => {
-    cy.visit('http://localhost:3000/signup')
-    const firstname = getRandomString();
-    const lastname = getRandomString();
-    const email = getRandomEmail();
-    const password = getRandomString();
-
-    const firstname2 = getRandomString();
-    const lastname2 = getRandomString();
-    const email2 = getRandomEmail();
-    const password2 = getRandomString();
-
-    const teamName = getRandomString();
-
-    cy.get('[type="radio"][value = "student"]').click()
-    cy.get('[id="last-name"]').type(lastname)
-    cy.get('[id="first-name"]').type(firstname)
-    cy.get('[id="email"]').type(email)
-    cy.get('[id="password"]').type(password)
-    cy.get('[id="confirm-password"]').type(password)
-    cy.get('[value="Create Account"]').click()
-
-    cy.url().should("include", "/login")
-    cy.get('[class="sign-up"]').click()
-
-    cy.get('[type="radio"][value = "student"]').click()
-    cy.get('[id="last-name"]').type(lastname2)
-    cy.get('[id="first-name"]').type(firstname2)
-    cy.get('[id="email"]').type(email2)
-    cy.get('[id="password"]').type(password2)
-    cy.get('[id="confirm-password"]').type(password2)
-    cy.get('[value="Create Account"]').click()
-
-    //Teacher assigns team
-    cy.visit('http://localhost:3000/login')
-    cy.get('[type="radio"][value = "teacher"]').click()
-    cy.get('[id="email"]').type(email4)
-    cy.get('[id="password"]').type(password4)
-    cy.get('[value="Log in"]').click()
-    cy.get('[data-testid="Create Button"]').click()
-    cy.url().should('include', '/teacher/team-creation')
-    
-    cy.get(`[value="${email}"]`).click()
-    cy.get(`[value="${email2}"]`).click()
-    cy.get('[name="name"').type(teamName)
-    cy.get('[type="submit"').click()
-
-    cy.get('[class="logout"').click()
 
     cy.visit('http://localhost:3000/login')
-  
     cy.get('[type="radio"][value = "student"]').click()
     cy.get('[id="email"]').type(email)
     cy.get('[id="password"]').type(password)
@@ -237,6 +193,36 @@ describe('Student evaluation tests', () => {
     cy.get('[type="submit"]').click()
     cy.get('[class="evaluate"]').click()
     cy.get('[data-testid = "emptyStudents"').should("exist")
+  })
+})
+describe('Team Manipulation', () => {
+  it("Teachers should be able to delete teams", () => {
+    cy.visit('http://localhost:3000/login')
+    cy.get('[class="login"]').click()
+    cy.get('[type="radio"][value = "teacher"]').click()
+    cy.get('[id="email"]').type(email4)
+    cy.get('[id="password"]').type(password4)
+    cy.get('[value="Log in"]').click()
+    cy.url().should('include', '/teacher/home')
+
+
+    cy.get(`[data-testid="${teamName + " delete button"}"`).click()
+    cy.on('window:confirm', () => true);
+    cy.get(`[data-testid="${teamName + " delete button"}"`).should("not.exist")
+    cy.reload();
+  })
+  it("Teachers export teams into a csv file", () => {
+
+    cy.visit('http://localhost:3000/login')
+    cy.get('[class="login"]').click()
+    cy.get('[type="radio"][value = "teacher"]').click()
+    cy.get('[id="email"]').type(email4)
+    cy.get('[id="password"]').type(password4)
+    cy.get('[value="Log in"]').click()
+    cy.url().should('include', '/teacher/home')
+
+    cy.get(`[data-testid="Download button"]`).click()
+    cy.readFile(`${downloadsFolder}/student_teams.csv`).should('exist');
   })
 })
 

@@ -47,7 +47,7 @@
 
 .main-eval .checkmark {
   display: inline-block;
-  border: solid #cc813f 1px;
+  border: solid #cc813f 3px;
   border-radius: 50%;
   width: 25px;
   height: 25px;
