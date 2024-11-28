@@ -24,63 +24,41 @@ jobs:
         working-directory: ./frontend
         run: npm install
         
-      # # Step 3: Install Docker Compose (if not pre-installed)
-      # - name: Install Docker Compose
-      #   run: |
-      #     sudo apt-get update
-      #     sudo apt-get install -y docker-compose
-
-      # # Step 4: Start services with Docker Compose
-      # - name: Start services with Docker Compose
-      #   run: docker-compose up --build -d  # Start services in detached mode
-
-      # #Checking docker log files to ensure the server is running properly
-      # - name: Check Docker Compose Logs
-      #   if: failure()  # Only runs if the previous step fails
-      #   run: docker-compose logs
-        
-      # # Step 5: Wait for Frontend to be Ready
-      # - name: Wait for Frontend
-      #   run: npx wait-on http://localhost:3000  # Wait for frontend to be ready
-
-      # Step 7: Run ESLint on JavaScript Files
+      # Step 4: Run ESLint on JavaScript Files
       - name: Run ESLint
         working-directory: ./frontend
         run: npm run lint
 
-      # Step 8: Run StyleLint on CSS Files
+      # Step 5: Run StyleLint on CSS Files
       - name: Run StyleLint
         working-directory: ./frontend
         run: npm run stylelint
 
-      # Step 2: Set up Python environment
+      # Step 6: Set up Python environment
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.12' 
 
-      # Step 3: Install Pylint
+      # Step 7: Install Pylint
       - name: Install Pylint
         working-directory: ./backend
         run: pip install pylint
 
-      # Step 3: Install dependencies from requirements.txt
+      # Step 8: Install dependencies from requirements.txt
       - name: Install dependencies
         working-directory: ./backend 
         run: pip install -r requirements.txt
 
-      # Step 4: Run Pylint on Python Files
+      # Step 9: Run Pylint on Python Files
       - name: Run Pylint
         working-directory: ./backend
         run: pylint --errors-only --disable=import-error app/**/*.py
-      # Step 5: Install cypress correctly:
+        
+      # Step 10: Install cypress correctly:
       - name: Install Cypress
         run: npm install cypress --save-dev
       
-        # Step 6: Run Cypress Tests
+        # Step 11: Run Cypress Tests
       - name: Run Cypress tests
         run: npx cypress run
-
-      # # Step 8: Stop Docker Compose services
-      # - name: Stop Docker Compose
-      #   run: docker-compose down
