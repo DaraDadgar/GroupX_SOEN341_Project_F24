@@ -10,12 +10,12 @@
   
   .instructors-header h1 {
     font-size: 2.5rem;
-    color: rgba(204, 129, 63, 1);
+    color: rgba(204 129 63 / 100%);
   }
   
   .instructors-header p {
     font-size: 1.2rem;
-    color: rgba(70, 69, 69, 1);
+    color: rgba(70 69 69 / 100%);
   }
   
   .instructors-list {
@@ -25,11 +25,11 @@
   }
   
   .instructor-card {
-    background: #ffffff;
+    background: #fff;
     border: 1px solid #e1e1e1;
     border-radius: 8px;
     padding: 1.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0 0 0 / 10%);
     transition: transform 0.2s ease-in-out;
   }
   
