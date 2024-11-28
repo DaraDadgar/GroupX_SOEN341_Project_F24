@@ -6,12 +6,10 @@ import TeamCreation from "./routes/TeamCreation.jsx";
 import TeammateSelection from "./routes/TeammateSelection.jsx";
 import Evaluation from "./routes/Evaluation.jsx";
 import Dashboard from "./routes/Dashboard.jsx";
-import Instructor from "./routes/Instructor.jsx";
 import MainTeacher from "./routes/MainTeacher.jsx";
 import { AuthProvider } from "./config/AuthContext.jsx";
 import ProtectedRoute from "./config/ProtectedRoute.jsx";
-import ResetPassword from "./routes/ResetPassword.jsx";
-import NewPassword from "./routes/NewPassword.jsx";
+import AboutUs from "./routes/AboutUs.jsx";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import MainSignup from "./routes/MainSignup.jsx";
@@ -29,9 +27,8 @@ function App() {
           <Route path="/" element={<GeneralHomePage />} />
           <Route path="/login" element={<MainLogin />} />
           <Route path="/signup" element={<MainSignup />} />
-          <Route path="/instructor" element={<Instructor />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/new-password" element={<NewPassword />} />
+          <Route path="/instructor" element={<AboutUs />} />
+          <Route path="/about" element={<AboutUs />} />
 
           <Route
             path="/student/home"
