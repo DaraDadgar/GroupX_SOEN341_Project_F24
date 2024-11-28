@@ -55,8 +55,8 @@ header img {
 
 .logo {
   background-color: var(--bg-color);
-  height: 80%;
-  width: 15%;
+  height: 80px;
+  width: 200px;
   margin-left: 1%;
 }
 
