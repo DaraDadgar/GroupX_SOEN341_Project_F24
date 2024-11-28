@@ -2,7 +2,7 @@ import "../css/main-login.css";
 import "../css/general.css";
 import { storeAPI } from "../functions/apiinterface.jsx";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../config/UseAuth.jsx";
+import { useAuth } from "../config/useAuth.jsx";
 
 export default function MainLogin() {
   const { login } = useAuth();
