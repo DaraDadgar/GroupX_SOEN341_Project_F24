@@ -58,9 +58,9 @@ function Team({ team, students }) {
       <ul style={{ marginTop: "20px" }}>
         <h3>{team.name}</h3>
         {students.map((student) => (
-          <div className="teamMateDiv" key={student.id}>
+          <div className="team-mate-div" key={student.id}>
             <img
-              className="copyLogo"
+              className="copy-logo"
               src={copy}
               onClick={() => handleCopyClick(student.email)}
             />
