@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { jwtDecode } from "jwt-decode";
 import copy from "../assets/copy.svg";
 
-import { fetchProtectedAPI } from "../functions/ApiInterface";
+import { fetchProtectedAPI } from "../functions/apiinterface";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
