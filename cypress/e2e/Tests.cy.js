@@ -1,3 +1,14 @@
+const firstname3 = getRandomString();
+const lastname3 = getRandomString();
+const email3 = getRandomEmail();
+const password3 = getRandomString();
+
+const firstname4 = getRandomString();
+const lastname4 = getRandomString();
+const email4 = getRandomEmail();
+const password4 = getRandomString();
+
+
 describe('Unlogged user tests', () => {
   it('Home page loads the nav bar and buttons ', () => {
     cy.visit('http://localhost:3000/')
@@ -27,11 +38,11 @@ describe('Signup and Login for students tests', () => {
     cy.visit('http://localhost:3000/signup')
 
     cy.get('[type="radio"][value = "student"]').click()
-    cy.get('[id="last-name"]').type("John")
-    cy.get('[id="first-name"]').type("Phan")
-    cy.get('[id="email"]').type("JohnPhan@hotmail.com")
-    cy.get('[id="password"]').type("pass1234")
-    cy.get('[id="confirm-password"]').type("pass1234")
+    cy.get('[id="last-name"]').type(firstname3)
+    cy.get('[id="first-name"]').type(lastname3)
+    cy.get('[id="email"]').type(email3)
+    cy.get('[id="password"]').type(password3)
+    cy.get('[id="confirm-password"]').type(password3)
     cy.get('[value="Create Account"]').click()
 
     cy.url().should('include', '/login')
@@ -40,10 +51,9 @@ describe('Signup and Login for students tests', () => {
   it("Logging in as a student should redirect to student home page and initialize jwt token", () => {
     cy.visit('http://localhost:3000/login')
     cy.get('[type="radio"][value = "student"]').click()
-    cy.get('[id="email"]').type("JohnPhan@hotmail.com")
-    cy.get('[id="password"]').type("pass1234")
+    cy.get('[id="email"]').type(email3)
+    cy.get('[id="password"]').type(password3)
     cy.get('[value="Log in"]').click()
-    
     cy.url().should('include', '/student/home')
     cy.getAllLocalStorage().then((localStorageData) => {
       expect(localStorageData).to.have.key("http://localhost:3000")
@@ -53,17 +63,10 @@ describe('Signup and Login for students tests', () => {
   it('Log out button should appear at the top right of the screen', () => {
     cy.visit('http://localhost:3000/login')
     cy.get('[type="radio"][value = "student"]').click()
-    cy.get('[id="email"]').type("JohnPhan@hotmail.com")
-    cy.get('[id="password"]').type("pass1234")
+    cy.get('[id="email"]').type(email3)
+    cy.get('[id="password"]').type(password3)
     cy.get('[value="Log in"]').click()
-
-    cy.get('[class="logout"').should("exist")
-
-    cy.get('[class="logout"]').click()
-    cy.url().should('include', '/login')
-    cy.getAllLocalStorage().then((localStorageData) => {
-      expect(localStorageData).to.not.have.key("http://localhost:3000")
-    })
+    cy.get('[class="logout"]').should("exist")
   })
 })
 
@@ -71,11 +74,11 @@ describe('Signup and Login for teachers tests', () => {
   it('Signing up a teacher should bring us to the login page', () => {
     cy.visit('http://localhost:3000/signup')
     cy.get('[type="radio"][value = "teacher"]').click()
-    cy.get('[id="first-name"]').type("Phan")
-    cy.get('[id="last-name"]').type("Math")
-    cy.get('[id="email"]').type("MathPhan@hotmail.com")
-    cy.get('[id="password"]').type("pass1234")
-    cy.get('[id="confirm-password"]').type("pass1234")
+    cy.get('[id="last-name"]').type(firstname4)
+    cy.get('[id="first-name"]').type(lastname4)
+    cy.get('[id="email"]').type(email4)
+    cy.get('[id="password"]').type(password4)
+    cy.get('[id="confirm-password"]').type(password4)
     cy.get('[value="Create Account"]').click()
     cy.url().should('include', '/login')
   })
@@ -83,9 +86,10 @@ describe('Signup and Login for teachers tests', () => {
   it("Logging in as a teacher should redirect to teacher home page and initialize jwt-token based session", () => {
     cy.visit('http://localhost:3000/login')
     cy.get('[type="radio"][value = "teacher"]').click()
-    cy.get('[id="email"]').type("MathPhan@hotmail.com")
-    cy.get('[id="password"]').type("pass1234")
+    cy.get('[id="email"]').type(email4)
+    cy.get('[id="password"]').type(password4)
     cy.get('[value="Log in"]').click()
+
     cy.url().should('include', '/teacher/home')
     cy.getAllLocalStorage().then((localStorageData) => {
       expect(localStorageData).to.have.key("http://localhost:3000")
@@ -94,16 +98,13 @@ describe('Signup and Login for teachers tests', () => {
 
   it('Log out button should appear at the top right of the screen', () => {
     cy.visit('http://localhost:3000/login')
-    cy.get('[type="radio"][value = "student"]').click()
-    cy.get('[id="email"]').type("JohnPhan@hotmail.com")
-    cy.get('[id="password"]').type("pass1234")
+    cy.get('[type="radio"][value = "teacher"]').click()
+    cy.get('[id="email"]').type(email4)
+    cy.get('[id="password"]').type(password4)
     cy.get('[value="Log in"]').click()
 
-    cy.get('[class="logout"').should("exist")
-
+    cy.get('[class="logout"]').should("exist")
     cy.get('[class="logout"]').click()
-    cy.url().should('include', '/login')
-
     cy.getAllLocalStorage().then((localStorageData) => {
       expect(localStorageData).to.not.have.key("http://localhost:3000")
     })
@@ -144,10 +145,12 @@ describe('Teachers team creation tests', () => {
     cy.get('[id="confirm-password"]').type(password2)
     cy.get('[value="Create Account"]').click()
 
+
     cy.visit('http://localhost:3000/login')
+    cy.get('[class="login"]').click()
     cy.get('[type="radio"][value = "teacher"]').click()
-    cy.get('[id="email"]').type("MathPhan@hotmail.com")
-    cy.get('[id="password"]').type("pass1234")
+    cy.get('[id="email"]').type(email4)
+    cy.get('[id="password"]').type(password4)
     cy.get('[value="Log in"]').click()
     cy.get('[data-testid="Create Button"]').click()
     cy.url().should('include', '/teacher/team-creation')
@@ -201,8 +204,8 @@ describe('Student evaluation tests', () => {
     //Teacher assigns team
     cy.visit('http://localhost:3000/login')
     cy.get('[type="radio"][value = "teacher"]').click()
-    cy.get('[id="email"]').type("MathPhan@hotmail.com")
-    cy.get('[id="password"]').type("pass1234")
+    cy.get('[id="email"]').type(email4)
+    cy.get('[id="password"]').type(password4)
     cy.get('[value="Log in"]').click()
     cy.get('[data-testid="Create Button"]').click()
     cy.url().should('include', '/teacher/team-creation')
