@@ -78,7 +78,8 @@
 .buttons > * {
   color: #cc813f;
   background-color: #464545;
-  width: 100px;
+  width: fit-content;
+  padding: 5px 10px;
   height: 30px;
   cursor: pointer;
   border: none;
