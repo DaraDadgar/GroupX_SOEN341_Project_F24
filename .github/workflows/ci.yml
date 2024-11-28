@@ -57,10 +57,17 @@ jobs:
         working-directory: ./backend
         run: pylint --errors-only --disable=import-error app/**/*.py
 
-      # Step 10: Set up Cypress and run tests
+     # Step 10: Start the application with Docker Compose
+      - name: Start services with Docker Compose
+        run: docker-compose up -d  # Start services in detached mode
+      
+      # Step 11: Wait for the server to be ready
+      - name: Wait for the server to be ready
+        run: npx wait-on http://localhost:3000
+
+      # Step 12: Run Cypress Tests
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v4
         with:
-          install: true   # Installs dependencies in the main directory
-          runTests: true  # Runs the tests
-
+          install: true
+          runTests: true
