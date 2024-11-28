@@ -57,7 +57,7 @@ jobs:
         working-directory: ./backend
         run: pylint --errors-only --disable=import-error app/**/*.py
 
-    # Step 10: Install Docker Compose
+      # Step 10: Install Docker Compose
       - name: Install Docker Compose
         run: |
           sudo apt-get update
@@ -77,3 +77,11 @@ jobs:
         with:
           install: true
           runTests: true
+
+      # Step 14: Upload Cypress Screenshots as Artifacts
+      - name: Upload Cypress Screenshots
+        if: failure()  # Only upload if there was a failure
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots 
