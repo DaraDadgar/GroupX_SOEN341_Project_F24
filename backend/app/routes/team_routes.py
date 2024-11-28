@@ -1,4 +1,5 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, Response
+import csv
 from app.extensions import db
 from app.models import StudentTeam, Students, Teachers, Teams, Assessments, StudentEval
 from flask_jwt_extended import jwt_required, get_jwt_identity, decode_token, get_jwt
@@ -178,3 +179,43 @@ def get_students_from_team(id):
 
     student_list = [student.to_dict() for student in students]
     return jsonify(student_list), 200
+
+@team_bp.route('/teams/export', methods=['GET'])
+@jwt_required()
+def export_teams_to_csv():
+    user_identity = int(get_jwt_identity())
+    user_claims = get_jwt()
+
+    # Ensure only teachers can access this route
+    if user_claims.get("user_type") != "teacher":
+        return jsonify({"Response": "INVALID", "Reason": "Only teachers can access this route"}), 403
+
+    # Fetch all teams and related data
+    teams = Teams.query.all()
+    if not teams:
+        return jsonify({"Response": "INVALID", "Reason": "No teams available to export"}), 404
+
+    # Prepare CSV data
+    csv_data = []
+    csv_data.append(["Team ID", "Team Name", "Student ID", "Student Name", "Student Email"])
+
+    for team in teams:
+        team_students = StudentTeam.query.filter_by(team_id=team.id).all()
+        for student_team in team_students:
+            student = Students.query.get(student_team.student_id)
+            csv_data.append([
+                team.id,
+                team.name,
+                student.id if student else "N/A",
+                student.name if student else "N/A",
+                student.email if student else "N/A"
+            ])
+
+    # Generate the CSV response
+    def generate_csv():
+        for row in csv_data:
+            yield ",".join(map(str, row)) + "\n"
+
+    response = Response(generate_csv(), mimetype='text/csv')
+    response.headers['Content-Disposition'] = 'attachment; filename=teams.csv'
+    return response
