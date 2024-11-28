@@ -16,6 +16,7 @@ def cheat():
     return jsonify(students_list), 200
 
 
+
 @student_bp.route('/students', methods=['GET'])
 @jwt_required()
 def get_students():

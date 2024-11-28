@@ -168,3 +168,18 @@ button:hover{
   text-wrap: wrap;
   padding: 0 5px 15px;
  }
+
+ .copyLogo{
+  width : 25px;
+  height : 25px;
+ }
+
+ .copyLogo:hover{
+  cursor: pointer;
+ }
+ .teamMateDiv {
+  display: flex;
+ }
+ .teamMateDiv .copyLogo{
+  margin-left: 50px;
+ }
