@@ -1,9 +1,11 @@
 button {
   transition: 0.3s;
 }
+
 button:hover{
   transform: scale(1.05);
 }
+
 .main-teacher ul li {
   list-style: none;
 }
@@ -90,6 +92,7 @@ button:hover{
   cursor: pointer;
   border: none;
 }
+
 .instructor .buttons button:hover {
   background-color: #cc813f;
   color: #464545;
