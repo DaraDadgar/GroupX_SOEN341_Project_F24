@@ -1,7 +1,7 @@
 import "../css/evaluation.css";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { storeProtectedAPI } from "../functions/ApiInterface";
+import { storeProtectedAPI } from "../functions/apiinterface";
 import { jwtDecode } from "jwt-decode";
 
 import PropTypes from "prop-types";
