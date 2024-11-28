@@ -65,7 +65,7 @@
     transition: 2s;
   }
   .team-member:hover .team-member-img{
-    transform: translateX(-390px);
+    transform: translateX(-200px);
   }
   .team-member-desc{
     position: absolute;
@@ -117,3 +117,10 @@
     text-decoration: underline;
   }
   
+  .team-member .title{
+    text-wrap: nowrap;
+  }
+
+  .team-member .desc {
+    text-align: justify;
+  }
