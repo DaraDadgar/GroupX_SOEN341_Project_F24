@@ -77,6 +77,10 @@ export default function MainTeacher() {
             {" "}
             Create Team +{" "}
           </button>
+          <button style={{ marginTop: "-20px" }}>
+            {" "}
+            Download Teams ↓{" "}
+          </button>
         </div>
       </div>
       {teams.length ? (
