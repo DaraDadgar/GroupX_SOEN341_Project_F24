@@ -77,10 +77,6 @@ export default function MainLogin() {
             />
           </div>
 
-          <span title="Click here get your password" onClick={() => navigate("/reset-password")}>
-            Forgot your password?
-          </span>
-
           <span onClick={signupNav} title="Click here to sign up">
             Don't have an account?
           </span>
