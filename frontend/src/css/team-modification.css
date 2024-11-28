@@ -11,8 +11,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-
-  margin: 20px 20px;
+  margin: 20px;
 }
 
 .main-teamcreation h2 {
@@ -25,22 +24,24 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-}
-
-.main-teamcreation .top-display .team-name {
   background-color: #464545;
   height: 35px;
   width: 100em;
 }
 
+.main-teamcreation li input {
+  color: #fff;
+  margin-right: 15px;
+  margin-left: 10px;
+}
+
+
 .main-teamcreation .top-display .team-name input {
   border: none;
   border-bottom: solid #a8a8a8 1px;
   background-color: #464545;
-
   height: 32px;
   width: 96%;
-
   color: white;
   font-size: 12pt;
 }
@@ -48,18 +49,11 @@
 .main-teamcreation ul {
   list-style-type: none;
   background-color: #464545;
-
   height: auto;
   overflow: auto;
-
   margin-bottom: 20px;
 }
 
-.main-teamcreation ul li {
-  margin: 0 20px;
-  color: #ffffff;
-  border-bottom: solid #a8a8a8 1px;
-}
 .main-teamcreation li {
   display: flex;
   justify-content: space-between;
@@ -67,17 +61,18 @@
   padding: 5px;
 }
 
+.main-teamcreation ul li {
+  margin: 0 20px;
+  color: #fff;
+  border-bottom: solid #a8a8a8 1px;
+}
+
 .main-teamcreation li label {
-  color: #ffffff;
+  color: #fff;
   font-weight: 200;
   font-size: 12pt;
 }
 
-.main-teamcreation li input {
-  color: #ffffff;
-  margin-right: 15px;
-  margin-left: 10px;
-}
 
 .main-teamcreation .buttons {
   display: flex;
@@ -89,10 +84,8 @@
 .buttons > * {
   color: #cc813f;
   background-color: #464545;
-
   width: 100px;
   height: 30px;
-
   cursor: pointer;
   border: none;
 }

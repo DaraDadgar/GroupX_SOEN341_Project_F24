@@ -156,4 +156,3 @@ function Team({ team, students }) {
 function NoTeam() {
   return <h1>No Teams Created</h1>;
 }
-

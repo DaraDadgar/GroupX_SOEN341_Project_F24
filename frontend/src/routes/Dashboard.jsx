@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import "../css/dashboard.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -15,6 +16,10 @@ function StarScore({ average }) {
   );
 }
 
+StarScore.propTypes = {
+  average: PropTypes.number.isRequired
+}
+
 function StarTable({ team_members }) {
   return (
     <table className="star-table">
@@ -30,6 +35,16 @@ function StarTable({ team_members }) {
       </tbody>
     </table>
   );
+}
+
+StarTable.propTypes = {
+  team_members: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      average: PropTypes.number.isRequired,
+    })
+  ).isRequired
 }
 
 function sum_score(assessment) {
@@ -89,6 +104,18 @@ function StudentTable({ assessments }) {
   );
 }
 
+StudentTable.propTypes = {
+  assessments: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      cooperation_score: PropTypes.number.isRequired,
+      conceptual_contribution_score: PropTypes.number.isRequired,
+      practical_contribution_score: PropTypes.number.isRequired,
+      work_ethic_score: PropTypes.number.isRequired
+    })
+  ).isRequired
+}
+
 function StudentComments({ assessments }) {
   return (
     <textarea
@@ -105,6 +132,14 @@ function StudentComments({ assessments }) {
   );
 }
 
+StudentComments.propTypes = {
+  assessments: PropTypes.arrayOf(
+    PropTypes.shape({
+      comments: PropTypes.string
+    })
+  ).isRequired
+}
+
 function StudentDash({ student }) {
   return (
     <>
@@ -116,14 +151,38 @@ function StudentDash({ student }) {
   );
 }
 
+StudentDash.propTypes = {
+  student: PropTypes.shape({
+    name: PropTypes.string.isRequired, 
+    assessments: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        cooperation_score: PropTypes.number.isRequired,
+        conceptual_contribution_score: PropTypes.number.isRequired,
+        practical_contribution_score: PropTypes.number.isRequired,
+        work_ethic_score: PropTypes.number.isRequired
+      })
+    ).isRequired
+  }).isRequired,
+}
+
 function StudentsDash({ students }) {
   return (
     <>
-      {students.map((student, index) => (
+      {students.map((student) => (
         <StudentDash key={student.id} student={student} />
       ))}
     </>
   );
+}
+
+// Define prop types for StudentsDash component
+StudentsDash.propTypes = {
+  students: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+    })
+  ).isRequired,
 }
 
 export default function Dashboard() {
@@ -180,3 +239,4 @@ export default function Dashboard() {
     </main>
   );
 }
+
