@@ -73,7 +73,10 @@ jobs:
       - name: Run Pylint
         working-directory: ./backend
         run: pylint --errors-only --disable=import-error app/**/*.py
-
+      # Step 5: Install cypress correctly:
+      - name: Install Cypress
+        run: npm install cypress --save-dev
+      
         # Step 6: Run Cypress Tests
       - name: Run Cypress tests
         run: npx cypress run
