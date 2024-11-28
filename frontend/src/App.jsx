@@ -10,6 +10,8 @@ import MainTeacher from "./routes/MainTeacher.jsx";
 import { AuthProvider } from "./config/AuthContext.jsx";
 import ProtectedRoute from "./config/ProtectedRoute.jsx";
 import AboutUs from "./routes/AboutUs.jsx";
+import FeaturesPage from "./routes/Features.jsx";
+import InstructorsPage from "./routes/Instructors.jsx";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import MainSignup from "./routes/MainSignup.jsx";
@@ -27,8 +29,9 @@ function App() {
           <Route path="/" element={<GeneralHomePage />} />
           <Route path="/login" element={<MainLogin />} />
           <Route path="/signup" element={<MainSignup />} />
-          <Route path="/instructor" element={<AboutUs />} />
+          <Route path="/instructors" element={<InstructorsPage />} />
           <Route path="/about" element={<AboutUs />} />
+          <Route path="/features" element={<FeaturesPage />} />
 
           <Route
             path="/student/home"
