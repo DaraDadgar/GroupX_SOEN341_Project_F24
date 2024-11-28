@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "../css/main-teacher.css";
 import PropTypes from "prop-types";
-import { fetchProtectedAPI, deleteTeam } from "../functions/ApiInterface";
+import { fetchProtectedAPI, deleteTeam } from "../functions/apiinterface";
 import { useNavigate } from "react-router-dom";
 
 function assessments_avg(assessments){
