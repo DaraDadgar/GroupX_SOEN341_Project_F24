@@ -38,7 +38,17 @@
 }
 
 .main-signup .fields input {
+  margin: 0 10px;
   font-size: 18px;
+  padding: 0px;
+  padding-left: 5px;
+  border: none;
+  border-radius: 5px;
+  transition: all 1s ease;
+}
+
+.main-signup .fields input:focus {
+  background-color: rgb(218, 253, 211);
 }
 
 .main-signup input[type="radio"] {
@@ -53,12 +63,14 @@
   margin: 30px 0;
   border: none;
   border-radius: 10px;
+  transition: 0.3s;
 }
 
 .main-signup input[type="submit"]:hover {
   color: rgba(70 69 69 / 100%);
   background-color: rgba(204 129 63 / 100%);
   cursor: pointer;
+  transform: scale(1.05);
 }
 
 .main-signup input[type="submit"]:active {
@@ -70,9 +82,12 @@
   font-size: 15px;
   font-weight: lighter;
   font-style: italic;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  transition: 0.3s; 
 }
 
 .already-account-option:hover {
-  text-decoration: underline;
+  text-decoration-color:  rgb(34 33 33);
   cursor: pointer;
 }

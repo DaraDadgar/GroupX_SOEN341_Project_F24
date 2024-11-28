@@ -1,4 +1,5 @@
 import "../css/header.css";
+import logo from "../assets/header.png"
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../config/UseAuth";
 import homeIcon from "../pictures/home.png";
@@ -9,7 +10,7 @@ export default function Header() {
 
   return (
     <header>
-      <h1>Peer Assessment Tool</h1>
+      <img src={logo} alt="Flowers in Chania" className="logo"></img>
       {token ? <LoggedIn /> : <LoggedOut />}
     </header>
   );
