@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import "../css/dashboard.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { fetchProtectedAPI } from "../functions/ApiInterface";
+import { fetchProtectedAPI } from "../functions/apiinterface";
 
 function StarScore({ average }) {
   return (
