@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "../css/main-teacher.css";
 
-import { fetchProtectedAPI } from "../functions/ApiInterface";
+import { fetchProtectedAPI, deleteTeam } from "../functions/ApiInterface";
 import { useNavigate } from "react-router-dom";
 
 function assessments_avg(assessments){
@@ -101,6 +101,23 @@ function Team({ team, students }) {
   const team_info = (team, students) => {
     navigate(`/teacher/team/dashboard`, { state: { team, students } }); // Pass team data in the state object
   };
+  const HandleDeleteTeam = async(teamId) => {
+    const token = localStorage.getItem("token");
+    if(!token){
+      alert("Authentication error. Please log in again.");
+      return;
+    }
+
+    if(window.confirm("Are you sure you want to delete this team?")) {
+      const response = await deleteTeam(teamId, token);
+      if (response.status === 200) {
+        window.location.reload();
+        alert("Team deleted successfully");
+      } else {
+        alert("Failed to delete team: " + response.data?.Reason || "Unknown error");
+      }
+    }
+  };
   return (
     <div className="instructor">
       <ul style={{ marginTop: "20px" }}>
@@ -142,7 +159,7 @@ function Team({ team, students }) {
           <button
             className="delete"
             onClick={() => {
-              confirm("Are you sure you want to delete this team?");
+              HandleDeleteTeam(team.id);
             }}
           >
             DELETE
