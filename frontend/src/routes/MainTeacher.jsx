@@ -104,7 +104,7 @@ export default function MainTeacher() {
       <div className="instructor">
         <h2 style={{ marginTop: "50px" }}> Teams Created:</h2>
         <div className="buttons">
-          <button style={{ marginTop: "-20px" }} onClick={create_team}>
+          <button style={{ marginTop: "-20px" }} data-testid="Create Button" onClick={create_team}>
             {" "}
             Create Team +{" "}
           </button>

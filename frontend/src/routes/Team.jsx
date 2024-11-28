@@ -48,7 +48,7 @@ function Team({ team, students }) {
   const navigate = useNavigate();
   const select = () => navigate("/student/select-teammate");
   return (
-    <div className="instructor">
+    <div className="instructor" data-testid={team.name}>
       <ul style={{ marginTop: "20px" }}>
         <h3>{team.name}</h3>
         {students.map((student) => (
