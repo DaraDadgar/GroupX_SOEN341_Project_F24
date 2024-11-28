@@ -8,5 +8,7 @@
 }
 
 body {
-  background-color: rgba(0 0 0 / 50.5%);
+  background: linear-gradient(to bottom,rgb(208, 208, 208), rgb(86, 86, 86));
+  min-height: 100vh;
+  height:100%
 }
