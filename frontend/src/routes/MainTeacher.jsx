@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "../css/main-teacher.css";
-
+import PropTypes from "prop-types";
 import { fetchProtectedAPI, deleteTeam } from "../functions/ApiInterface";
 import { useNavigate } from "react-router-dom";
 
@@ -173,3 +173,17 @@ function Team({ team, students }) {
 function NoTeam() {
   return <h1>No Teams Created</h1>;
 }
+
+Team.propTypes = {
+  team: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+  }).isRequired,
+  students: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      assessments: PropTypes.arrayOf(PropTypes.number).isRequired,
+    })
+  ).isRequired,
+};
