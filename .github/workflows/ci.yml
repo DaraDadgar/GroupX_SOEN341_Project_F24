@@ -23,7 +23,7 @@ jobs:
       - name: Install Frontend Dependencies
         working-directory: ./frontend
         run: npm install
-        
+
       # Step 4: Run ESLint on JavaScript Files
       - name: Run ESLint
         working-directory: ./frontend
@@ -38,7 +38,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.12' 
+          python-version: '3.12'
 
       # Step 7: Install Pylint
       - name: Install Pylint
@@ -47,18 +47,20 @@ jobs:
 
       # Step 8: Install dependencies from requirements.txt
       - name: Install dependencies
-        working-directory: ./backend 
+        working-directory: ./backend
         run: pip install -r requirements.txt
 
       # Step 9: Run Pylint on Python Files
+      # Only checks for errors (not warnings)
+      # Ignores import-error rule
       - name: Run Pylint
         working-directory: ./backend
         run: pylint --errors-only --disable=import-error app/**/*.py
-        
-      # Step 10: Install cypress correctly:
-      - name: Install Cypress
-        run: npm install cypress --save-dev
-      
-        # Step 11: Run Cypress Tests
-      - name: Run Cypress tests
-        run: npx cypress run
+
+      # Step 10: Set up Cypress and run tests
+      - name: Run Cypress Tests
+        uses: cypress-io/github-action@v4
+        with:
+          install: true   # Installs dependencies in the main directory
+          runTests: true  # Runs the tests
+
