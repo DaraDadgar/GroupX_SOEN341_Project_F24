@@ -64,6 +64,37 @@ export default function MainTeacher() {
       });
   };
 
+  const downloadTeams = async() => {
+    const token = localStorage.getItem("token");
+    if(!token){
+      alert("Authentication error. Please log in again.");
+      return;
+    }
+
+    await fetchProtectedAPI("/teams/export", token).then((response) => {
+      const csvString = response.data
+      
+      // Create a Blob from the CSV string
+      const blob = new Blob([csvString], { type: "text/csv" });
+      
+      // Generate a download URL
+      const url = URL.createObjectURL(blob);
+      
+      // Create a link element
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "student_teams.csv"; // Set the filename for the download
+      
+      // Append the link to the document and programmatically click it
+      document.body.appendChild(link);
+      link.click();
+      
+      // Cleanup
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    })
+  }
+
   useEffect(() => {
     fetchTeams();
   }, []);
@@ -77,7 +108,7 @@ export default function MainTeacher() {
             {" "}
             Create Team +{" "}
           </button>
-          <button style={{ marginTop: "-20px" }}>
+          <button style={{ marginTop: "-20px" }} onClick={downloadTeams}>
             {" "}
             Download Teams ↓{" "}
           </button>
@@ -142,12 +173,12 @@ function Team({ team, students }) {
                     return (
                       <tr key={student.id}>
                         <td> {student.name}</td>
-                        <td>{student.assessments[0] ==0 ? "N/A" : student.assessments[0].toFixed(1)}</td>
-                        <td>{student.assessments[1] ==0 ? "N/A" : student.assessments[1].toFixed(1)}</td>
-                        <td>{student.assessments[2] ==0 ? "N/A" : student.assessments[2].toFixed(1)}</td>
-                        <td>{student.assessments[3] ==0 ? "N/A" : student.assessments[3].toFixed(1)}</td>
-                        <td>{student.assessments[4] ==0 ? "N/A" : student.assessments[4].toFixed(1)}</td>
-                        <td>{student.assessments[5] ==0 ? "N/A" : student.assessments[5]}</td>
+                        <td>{student.assessments[0] == 0 ? "N/A" : student.assessments[0].toFixed(1)}</td>
+                        <td>{student.assessments[1] == 0 ? "N/A" : student.assessments[1].toFixed(1)}</td>
+                        <td>{student.assessments[2] == 0 ? "N/A" : student.assessments[2].toFixed(1)}</td>
+                        <td>{student.assessments[3] == 0 ? "N/A" : student.assessments[3].toFixed(1)}</td>
+                        <td>{student.assessments[4] == 0 ? "N/A" : student.assessments[4].toFixed(1)}</td>
+                        <td>{student.assessments[5] == 0 ? "N/A" : student.assessments[5]}</td>
                       </tr>
                     );
                   })}
