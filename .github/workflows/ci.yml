@@ -57,10 +57,31 @@ jobs:
         working-directory: ./backend
         run: pylint --errors-only --disable=import-error app/**/*.py
 
-      # Step 10: Set up Cypress and run tests
+      # Step 10: Install Docker Compose
+      - name: Install Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+
+      # Step 11: Start the application with Docker Compose
+      - name: Start services with Docker Compose
+        run: docker-compose up -d  # Start services in detached mode
+
+      # Step 12: Wait for the server to be ready
+      - name: Wait for the server to be ready
+        run: npx wait-on http://localhost:3000
+
+      # Step 13: Run Cypress Tests
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v4
         with:
-          install: true   # Installs dependencies in the main directory
-          runTests: true  # Runs the tests
+          install: true
+          runTests: true
 
+      # Step 14: Upload Cypress Screenshots as Artifacts
+      - name: Upload Cypress Screenshots
+        if: failure()  # Only upload if there was a failure
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots 

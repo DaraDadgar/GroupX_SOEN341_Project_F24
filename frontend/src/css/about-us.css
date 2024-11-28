@@ -52,22 +52,52 @@
     margin: 20px 0;
     flex: 1;
     background-color: #ecf0f1;
+    height: 250px;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0 0 0 / 10%);
+    transition: 2s;
   }
-  
+
+  .team-member-img {
+    position: absolute;
+    width: 15%;
+    left: 42.5%;
+    transition: 2s;
+  }
+
+  .team-member:hover .team-member-img{
+    transform: translateX(-390px);
+  }
+
+  .team-member-desc{
+    position: absolute;
+    height: 220px;
+    width: 25%;
+    left: 50%;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+  }
+
+  .desc {
+    color: black;
+  }
+
+  .team-member:hover .team-member-desc{
+    opacity: 1;
+  }
+
   .team-member h3 {
     font-size: 1.5rem;
     color: #2c3e50;
   }
-  
+
   .team-member p {
     font-size: 1.1rem;
     color: #7f8c8d;
     margin-top: 10px;
   }
-
+  
   .team-member img {
     width: 150px;
     height: 150px;

@@ -3,7 +3,7 @@
 }
 
 .main-login {
-  background-color: rgba(168 168 168 / 100%);
+  background: linear-gradient(to top,rgb(220, 220, 220), rgb(145, 145, 145));
   width: 450px;
   height: 450px;
   margin: 50px auto;
