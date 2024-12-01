@@ -4,14 +4,14 @@ import axios from "axios";
 
 //Creating an axios instance for reuse in different components
 const apiClient = axios.create({
-  baseURL: "http://35.182.217.153/5001",
+  baseURL: "http://localhost:5001",
   timeout: 1000,
   headers: { "Content-Type": "application/json" },
 });
 
 export const deleteTeam = async (teamId, token) => {
   const apiClientX = axios.create({
-    baseURL: "http://35.182.217.153/5001",
+    baseURL: "http://localhost:5001",
     timeout: 1000,
     headers: {
       "Content-Type": "application/json",
@@ -30,7 +30,7 @@ export const deleteTeam = async (teamId, token) => {
 
 export const fetchProtectedAPI = async (route, token) => {
   const apiClientX = axios.create({
-    baseURL: "http://35.182.217.153/5001",
+    baseURL: "http://localhost:5001",
     timeout: 1000,
     headers: {
       "Content-Type": "application/json",
@@ -60,7 +60,7 @@ export const fetchAPI = async (route) => {
 
 export const storeProtectedAPI = async (route, data, token) => {
   const apiClientX = axios.create({
-    baseURL: "http://35.182.217.153/5001",
+    baseURL: "http://localhost:5001",
     timeout: 1000,
     headers: {
       "Content-Type": "application/json",
